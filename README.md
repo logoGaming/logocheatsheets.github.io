@@ -1,2159 +1,2011 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Logo's Java Plugin Cheat Sheet</title>
-<style>
-  :root {
-    --bg: #0f1117; --bg2: #1a1d27; --bg3: #22263a;
-    --border: #2e3250; --accent: #7c6aff; --accent2: #00d4a0;
-    --text: #e8e8f0; --muted: #8888aa;
-    --code-bg: #141720; --tag-bg: #2a2060; --tag-text: #a99fff;
-    --sidebar-w: 250px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+  Logo's Java Plugin Cheat Sheet :root { --bg: #0f1117; --bg2: #1a1d27; --bg3: #22263a; --border: #2e3250; --accent: #7c6aff; --accent2: #00d4a0; --text: #e8e8f0; --muted: #8888aa; --code-bg: #141720; --tag-bg: #2a2060; --tag-text: #a99fff; --sidebar-w: 250px; } \* { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; } /\* Sidebar \*/ #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; } #sidebar-header { padding: 20px 16px 12px; border-bottom: 1px solid var(--border); } #sidebar-header h1 { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; } #sidebar-header p { font-size: 11px; color: var(--muted); margin-top: 4px; } #sidebar nav { padding: 8px 0; flex: 1; } .nav-item { display: flex; align-items: center; gap: 8px; padding: 7px 16px; font-size: 12.5px; color: var(--muted); cursor: pointer; border-left: 2px solid transparent; transition: all 0.15s; text-decoration: none; } .nav-item:hover { color: var(--text); background: var(--bg3); } .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: #1c1840; } .nav-icon { font-size: 13px; width: 16px; text-align: center; } /\* Main \*/ #main { margin-left: var(--sidebar-w); flex: 1; padding: 40px 48px; max-width: 980px; } /\* Search \*/ #search-wrap { margin-bottom: 32px; position: relative; } #search { width: 100%; background: var(--bg2); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 10px 16px 10px 40px; font-size: 14px; outline: none; } #search:focus { border-color: var(--accent); } #search-wrap::before { content: '⌕'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 18px; pointer-events: none; } /\* Sections \*/ .section { margin-bottom: 56px; scroll-margin-top: 24px; } .section-title { font-size: 22px; font-weight: 700; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; } .section-title .badge { font-size: 11px; background: var(--tag-bg); color: var(--tag-text); border-radius: 4px; padding: 2px 8px; font-weight: 600; letter-spacing: 0.4px; } /\* Cards \*/ .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; } .card-header { padding: 14px 18px; display: flex; align-items: flex-start; justify-content: space-between; cursor: pointer; gap: 12px; } .card-header:hover { background: var(--bg3); } .card-label { font-size: 14px; font-weight: 600; color: var(--text); } .card-desc { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; } .card-toggle { color: var(--muted); font-size: 18px; line-height: 1; flex-shrink: 0; padding-top: 2px; transition: transform 0.2s; } .card.open .card-toggle { transform: rotate(45deg); } .card-body { display: none; border-top: 1px solid var(--border); } .card.open .card-body { display: block; } /\* Code \*/ .code-wrap { position: relative; } pre { background: var(--code-bg); padding: 16px 18px; margin: 0; font-family: 'Cascadia Code','Fira Code','Consolas',monospace; font-size: 12.5px; line-height: 1.7; overflow-x: auto; color: #c9d1d9; border-top: 1px solid var(--border); } .copy-btn { position: absolute; top: 8px; right: 8px; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); border-radius: 5px; padding: 4px 10px; font-size: 11px; cursor: pointer; opacity: 0; transition: opacity 0.15s; } .code-wrap:hover .copy-btn { opacity: 1; } .copy-btn:hover { color: var(--text); } .copy-btn.copied { color: var(--accent2); border-color: var(--accent2); } /\* Syntax \*/ .kw { color: #ff79c6; } .cm { color: #6272a4; font-style: italic; } .st { color: #f1fa8c; } .nm { color: #bd93f9; } .fn { color: #50fa7b; } .cn { color: #8be9fd; } .an { color: #ffb86c; } .op { color: #ff79c6; } /\* Table \*/ .tbl-wrap { padding: 0 0 4px; overflow-x: auto; } table { width: 100%; border-collapse: collapse; font-size: 12.5px; } table td, table th { padding: 7px 12px; border: 1px solid var(--border); vertical-align: top; } table th { background: var(--bg3); color: var(--muted); font-weight: 600; font-size: 11.5px; text-align: left; } table td:first-child { font-family: 'Cascadia Code','Fira Code','Consolas',monospace; color: #8be9fd; white-space: nowrap; } table.plain td:first-child { font-family: inherit; color: var(--text); white-space: normal; } table.plain td:last-child { color: var(--muted); } table.color-chart td { font-family: 'Cascadia Code','Fira Code','Consolas',monospace; font-size: 12px; } /\* Note \*/ .note { background: #1a2040; border-left: 3px solid var(--accent); padding: 10px 14px; font-size: 13px; color: var(--muted); margin: 12px 18px; border-radius: 0 6px 6px 0; line-height: 1.6; } .note strong { color: var(--text); } .warn { background: #261a00; border-left: 3px solid #ffb86c; padding: 10px 14px; font-size: 13px; color: #ccaa60; margin: 12px 18px; border-radius: 0 6px 6px 0; line-height: 1.6; } .warn strong { color: #ffcc66; } /\* Slot grid \*/ .slot-grid { display: grid; grid-template-columns: repeat(9,1fr); gap: 3px; padding: 16px 18px; } .slot { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; text-align: center; font-size: 11px; font-family: 'Cascadia Code','Fira Code','Consolas',monospace; padding: 5px 2px; color: var(--muted); } .slot.border-slot { background: #1e1a3a; color: var(--accent); border-color: var(--accent); } /\* Color preview swatches \*/ .color-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 4px; vertical-align: middle; } /\* No results \*/ #no-results { display: none; text-align: center; padding: 60px 20px; color: var(--muted); } #no-results h2 { font-size: 20px; margin-bottom: 8px; } @media (max-width: 700px) { #sidebar { display: none; } #main { margin-left: 0; padding: 24px 20px; } }
 
-  /* Sidebar */
-  #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
-  #sidebar-header { padding: 20px 16px 12px; border-bottom: 1px solid var(--border); }
-  #sidebar-header h1 { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
-  #sidebar-header p { font-size: 11px; color: var(--muted); margin-top: 4px; }
-  #sidebar nav { padding: 8px 0; flex: 1; }
-  .nav-item { display: flex; align-items: center; gap: 8px; padding: 7px 16px; font-size: 12.5px; color: var(--muted); cursor: pointer; border-left: 2px solid transparent; transition: all 0.15s; text-decoration: none; }
-  .nav-item:hover { color: var(--text); background: var(--bg3); }
-  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: #1c1840; }
-  .nav-icon { font-size: 13px; width: 16px; text-align: center; }
+# ☕ Logo's Cheat Sheet
 
-  /* Main */
-  #main { margin-left: var(--sidebar-w); flex: 1; padding: 40px 48px; max-width: 980px; }
+PaperMC · Java 21 · Paper 1.21+
 
-  /* Search */
-  #search-wrap { margin-bottom: 32px; position: relative; }
-  #search { width: 100%; background: var(--bg2); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 10px 16px 10px 40px; font-size: 14px; outline: none; }
-  #search:focus { border-color: var(--accent); }
-  #search-wrap::before { content: '⌕'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 18px; pointer-events: none; }
+[📦 Imports](#imports) [⚙️ Core](#core) [🎯 Events](#events) [🗡️ Custom Items](#custom-items) [🗂️ GUI](#gui) [✨ Particles](#particles) [📘 Java Basics](#java-basics) [🌍 PaperMC Basics](#papermc-basics) [⏱️ Timers](#timers) [💬 Commands](#commands) [💾 Configs / Data](#configs) [🏷️ PDC](#pdc) [🗄️ SQLite](#sqlite) [💡 Tips](#tips) [🔊 Sounds](#sounds) [🚀 Advanced Patterns](#advanced) [🏗️ Plugin Structure](#plugin-structure) [📋 Quick Reference](#quickref)
 
-  /* Sections */
-  .section { margin-bottom: 56px; scroll-margin-top: 24px; }
-  .section-title { font-size: 22px; font-weight: 700; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
-  .section-title .badge { font-size: 11px; background: var(--tag-bg); color: var(--tag-text); border-radius: 4px; padding: 2px 8px; font-weight: 600; letter-spacing: 0.4px; }
+## No results
 
-  /* Cards */
-  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
-  .card-header { padding: 14px 18px; display: flex; align-items: flex-start; justify-content: space-between; cursor: pointer; gap: 12px; }
-  .card-header:hover { background: var(--bg3); }
-  .card-label { font-size: 14px; font-weight: 600; color: var(--text); }
-  .card-desc { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
-  .card-toggle { color: var(--muted); font-size: 18px; line-height: 1; flex-shrink: 0; padding-top: 2px; transition: transform 0.2s; }
-  .card.open .card-toggle { transform: rotate(45deg); }
-  .card-body { display: none; border-top: 1px solid var(--border); }
-  .card.open .card-body { display: block; }
+Try a different search term.
 
-  /* Code */
-  .code-wrap { position: relative; }
-  pre { background: var(--code-bg); padding: 16px 18px; margin: 0; font-family: 'Cascadia Code','Fira Code','Consolas',monospace; font-size: 12.5px; line-height: 1.7; overflow-x: auto; color: #c9d1d9; border-top: 1px solid var(--border); }
-  .copy-btn { position: absolute; top: 8px; right: 8px; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); border-radius: 5px; padding: 4px 10px; font-size: 11px; cursor: pointer; opacity: 0; transition: opacity 0.15s; }
-  .code-wrap:hover .copy-btn { opacity: 1; }
-  .copy-btn:hover { color: var(--text); }
-  .copy-btn.copied { color: var(--accent2); border-color: var(--accent2); }
+📦 Imports BASICS
 
-  /* Syntax */
-  .kw { color: #ff79c6; } .cm { color: #6272a4; font-style: italic; }
-  .st { color: #f1fa8c; } .nm { color: #bd93f9; }
-  .fn { color: #50fa7b; } .cn { color: #8be9fd; }
-  .an { color: #ffb86c; } .op { color: #ff79c6; }
+Common Imports
 
-  /* Table */
-  .tbl-wrap { padding: 0 0 4px; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-  table td, table th { padding: 7px 12px; border: 1px solid var(--border); vertical-align: top; }
-  table th { background: var(--bg3); color: var(--muted); font-weight: 600; font-size: 11.5px; text-align: left; }
-  table td:first-child { font-family: 'Cascadia Code','Fira Code','Consolas',monospace; color: #8be9fd; white-space: nowrap; }
-  table.plain td:first-child { font-family: inherit; color: var(--text); white-space: normal; }
-  table.plain td:last-child { color: var(--muted); }
-  table.color-chart td { font-family: 'Cascadia Code','Fira Code','Consolas',monospace; font-size: 12px; }
+Tell Java where to find classes — without these, Java won't know what EventHandler, Player, etc. are.
 
-  /* Note */
-  .note { background: #1a2040; border-left: 3px solid var(--accent); padding: 10px 14px; font-size: 13px; color: var(--muted); margin: 12px 18px; border-radius: 0 6px 6px 0; line-height: 1.6; }
-  .note strong { color: var(--text); }
-  .warn { background: #261a00; border-left: 3px solid #ffb86c; padding: 10px 14px; font-size: 13px; color: #ccaa60; margin: 12px 18px; border-radius: 0 6px 6px 0; line-height: 1.6; }
-  .warn strong { color: #ffcc66; }
++
 
-  /* Slot grid */
-  .slot-grid { display: grid; grid-template-columns: repeat(9,1fr); gap: 3px; padding: 16px 18px; }
-  .slot { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; text-align: center; font-size: 11px; font-family: 'Cascadia Code','Fira Code','Consolas',monospace; padding: 5px 2px; color: var(--muted); }
-  .slot.border-slot { background: #1e1a3a; color: var(--accent); border-color: var(--accent); }
+copy
 
-  /* Color preview swatches */
-  .color-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.Material;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.Sound;
+import org.bukkit.Particle;
+import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scheduler.BukkitRunnable;
+import java.util.\*;
 
-  /* No results */
-  #no-results { display: none; text-align: center; padding: 60px 20px; color: var(--muted); }
-  #no-results h2 { font-size: 20px; margin-bottom: 8px; }
+⚙️ Core SETUP
 
-  @media (max-width: 700px) { #sidebar { display: none; } #main { margin-left: 0; padding: 24px 20px; } }
-</style>
-</head>
-<body>
+Register Events
 
-<aside id="sidebar">
-  <div id="sidebar-header">
-    <h1>☕ Logo's Cheat Sheet</h1>
-    <p>PaperMC · Java 21 · Paper 1.21+</p>
-  </div>
-  <nav id="sidenav">
-    <a class="nav-item" href="#imports"><span class="nav-icon">📦</span> Imports</a>
-    <a class="nav-item" href="#core"><span class="nav-icon">⚙️</span> Core</a>
-    <a class="nav-item" href="#events"><span class="nav-icon">🎯</span> Events</a>
-    <a class="nav-item" href="#custom-items"><span class="nav-icon">🗡️</span> Custom Items</a>
-    <a class="nav-item" href="#gui"><span class="nav-icon">🗂️</span> GUI</a>
-    <a class="nav-item" href="#particles"><span class="nav-icon">✨</span> Particles</a>
-    <a class="nav-item" href="#java-basics"><span class="nav-icon">📘</span> Java Basics</a>
-    <a class="nav-item" href="#papermc-basics"><span class="nav-icon">🌍</span> PaperMC Basics</a>
-    <a class="nav-item" href="#timers"><span class="nav-icon">⏱️</span> Timers</a>
-    <a class="nav-item" href="#commands"><span class="nav-icon">💬</span> Commands</a>
-    <a class="nav-item" href="#configs"><span class="nav-icon">💾</span> Configs / Data</a>
-    <a class="nav-item" href="#pdc"><span class="nav-icon">🏷️</span> PDC</a>
-    <a class="nav-item" href="#sqlite"><span class="nav-icon">🗄️</span> SQLite</a>
-    <a class="nav-item" href="#tips"><span class="nav-icon">💡</span> Tips</a>
-    <a class="nav-item" href="#sounds"><span class="nav-icon">🔊</span> Sounds</a>
-    <a class="nav-item" href="#advanced"><span class="nav-icon">🚀</span> Advanced Patterns</a>
-    <a class="nav-item" href="#plugin-structure"><span class="nav-icon">🏗️</span> Plugin Structure</a>
-    <a class="nav-item" href="#quickref"><span class="nav-icon">📋</span> Quick Reference</a>
-  </nav>
-</aside>
+Tells the server this class has event listeners. Without this, your @EventHandler methods never fire. Put this in onEnable().
 
-<main id="main">
-  <div id="search-wrap">
-    <input id="search" type="text" placeholder="Search the cheat sheet…" autocomplete="off">
-  </div>
-  <div id="no-results"><h2>No results</h2><p>Try a different search term.</p></div>
-  <div id="content">
++
 
-<!-- ═══ IMPORTS ═══ -->
-<section class="section" id="imports">
-  <div class="section-title">📦 Imports <span class="badge">BASICS</span></div>
-  <div class="card open">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Common Imports</div><div class="card-desc">Tell Java where to find classes — without these, Java won't know what EventHandler, Player, etc. are.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">import</span> org.bukkit.event.Listener;
-<span class="kw">import</span> org.bukkit.event.EventHandler;
-<span class="kw">import</span> org.bukkit.event.EventPriority;
-<span class="kw">import</span> org.bukkit.plugin.java.JavaPlugin;
-<span class="kw">import</span> org.bukkit.Bukkit;
-<span class="kw">import</span> org.bukkit.entity.Player;
-<span class="kw">import</span> org.bukkit.Material;
-<span class="kw">import</span> org.bukkit.Location;
-<span class="kw">import</span> org.bukkit.World;
-<span class="kw">import</span> org.bukkit.inventory.Inventory;
-<span class="kw">import</span> org.bukkit.inventory.ItemStack;
-<span class="kw">import</span> org.bukkit.inventory.meta.ItemMeta;
-<span class="kw">import</span> org.bukkit.Sound;
-<span class="kw">import</span> org.bukkit.Particle;
-<span class="kw">import</span> org.bukkit.scheduler.BukkitTask;
-<span class="kw">import</span> org.bukkit.scheduler.BukkitRunnable;
-<span class="kw">import</span> java.util.*;</pre></div></div>
-  </div>
-</section>
+copy
 
-<!-- ═══ CORE ═══ -->
-<section class="section" id="core">
-  <div class="section-title">⚙️ Core <span class="badge">SETUP</span></div>
+getServer().getPluginManager().registerEvents(this, this);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Register Events</div><div class="card-desc">Tells the server this class has event listeners. Without this, your @EventHandler methods never fire. Put this in onEnable().</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre>getServer().getPluginManager().registerEvents(<span class="kw">this</span>, <span class="kw">this</span>);
+// Or with a separate listener class (recommended):
+getServer().getPluginManager().registerEvents(new MyListener(this), this);
 
-<span class="cm">// Or with a separate listener class (recommended):</span>
-getServer().getPluginManager().registerEvents(<span class="kw">new</span> <span class="cn">MyListener</span>(<span class="kw">this</span>), <span class="kw">this</span>);</pre></div></div>
-  </div>
+Register a Command
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Register a Command</div><div class="card-desc">Link a command string to its executor class. Put this in onEnable().</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">PluginCommand</span> cmd = getCommand(<span class="st">"starsmp"</span>);
-<span class="kw">if</span> (cmd != <span class="kw">null</span>) {
-    <span class="cn">StarSMPCommand</span> executor = <span class="kw">new</span> <span class="cn">StarSMPCommand</span>(<span class="kw">this</span>);
+Link a command string to its executor class. Put this in onEnable().
+
++
+
+copy
+
+PluginCommand cmd = getCommand("starsmp");
+if (cmd != null) {
+    StarSMPCommand executor = new StarSMPCommand(this);
     cmd.setExecutor(executor);
-    cmd.setTabCompleter(executor); <span class="cm">// same class can handle tab complete</span>
-}</pre></div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Access Plugin From Another Class</div><div class="card-desc">Gets a reference to your main plugin instance from anywhere in your code.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Option 1 — cast from Bukkit (works from anywhere)</span>
-<span class="cn">SMPEssentials</span> plugin = (<span class="cn">SMPEssentials</span>) <span class="cn">Bukkit</span>.getPluginManager().getPlugin(<span class="st">"SMPEssentials"</span>);
-
-<span class="cm">// Option 2 — singleton pattern (recommended)</span>
-<span class="kw">public class</span> <span class="cn">SMPEssentials</span> <span class="kw">extends</span> <span class="cn">JavaPlugin</span> {
-    <span class="kw">private static</span> <span class="cn">SMPEssentials</span> instance;
-    <span class="an">@Override</span> <span class="kw">public void</span> <span class="fn">onEnable</span>() { instance = <span class="kw">this</span>; }
-    <span class="kw">public static</span> <span class="cn">SMPEssentials</span> <span class="fn">getInstance</span>() { <span class="kw">return</span> instance; }
-}
-<span class="cm">// Then anywhere:</span>
-<span class="cn">SMPEssentials</span>.getInstance().someMethod();</pre></div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Broadcast & Loop All Players</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Broadcast to everyone at once</span>
-<span class="cn">Bukkit</span>.broadcastMessage(<span class="st">"§aHello everyone!"</span>);
-
-<span class="cm">// Loop through all online players</span>
-<span class="kw">for</span> (<span class="cn">Player</span> player : <span class="cn">Bukkit</span>.getOnlinePlayers()) {
-    <span class="kw">if</span> (player.getName().equals(<span class="st">"Steve"</span>)) {
-        player.sendMessage(<span class="st">"Found you!"</span>);
-    }
+    cmd.setTabCompleter(executor); // same class can handle tab complete
 }
 
-<span class="cm">// With Java Streams (cleaner filtering)</span>
-<span class="cn">Bukkit</span>.getOnlinePlayers().stream()
-    .filter(p -> p.hasPermission(<span class="st">"admin"</span>))
-    .forEach(p -> p.sendMessage(<span class="st">"§cAdmin alert!"</span>));</pre></div></div>
-  </div>
-</section>
+Access Plugin From Another Class
 
-<!-- ═══ EVENTS ═══ -->
-<section class="section" id="events">
-  <div class="section-title">🎯 Events <span class="badge">LISTENERS</span></div>
+Gets a reference to your main plugin instance from anywhere in your code.
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Listener Class Setup</div><div class="card-desc">The full pattern for a listener class. Register it in onEnable().</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">public class</span> <span class="cn">MyListener</span> <span class="kw">implements</span> <span class="cn">Listener</span> {
-    <span class="kw">private final</span> <span class="cn">MyPlugin</span> plugin;
-    <span class="kw">public</span> <span class="fn">MyListener</span>(<span class="cn">MyPlugin</span> plugin) { <span class="kw">this</span>.plugin = plugin; }
++
 
-    <span class="an">@EventHandler</span>
-    <span class="kw">public void</span> <span class="fn">onPlayerJoin</span>(<span class="cn">PlayerJoinEvent</span> event) {
-        <span class="cn">Player</span> player = event.getPlayer();
-        event.setJoinMessage(<span class="st">"§a» §f"</span> + player.getName() + <span class="st">" §ajoined!"</span>);
-        player.sendMessage(<span class="st">"§aWelcome to the server!"</span>);
+copy
+
+// Option 1 — cast from Bukkit (works from anywhere)
+SMPEssentials plugin = (SMPEssentials) Bukkit.getPluginManager().getPlugin("SMPEssentials");
+
+// Option 2 — singleton pattern (recommended)
+public class SMPEssentials extends JavaPlugin {
+    private static SMPEssentials instance;
+    @Override public void onEnable() { instance = this; }
+    public static SMPEssentials getInstance() { return instance; }
+}
+// Then anywhere:
+SMPEssentials.getInstance().someMethod();
+
+Broadcast & Loop All Players
+
++
+
+copy
+
+// Broadcast to everyone at once
+Bukkit.broadcastMessage("§aHello everyone!");
+
+// Loop through all online players
+for (Player player : Bukkit.getOnlinePlayers()) {
+    if (player.getName().equals("Steve")) {
+        player.sendMessage("Found you!");
+    }
+}
+
+// With Java Streams (cleaner filtering)
+Bukkit.getOnlinePlayers().stream()
+    .filter(p -> p.hasPermission("admin"))
+    .forEach(p -> p.sendMessage("§cAdmin alert!"));
+
+🎯 Events LISTENERS
+
+Listener Class Setup
+
+The full pattern for a listener class. Register it in onEnable().
+
++
+
+copy
+
+public class MyListener implements Listener {
+    private final MyPlugin plugin;
+    public MyListener(MyPlugin plugin) { this.plugin = plugin; }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        event.setJoinMessage("§a» §f" + player.getName() + " §ajoined!");
+        player.sendMessage("§aWelcome to the server!");
     }
 
-    <span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.HIGH, ignoreCancelled = <span class="kw">true</span>)
-    <span class="kw">public void</span> <span class="fn">onBlockBreak</span>(<span class="cn">BlockBreakEvent</span> event) {
-        <span class="cm">// ignoreCancelled = skip if another plugin cancelled it first</span>
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onBlockBreak(BlockBreakEvent event) {
+        // ignoreCancelled = skip if another plugin cancelled it first
     }
-}</pre></div></div>
-  </div>
+}
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Item Right-Click Detection</div><div class="card-desc">Always null-check getItem() — empty hand returns null and will crash without it.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="an">@EventHandler</span>
-<span class="kw">public void</span> <span class="fn">onRightClick</span>(<span class="cn">PlayerInteractEvent</span> event) {
-    <span class="kw">if</span> (event.getAction() == <span class="cn">Action</span>.RIGHT_CLICK_BLOCK ||
-        event.getAction() == <span class="cn">Action</span>.RIGHT_CLICK_AIR) {
-        <span class="kw">if</span> (event.getItem() != <span class="kw">null</span> &&
-            event.getItem().getType() == <span class="cn">Material</span>.DIAMOND_SWORD) {
-            event.getPlayer().sendMessage(<span class="st">"You right-clicked with a Diamond Sword!"</span>);
+Item Right-Click Detection
+
+Always null-check getItem() — empty hand returns null and will crash without it.
+
++
+
+copy
+
+@EventHandler
+public void onRightClick(PlayerInteractEvent event) {
+    if (event.getAction() == Action.RIGHT\_CLICK\_BLOCK ||
+        event.getAction() == Action.RIGHT\_CLICK\_AIR) {
+        if (event.getItem() != null &&
+            event.getItem().getType() == Material.DIAMOND\_SWORD) {
+            event.getPlayer().sendMessage("You right-clicked with a Diamond Sword!");
         }
     }
-}</pre></div></div>
-  </div>
+}
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Block Right-Click Detection</div><div class="card-desc">Check getClickedBlock() instead of item. Null check required — clicking in air has no clicked block.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="an">@EventHandler</span>
-<span class="kw">public void</span> <span class="fn">onRightClick</span>(<span class="cn">PlayerInteractEvent</span> event) {
-    <span class="kw">if</span> (event.getAction() == <span class="cn">Action</span>.RIGHT_CLICK_BLOCK) {
-        <span class="kw">if</span> (event.getClickedBlock() != <span class="kw">null</span>) {
-            event.getPlayer().sendMessage(<span class="st">"Block: "</span> +
+Block Right-Click Detection
+
+Check getClickedBlock() instead of item. Null check required — clicking in air has no clicked block.
+
++
+
+copy
+
+@EventHandler
+public void onRightClick(PlayerInteractEvent event) {
+    if (event.getAction() == Action.RIGHT\_CLICK\_BLOCK) {
+        if (event.getClickedBlock() != null) {
+            event.getPlayer().sendMessage("Block: " +
                 event.getClickedBlock().getType().toString());
         }
     }
-}</pre></div></div>
-  </div>
+}
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Events Quick Reference — 25+ Common Events</div><div class="card-desc">All the events you'll use most often, with their most useful methods.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table class="plain" style="font-size:12px;">
-          <tr><th>Event Class</th><th>When it fires</th><th>Key Methods</th></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerJoinEvent</td><td>Player connects</td><td>getPlayer(), setJoinMessage()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerQuitEvent</td><td>Player disconnects</td><td>getPlayer(), setQuitMessage()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerMoveEvent</td><td>Player moves (every tick!)</td><td>getFrom(), getTo(), setTo(loc)</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerTeleportEvent</td><td>Player teleports</td><td>getFrom(), getTo(), getCause()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerInteractEvent</td><td>Click / interact</td><td>getAction(), getItem(), getClickedBlock()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerInteractEntityEvent</td><td>Right-click on entity</td><td>getPlayer(), getRightClicked()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerDeathEvent</td><td>Player dies</td><td>getEntity(), setDeathMessage(), getDrops()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerRespawnEvent</td><td>Player respawns</td><td>getPlayer(), setRespawnLocation()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">EntityDeathEvent</td><td>Any entity dies</td><td>getEntity(), getEntity().getKiller(), getDrops()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">EntityDamageEvent</td><td>Entity takes damage</td><td>getDamage(), setDamage(), getCause()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">EntityDamageByEntityEvent</td><td>Damaged by an entity</td><td>getDamager(), getEntity(), getFinalDamage()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">EntitySpawnEvent</td><td>Entity spawns</td><td>getEntity(), getLocation(), setCancelled()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">AsyncPlayerChatEvent</td><td>Chat message (async!)</td><td>getPlayer(), getMessage(), setMessage()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerCommandPreprocessEvent</td><td>Types a command</td><td>getPlayer(), getMessage(), setMessage()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">InventoryClickEvent</td><td>Click in any inventory</td><td>getClickedInventory(), getCurrentItem(), getSlot(), getClick()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">InventoryDragEvent</td><td>Drag items across slots</td><td>getNewItems(), getInventory(), setCancelled()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">InventoryCloseEvent</td><td>Inventory closed</td><td>getPlayer(), getInventory()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">BlockBreakEvent</td><td>Block broken by player</td><td>getPlayer(), getBlock(), setDropItems()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">BlockPlaceEvent</td><td>Block placed by player</td><td>getPlayer(), getBlock(), getItemInHand()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">ProjectileLaunchEvent</td><td>Projectile fired</td><td>getEntity(), setCancelled()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">ProjectileHitEvent</td><td>Projectile lands</td><td>getEntity(), getHitEntity(), getHitBlock()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerDropItemEvent</td><td>Player drops item (Q)</td><td>getPlayer(), getItemDrop()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerPickupItemEvent</td><td>Player picks up item</td><td>getPlayer(), getItem(), setCancelled()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">CreatureSpawnEvent</td><td>Mob spawns naturally</td><td>getEntity(), getSpawnReason(), setCancelled()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">FoodLevelChangeEvent</td><td>Hunger changes</td><td>getEntity(), getFoodLevel(), setFoodLevel()</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;">PlayerFishEvent</td><td>Fishing action</td><td>getPlayer(), getCaught(), getState()</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+Events Quick Reference — 25+ Common Events
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Event Priority & Cancellation</div><div class="card-desc">Controls the order your handler runs relative to other plugins. MONITOR is for observation only — never modify the event there.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Priority order — LOWEST runs first, MONITOR runs last</span>
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.LOWEST)   <span class="cm">// first — great for setup</span>
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.LOW)
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.NORMAL)   <span class="cm">// default</span>
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.HIGH)
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.HIGHEST)
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.MONITOR)  <span class="cm">// last, observation ONLY</span>
+All the events you'll use most often, with their most useful methods.
 
-<span class="cm">// ignoreCancelled — skip if another plugin already cancelled it</span>
-<span class="an">@EventHandler</span>(priority = <span class="cn">EventPriority</span>.NORMAL, ignoreCancelled = <span class="kw">true</span>)
-<span class="kw">public void</span> <span class="fn">onBreak</span>(<span class="cn">BlockBreakEvent</span> event) { }
++
 
-<span class="cm">// Cancelling an event — stops the action from happening</span>
-event.setCancelled(<span class="kw">true</span>);
-<span class="kw">if</span> (event.isCancelled()) <span class="kw">return</span>;</pre></div></div>
-  </div>
+| Event Class | When it fires | Key Methods |
+| --- | --- | --- |
+| PlayerJoinEvent | Player connects | getPlayer(), setJoinMessage() |
+| PlayerQuitEvent | Player disconnects | getPlayer(), setQuitMessage() |
+| PlayerMoveEvent | Player moves (every tick!) | getFrom(), getTo(), setTo(loc) |
+| PlayerTeleportEvent | Player teleports | getFrom(), getTo(), getCause() |
+| PlayerInteractEvent | Click / interact | getAction(), getItem(), getClickedBlock() |
+| PlayerInteractEntityEvent | Right-click on entity | getPlayer(), getRightClicked() |
+| PlayerDeathEvent | Player dies | getEntity(), setDeathMessage(), getDrops() |
+| PlayerRespawnEvent | Player respawns | getPlayer(), setRespawnLocation() |
+| EntityDeathEvent | Any entity dies | getEntity(), getEntity().getKiller(), getDrops() |
+| EntityDamageEvent | Entity takes damage | getDamage(), setDamage(), getCause() |
+| EntityDamageByEntityEvent | Damaged by an entity | getDamager(), getEntity(), getFinalDamage() |
+| EntitySpawnEvent | Entity spawns | getEntity(), getLocation(), setCancelled() |
+| AsyncPlayerChatEvent | Chat message (async!) | getPlayer(), getMessage(), setMessage() |
+| PlayerCommandPreprocessEvent | Types a command | getPlayer(), getMessage(), setMessage() |
+| InventoryClickEvent | Click in any inventory | getClickedInventory(), getCurrentItem(), getSlot(), getClick() |
+| InventoryDragEvent | Drag items across slots | getNewItems(), getInventory(), setCancelled() |
+| InventoryCloseEvent | Inventory closed | getPlayer(), getInventory() |
+| BlockBreakEvent | Block broken by player | getPlayer(), getBlock(), setDropItems() |
+| BlockPlaceEvent | Block placed by player | getPlayer(), getBlock(), getItemInHand() |
+| ProjectileLaunchEvent | Projectile fired | getEntity(), setCancelled() |
+| ProjectileHitEvent | Projectile lands | getEntity(), getHitEntity(), getHitBlock() |
+| PlayerDropItemEvent | Player drops item (Q) | getPlayer(), getItemDrop() |
+| PlayerPickupItemEvent | Player picks up item | getPlayer(), getItem(), setCancelled() |
+| CreatureSpawnEvent | Mob spawns naturally | getEntity(), getSpawnReason(), setCancelled() |
+| FoodLevelChangeEvent | Hunger changes | getEntity(), getFoodLevel(), setFoodLevel() |
+| PlayerFishEvent | Fishing action | getPlayer(), getCaught(), getState() |
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Critical Null Checks by Event</div><div class="card-desc">The most common crash causes in plugin dev. Always add these guards at the top of your handlers.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table class="plain" style="font-size:12px;">
-          <tr><th>Situation</th><th>Guard Code</th></tr>
-          <tr><td>GUI border click</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (event.getClickedInventory() == null) return;</td></tr>
-          <tr><td>Empty slot clicked</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (event.getCurrentItem() == null) return;</td></tr>
-          <tr><td>Item has no meta</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">ItemMeta m = item.getItemMeta(); if (m == null) return;</td></tr>
-          <tr><td>No player killer (env death)</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">Player k = event.getEntity().getKiller(); if (k == null) return;</td></tr>
-          <tr><td>Clicked air, not a block</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (event.getClickedBlock() == null) return;</td></tr>
-          <tr><td>Empty hand</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (event.getItem() == null) return;</td></tr>
-          <tr><td>Pressure plate step</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (event.getAction() == Action.PHYSICAL) return;</td></tr>
-          <tr><td>Projectile not from player</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (!(event.getEntity().getShooter() instanceof Player)) return;</td></tr>
-          <tr><td>World not found</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">World w = Bukkit.getWorld("name"); if (w == null) return;</td></tr>
-          <tr><td>Wrong inventory holder</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (!(inv.getHolder() instanceof MyHolder)) return;</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
+Event Priority & Cancellation
 
-<!-- ═══ CUSTOM ITEMS ═══ -->
-<section class="section" id="custom-items">
-  <div class="section-title">🗡️ Custom Items <span class="badge">ITEMS</span></div>
+Controls the order your handler runs relative to other plugins. MONITOR is for observation only — never modify the event there.
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Creating an Item</div><div class="card-desc">ItemStack = the item. ItemMeta = extra info (name, lore, enchants etc.). Always call setItemMeta() at the end or your changes won't save.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">ItemStack</span> starMenu = <span class="kw">new</span> <span class="cn">ItemStack</span>(<span class="cn">Material</span>.NETHER_STAR);
-<span class="cn">ItemMeta</span> meta = starMenu.getItemMeta();
-meta.setDisplayName(<span class="st">"§f§lStar Chooser"</span>);
-meta.setLore(<span class="cn">Arrays</span>.asList(
-    <span class="st">"§7A legendary relic"</span>,
-    <span class="st">"§eRight-click to open menu"</span>,
-    <span class="st">""</span>,
-    <span class="st">"§8Bound to Steve"</span>
++
+
+copy
+
+// Priority order — LOWEST runs first, MONITOR runs last
+@EventHandler(priority = EventPriority.LOWEST)   // first — great for setup
+@EventHandler(priority = EventPriority.LOW)
+@EventHandler(priority = EventPriority.NORMAL)   // default
+@EventHandler(priority = EventPriority.HIGH)
+@EventHandler(priority = EventPriority.HIGHEST)
+@EventHandler(priority = EventPriority.MONITOR)  // last, observation ONLY
+
+// ignoreCancelled — skip if another plugin already cancelled it
+@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+public void onBreak(BlockBreakEvent event) { }
+
+// Cancelling an event — stops the action from happening
+event.setCancelled(true);
+if (event.isCancelled()) return;
+
+Critical Null Checks by Event
+
+The most common crash causes in plugin dev. Always add these guards at the top of your handlers.
+
++
+
+| Situation | Guard Code |
+| --- | --- |
+| GUI border click | if (event.getClickedInventory() == null) return; |
+| Empty slot clicked | if (event.getCurrentItem() == null) return; |
+| Item has no meta | ItemMeta m = item.getItemMeta(); if (m == null) return; |
+| No player killer (env death) | Player k = event.getEntity().getKiller(); if (k == null) return; |
+| Clicked air, not a block | if (event.getClickedBlock() == null) return; |
+| Empty hand | if (event.getItem() == null) return; |
+| Pressure plate step | if (event.getAction() == Action.PHYSICAL) return; |
+| Projectile not from player | if (!(event.getEntity().getShooter() instanceof Player)) return; |
+| World not found | World w = Bukkit.getWorld("name"); if (w == null) return; |
+| Wrong inventory holder | if (!(inv.getHolder() instanceof MyHolder)) return; |
+
+🗡️ Custom Items ITEMS
+
+Creating an Item
+
+ItemStack = the item. ItemMeta = extra info (name, lore, enchants etc.). Always call setItemMeta() at the end or your changes won't save.
+
++
+
+copy
+
+ItemStack starMenu = new ItemStack(Material.NETHER\_STAR);
+ItemMeta meta = starMenu.getItemMeta();
+meta.setDisplayName("§f§lStar Chooser");
+meta.setLore(Arrays.asList(
+    "§7A legendary relic",
+    "§eRight-click to open menu",
+    "",
+    "§8Bound to Steve"
 ));
-meta.addEnchant(<span class="cn">Enchantment</span>.DAMAGE_ALL, <span class="nm">5</span>, <span class="kw">true</span>); <span class="cm">// true = ignore level cap</span>
-meta.setUnbreakable(<span class="kw">true</span>);
-meta.addItemFlags(<span class="cn">ItemFlag</span>.HIDE_ENCHANTS);        <span class="cm">// hide enchant lines</span>
-meta.addItemFlags(<span class="cn">ItemFlag</span>.HIDE_UNBREAKABLE);     <span class="cm">// hide unbreakable tag</span>
-meta.addItemFlags(<span class="cn">ItemFlag</span>.HIDE_ATTRIBUTES);      <span class="cm">// hide attack speed/damage</span>
-meta.setCustomModelData(<span class="nm">1001</span>);                    <span class="cm">// custom resource pack model</span>
-starMenu.setItemMeta(meta);                        <span class="cm">// ✦ MUST apply back or all changes lost!</span></pre></div></div>
-  </div>
+meta.addEnchant(Enchantment.DAMAGE\_ALL, 5, true); // true = ignore level cap
+meta.setUnbreakable(true);
+meta.addItemFlags(ItemFlag.HIDE\_ENCHANTS);        // hide enchant lines
+meta.addItemFlags(ItemFlag.HIDE\_UNBREAKABLE);     // hide unbreakable tag
+meta.addItemFlags(ItemFlag.HIDE\_ATTRIBUTES);      // hide attack speed/damage
+meta.setCustomModelData(1001);                    // custom resource pack model
+starMenu.setItemMeta(meta);                        // ✦ MUST apply back or all changes lost!
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Giving an Item + Checking Items</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Give to player (drops on ground if inventory is full)</span>
+Giving an Item + Checking Items
+
++
+
+copy
+
+// Give to player (drops on ground if inventory is full)
 player.getInventory().addItem(starMenu);
 
-<span class="cm">// Set a specific slot</span>
-player.getInventory().setItem(<span class="nm">9</span>, starMenu);
+// Set a specific slot
+player.getInventory().setItem(9, starMenu);
 
-<span class="cm">// Check item type</span>
-<span class="kw">if</span> (item.getType() == <span class="cn">Material</span>.DIAMOND_SWORD) { }
+// Check item type
+if (item.getType() == Material.DIAMOND\_SWORD) { }
 
-<span class="cm">// Check display name (always null-check meta first!)</span>
-<span class="kw">if</span> (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
-    <span class="cn">String</span> name = item.getItemMeta().getDisplayName();
+// Check display name (always null-check meta first!)
+if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+    String name = item.getItemMeta().getDisplayName();
 }
 
-<span class="cm">// Stack size</span>
-item.getAmount();     <span class="cm">// how many in the stack</span>
-item.setAmount(<span class="nm">32</span>);  <span class="cm">// change stack size</span>
-item.isSimilar(other); <span class="cm">// compare ignoring amount</span></pre></div></div>
-  </div>
+// Stack size
+item.getAmount();     // how many in the stack
+item.setAmount(32);  // change stack size
+item.isSimilar(other); // compare ignoring amount
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Specialized Meta Types</div><div class="card-desc">Cast to the right meta type for skulls, leather armor, potions, and maps.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Skull — set player head owner</span>
-<span class="cn">SkullMeta</span> sm = (<span class="cn">SkullMeta</span>) skull.getItemMeta();
-sm.setOwningPlayer(<span class="cn">Bukkit</span>.getOfflinePlayer(<span class="st">"Username"</span>));
+Specialized Meta Types
 
-<span class="cm">// Leather armor — custom color</span>
-<span class="cn">LeatherArmorMeta</span> lam = (<span class="cn">LeatherArmorMeta</span>) chestplate.getItemMeta();
-lam.setColor(<span class="cn">Color</span>.fromRGB(<span class="nm">255</span>, <span class="nm">0</span>, <span class="nm">128</span>));  <span class="cm">// hot pink</span>
+Cast to the right meta type for skulls, leather armor, potions, and maps.
 
-<span class="cm">// Potion — custom effects</span>
-<span class="cn">PotionMeta</span> pm = (<span class="cn">PotionMeta</span>) potion.getItemMeta();
-pm.setBasePotionData(<span class="kw">new</span> <span class="cn">PotionData</span>(<span class="cn">PotionType</span>.SPEED, <span class="kw">false</span>, <span class="kw">true</span>));
-pm.addCustomEffect(<span class="kw">new</span> <span class="cn">PotionEffect</span>(<span class="cn">PotionEffectType</span>.JUMP, <span class="nm">400</span>, <span class="nm">2</span>), <span class="kw">true</span>);
++
 
-<span class="cm">// Always apply the meta back!</span>
+copy
+
+// Skull — set player head owner
+SkullMeta sm = (SkullMeta) skull.getItemMeta();
+sm.setOwningPlayer(Bukkit.getOfflinePlayer("Username"));
+
+// Leather armor — custom color
+LeatherArmorMeta lam = (LeatherArmorMeta) chestplate.getItemMeta();
+lam.setColor(Color.fromRGB(255, 0, 128));  // hot pink
+
+// Potion — custom effects
+PotionMeta pm = (PotionMeta) potion.getItemMeta();
+pm.setBasePotionData(new PotionData(PotionType.SPEED, false, true));
+pm.addCustomEffect(new PotionEffect(PotionEffectType.JUMP, 400, 2), true);
+
+// Always apply the meta back!
 skull.setItemMeta(sm);
 chestplate.setItemMeta(lam);
-potion.setItemMeta(pm);</pre></div></div>
-  </div>
-</section>
+potion.setItemMeta(pm);
 
-<!-- ═══ GUI ═══ -->
-<section class="section" id="gui">
-  <div class="section-title">🗂️ GUI <span class="badge">INVENTORY UI</span></div>
+🗂️ GUI INVENTORY UI
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Creating a GUI</div><div class="card-desc">Sizes must be multiples of 9 (9, 18, 27, 36, 45, 54). Slots go left to right, top to bottom from 0.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">private final</span> <span class="cn">String</span> GUI_TITLE = <span class="st">"§6§lMy Shop"</span>;
-<span class="kw">private</span> <span class="cn">Inventory</span> gui;
+Creating a GUI
 
-<span class="kw">private void</span> <span class="fn">createGUI</span>() {
-    gui = <span class="cn">Bukkit</span>.createInventory(<span class="kw">null</span>, <span class="nm">27</span>, GUI_TITLE); <span class="cm">// 27 = 3 rows</span>
+Sizes must be multiples of 9 (9, 18, 27, 36, 45, 54). Slots go left to right, top to bottom from 0.
 
-    <span class="cm">// Helper: make a button item</span>
-    <span class="cn">ItemStack</span> btn = makeButton(<span class="cn">Material</span>.DIAMOND_SWORD, <span class="st">"§b§lBuy Sword"</span>,
-        <span class="st">"§7A powerful weapon"</span>, <span class="st">"§ePrice: §a$500"</span>, <span class="st">"§8Click to purchase"</span>);
-    gui.setItem(<span class="nm">13</span>, btn); <span class="cm">// center slot of row 2</span>
++
 
-    <span class="cm">// Fill border with glass pane</span>
-    <span class="cn">ItemStack</span> filler = makeButton(<span class="cn">Material</span>.GRAY_STAINED_GLASS_PANE, <span class="st">"§8"</span>);
-    <span class="kw">int</span>[] border = {<span class="nm">0</span>,<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>,<span class="nm">4</span>,<span class="nm">5</span>,<span class="nm">6</span>,<span class="nm">7</span>,<span class="nm">8</span>,<span class="nm">18</span>,<span class="nm">19</span>,<span class="nm">20</span>,<span class="nm">21</span>,<span class="nm">22</span>,<span class="nm">23</span>,<span class="nm">24</span>,<span class="nm">25</span>,<span class="nm">26</span>};
-    <span class="kw">for</span> (<span class="kw">int</span> slot : border) gui.setItem(slot, filler);
+copy
+
+private final String GUI\_TITLE = "§6§lMy Shop";
+private Inventory gui;
+
+private void createGUI() {
+    gui = Bukkit.createInventory(null, 27, GUI\_TITLE); // 27 = 3 rows
+
+    // Helper: make a button item
+    ItemStack btn = makeButton(Material.DIAMOND\_SWORD, "§b§lBuy Sword",
+        "§7A powerful weapon", "§ePrice: §a$500", "§8Click to purchase");
+    gui.setItem(13, btn); // center slot of row 2
+
+    // Fill border with glass pane
+    ItemStack filler = makeButton(Material.GRAY\_STAINED\_GLASS\_PANE, "§8");
+    int\[\] border = {0,1,2,3,4,5,6,7,8,18,19,20,21,22,23,24,25,26};
+    for (int slot : border) gui.setItem(slot, filler);
 }
 
-<span class="kw">private</span> <span class="cn">ItemStack</span> <span class="fn">makeButton</span>(<span class="cn">Material</span> mat, <span class="cn">String</span> name, <span class="cn">String</span>... lore) {
-    <span class="cn">ItemStack</span> item = <span class="kw">new</span> <span class="cn">ItemStack</span>(mat);
-    <span class="cn">ItemMeta</span> meta = item.getItemMeta();
+private ItemStack makeButton(Material mat, String name, String... lore) {
+    ItemStack item = new ItemStack(mat);
+    ItemMeta meta = item.getItemMeta();
     meta.setDisplayName(name);
-    meta.setLore(<span class="cn">Arrays</span>.asList(lore));
-    meta.addItemFlags(<span class="cn">ItemFlag</span>.HIDE_ATTRIBUTES);
+    meta.setLore(Arrays.asList(lore));
+    meta.addItemFlags(ItemFlag.HIDE\_ATTRIBUTES);
     item.setItemMeta(meta);
-    <span class="kw">return</span> item;
+    return item;
 }
 
-<span class="cm">// Open for a player</span>
-<span class="kw">public void</span> <span class="fn">openGUI</span>(<span class="cn">Player</span> player) { player.openInventory(gui); }</pre></div></div>
-  </div>
+// Open for a player
+public void openGUI(Player player) { player.openInventory(gui); }
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">InventoryHolder Pattern (Recommended)</div><div class="card-desc">A custom holder ties data to your GUI so you can identify it without comparing title strings.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Step 1 — Custom holder class</span>
-<span class="kw">public class</span> <span class="cn">ShopHolder</span> <span class="kw">implements</span> <span class="cn">InventoryHolder</span> {
-    <span class="kw">private final</span> <span class="cn">String</span> shopId;
-    <span class="kw">private</span> <span class="cn">Inventory</span> inventory;
-    <span class="kw">public</span> <span class="fn">ShopHolder</span>(<span class="cn">String</span> shopId) { <span class="kw">this</span>.shopId = shopId; }
-    <span class="kw">public</span> <span class="cn">String</span> <span class="fn">getShopId</span>() { <span class="kw">return</span> shopId; }
-    <span class="an">@Override</span> <span class="kw">public</span> <span class="cn">Inventory</span> <span class="fn">getInventory</span>() { <span class="kw">return</span> inventory; }
-    <span class="kw">public void</span> <span class="fn">setInventory</span>(<span class="cn">Inventory</span> inv) { <span class="kw">this</span>.inventory = inv; }
+InventoryHolder Pattern (Recommended)
+
+A custom holder ties data to your GUI so you can identify it without comparing title strings.
+
++
+
+copy
+
+// Step 1 — Custom holder class
+public class ShopHolder implements InventoryHolder {
+    private final String shopId;
+    private Inventory inventory;
+    public ShopHolder(String shopId) { this.shopId = shopId; }
+    public String getShopId() { return shopId; }
+    @Override public Inventory getInventory() { return inventory; }
+    public void setInventory(Inventory inv) { this.inventory = inv; }
 }
 
-<span class="cm">// Step 2 — Create GUI with holder</span>
-<span class="cn">ShopHolder</span> holder = <span class="kw">new</span> <span class="cn">ShopHolder</span>(<span class="st">"weapons"</span>);
-<span class="cn">Inventory</span> gui = <span class="cn">Bukkit</span>.createInventory(holder, <span class="nm">27</span>, <span class="st">"§6Weapon Shop"</span>);
+// Step 2 — Create GUI with holder
+ShopHolder holder = new ShopHolder("weapons");
+Inventory gui = Bukkit.createInventory(holder, 27, "§6Weapon Shop");
 holder.setInventory(gui);
 
-<span class="cm">// Step 3 — Detect in click handler (type-safe, no title comparison!)</span>
-<span class="kw">if</span> (!(event.getInventory().getHolder() <span class="kw">instanceof</span> <span class="cn">ShopHolder</span> shopHolder)) <span class="kw">return</span>;
-<span class="cn">String</span> shopId = shopHolder.getShopId(); <span class="cm">// access custom data</span></pre></div></div>
-  </div>
+// Step 3 — Detect in click handler (type-safe, no title comparison!)
+if (!(event.getInventory().getHolder() instanceof ShopHolder shopHolder)) return;
+String shopId = shopHolder.getShopId(); // access custom data
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Click Event Handler</div><div class="card-desc">Always add both null checks at the top and always cancel the event to prevent item theft.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="an">@EventHandler</span>
-<span class="kw">public void</span> <span class="fn">onInventoryClick</span>(<span class="cn">InventoryClickEvent</span> event) {
-    <span class="kw">if</span> (event.getClickedInventory() == <span class="kw">null</span>) <span class="kw">return</span>; <span class="cm">// border click = null</span>
-    <span class="kw">if</span> (event.getCurrentItem() == <span class="kw">null</span>) <span class="kw">return</span>;      <span class="cm">// empty slot</span>
-    <span class="kw">if</span> (event.getCurrentItem().getType() == <span class="cn">Material</span>.AIR) <span class="kw">return</span>;
+Click Event Handler
 
-    <span class="kw">if</span> (!(event.getInventory().getHolder() <span class="kw">instanceof</span> <span class="cn">ShopHolder</span> holder)) <span class="kw">return</span>;
+Always add both null checks at the top and always cancel the event to prevent item theft.
 
-    event.setCancelled(<span class="kw">true</span>); <span class="cm">// ✦ ALWAYS cancel or players can steal items</span>
++
 
-    <span class="cn">Player</span> player = (<span class="cn">Player</span>) event.getWhoClicked();
-    <span class="kw">int</span> slot = event.getSlot();
-    <span class="cn">ClickType</span> type = event.getClick();
+copy
 
-    <span class="kw">if</span> (slot == <span class="nm">13</span> && type == <span class="cn">ClickType</span>.LEFT) {
-        player.getInventory().addItem(<span class="kw">new</span> <span class="cn">ItemStack</span>(<span class="cn">Material</span>.DIAMOND_SWORD));
-        player.sendMessage(<span class="st">"§aPurchased Sword!"</span>);
-        player.playSound(player.getLocation(), <span class="cn">Sound</span>.ENTITY_PLAYER_LEVELUP, <span class="nm">1f</span>, <span class="nm">1f</span>);
+@EventHandler
+public void onInventoryClick(InventoryClickEvent event) {
+    if (event.getClickedInventory() == null) return; // border click = null
+    if (event.getCurrentItem() == null) return;      // empty slot
+    if (event.getCurrentItem().getType() == Material.AIR) return;
+
+    if (!(event.getInventory().getHolder() instanceof ShopHolder holder)) return;
+
+    event.setCancelled(true); // ✦ ALWAYS cancel or players can steal items
+
+    Player player = (Player) event.getWhoClicked();
+    int slot = event.getSlot();
+    ClickType type = event.getClick();
+
+    if (slot == 13 && type == ClickType.LEFT) {
+        player.getInventory().addItem(new ItemStack(Material.DIAMOND\_SWORD));
+        player.sendMessage("§aPurchased Sword!");
+        player.playSound(player.getLocation(), Sound.ENTITY\_PLAYER\_LEVELUP, 1f, 1f);
     }
 }
 
-<span class="cm">// Also block shift-click from player inventory into GUI</span>
-<span class="an">@EventHandler</span>
-<span class="kw">public void</span> <span class="fn">onInventoryDrag</span>(<span class="cn">InventoryDragEvent</span> event) {
-    <span class="kw">if</span> (event.getInventory().getHolder() <span class="kw">instanceof</span> <span class="cn">ShopHolder</span>) {
-        event.setCancelled(<span class="kw">true</span>);
+// Also block shift-click from player inventory into GUI
+@EventHandler
+public void onInventoryDrag(InventoryDragEvent event) {
+    if (event.getInventory().getHolder() instanceof ShopHolder) {
+        event.setCancelled(true);
     }
-}</pre></div></div>
-  </div>
+}
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Click Types & Slot Chart</div><div class="card-desc">Reference for ClickType values and GUI slot numbering.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>ClickType</th><th>Triggered By</th><th>ClickType</th><th>Triggered By</th></tr>
-          <tr><td>LEFT</td><td style="color:var(--muted)">Left click</td><td>SHIFT_LEFT</td><td style="color:var(--muted)">Shift + left click</td></tr>
-          <tr><td>RIGHT</td><td style="color:var(--muted)">Right click</td><td>SHIFT_RIGHT</td><td style="color:var(--muted)">Shift + right click</td></tr>
-          <tr><td>MIDDLE</td><td style="color:var(--muted)">Middle mouse</td><td>NUMBER_KEY</td><td style="color:var(--muted)">1–9 hotbar keys</td></tr>
-          <tr><td>DROP</td><td style="color:var(--muted)">Q key</td><td>DOUBLE_CLICK</td><td style="color:var(--muted)">Double click</td></tr>
-        </table>
-      </div>
-      <div style="padding:12px 18px 4px;"><div style="font-size:12px;color:var(--muted);margin-bottom:8px;">6-row chest = 54 slots (Row 1: 0–8, Row 2: 9–17, … Row 6: 45–53)</div></div>
-      <div class="slot-grid">
-        <div class="slot border-slot">0</div><div class="slot border-slot">1</div><div class="slot border-slot">2</div><div class="slot border-slot">3</div><div class="slot border-slot">4</div><div class="slot border-slot">5</div><div class="slot border-slot">6</div><div class="slot border-slot">7</div><div class="slot border-slot">8</div>
-        <div class="slot">9</div><div class="slot">10</div><div class="slot">11</div><div class="slot">12</div><div class="slot" style="background:#1e2a1e;color:#50fa7b;border-color:#50fa7b;">13</div><div class="slot">14</div><div class="slot">15</div><div class="slot">16</div><div class="slot">17</div>
-        <div class="slot">18</div><div class="slot">19</div><div class="slot">20</div><div class="slot">21</div><div class="slot">22</div><div class="slot">23</div><div class="slot">24</div><div class="slot">25</div><div class="slot">26</div>
-        <div class="slot">27</div><div class="slot">28</div><div class="slot">29</div><div class="slot">30</div><div class="slot">31</div><div class="slot">32</div><div class="slot">33</div><div class="slot">34</div><div class="slot">35</div>
-        <div class="slot">36</div><div class="slot">37</div><div class="slot">38</div><div class="slot">39</div><div class="slot">40</div><div class="slot">41</div><div class="slot">42</div><div class="slot">43</div><div class="slot">44</div>
-        <div class="slot border-slot">45</div><div class="slot border-slot">46</div><div class="slot border-slot">47</div><div class="slot border-slot">48</div><div class="slot border-slot">49</div><div class="slot border-slot">50</div><div class="slot border-slot">51</div><div class="slot border-slot">52</div><div class="slot border-slot">53</div>
-      </div>
-      <div style="padding:4px 18px 14px;font-size:11px;color:var(--muted);">Center of 3-row: 13 | Center of 6-row: 22 & 31 | Blue = common border slots</div>
-    </div>
-  </div>
-</section>
+Click Types & Slot Chart
 
-<!-- ═══ PARTICLES ═══ -->
-<section class="section" id="particles">
-  <div class="section-title">✨ Particles <span class="badge">VFX</span></div>
+Reference for ClickType values and GUI slot numbering.
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Basic Particle Spawning</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Simple burst at location</span>
-world.spawnParticle(<span class="cn">Particle</span>.FLAME, location, <span class="nm">30</span>);
++
 
-<span class="cm">// With spread: (particle, location, count, spreadX, spreadY, spreadZ, speed)</span>
-world.spawnParticle(<span class="cn">Particle</span>.CRIT, location, <span class="nm">20</span>, <span class="nm">0.5</span>, <span class="nm">0.5</span>, <span class="nm">0.5</span>, <span class="nm">0.05</span>);
+| ClickType | Triggered By | ClickType | Triggered By |
+| --- | --- | --- | --- |
+| LEFT | Left click | SHIFT\_LEFT | Shift + left click |
+| RIGHT | Right click | SHIFT\_RIGHT | Shift + right click |
+| MIDDLE | Middle mouse | NUMBER\_KEY | 1–9 hotbar keys |
+| DROP | Q key | DOUBLE\_CLICK | Double click |
 
-<span class="cm">// Directional (count=0, spread=direction, speed=force)</span>
-world.spawnParticle(<span class="cn">Particle</span>.END_ROD, location, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0.1</span>, <span class="nm">0</span>, <span class="nm">0.05</span>);
+6-row chest = 54 slots (Row 1: 0–8, Row 2: 9–17, … Row 6: 45–53)
 
-<span class="cm">// Player-only (only that player sees it)</span>
-player.spawnParticle(<span class="cn">Particle</span>.HEART, location, <span class="nm">5</span>);</pre></div></div>
-  </div>
+0
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Colored Dust Particles</div><div class="card-desc">Custom RGB color and size. The DustTransition version transitions between two colors (1.17+).</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Colored dust: (Color, size: 0.1=tiny to 4.0=huge)</span>
-<span class="cn">Particle</span>.DustOptions red    = <span class="kw">new</span> <span class="cn">Particle</span>.DustOptions(<span class="cn">Color</span>.RED, <span class="nm">1.5f</span>);
-<span class="cn">Particle</span>.DustOptions orange = <span class="kw">new</span> <span class="cn">Particle</span>.DustOptions(<span class="cn">Color</span>.fromRGB(<span class="nm">255</span>,<span class="nm">140</span>,<span class="nm">0</span>), <span class="nm">1.0f</span>);
-world.spawnParticle(<span class="cn">Particle</span>.REDSTONE, location, <span class="nm">1</span>, red);
+1
 
-<span class="cm">// Transitioning dust (1.17+) — fades from one color to another</span>
-<span class="cn">Particle</span>.DustTransition trans = <span class="kw">new</span> <span class="cn">Particle</span>.DustTransition(<span class="cn">Color</span>.RED, <span class="cn">Color</span>.BLUE, <span class="nm">1.5f</span>);
-world.spawnParticle(<span class="cn">Particle</span>.DUST_COLOR_TRANSITION, location, <span class="nm">1</span>, trans);
+2
 
-<span class="cm">// Block / item particles</span>
-world.spawnParticle(<span class="cn">Particle</span>.BLOCK_CRACK, location, <span class="nm">30</span>,
-    <span class="cn">Material</span>.DIAMOND_BLOCK.createBlockData());
-world.spawnParticle(<span class="cn">Particle</span>.ITEM_CRACK, location, <span class="nm">20</span>,
-    <span class="kw">new</span> <span class="cn">ItemStack</span>(<span class="cn">Material</span>.DIAMOND_SWORD));</pre></div></div>
-  </div>
+3
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Common Particle Types</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>Particle</th><th>Looks Like</th><th>Particle</th><th>Looks Like</th></tr>
-          <tr><td>FLAME</td><td style="color:var(--muted)">Orange fire</td><td>SMOKE_NORMAL</td><td style="color:var(--muted)">Grey smoke puff</td></tr>
-          <tr><td>CRIT</td><td style="color:var(--muted)">Star critical hit</td><td>END_ROD</td><td style="color:var(--muted)">White sparkle</td></tr>
-          <tr><td>HEART</td><td style="color:var(--muted)">Pink hearts</td><td>ENCHANTMENT_TABLE</td><td style="color:var(--muted)">Rune letters</td></tr>
-          <tr><td>REDSTONE</td><td style="color:var(--muted)">Colored dust*</td><td>SPELL_WITCH</td><td style="color:var(--muted)">Purple magic</td></tr>
-          <tr><td>DUST_COLOR_TRANSITION</td><td style="color:var(--muted)">Gradient dust*</td><td>VILLAGER_HAPPY</td><td style="color:var(--muted)">Green sparkle</td></tr>
-          <tr><td>TOTEM</td><td style="color:var(--muted)">Totem swirl</td><td>DRAGON_BREATH</td><td style="color:var(--muted)">Purple mist</td></tr>
-          <tr><td>EXPLOSION_LARGE</td><td style="color:var(--muted)">Big puff</td><td>PORTAL</td><td style="color:var(--muted)">Nether purple</td></tr>
-          <tr><td>SOUL_FIRE_FLAME</td><td style="color:var(--muted)">Blue soul fire</td><td>CHERRY_LEAVES</td><td style="color:var(--muted)">Pink petals</td></tr>
-          <tr><td>CAMPFIRE_SIGNAL</td><td style="color:var(--muted)">Rising smoke</td><td>FALLING_DUST</td><td style="color:var(--muted)">Falling block*</td></tr>
-        </table>
-      </div>
-      <div style="padding:8px 18px 14px;font-size:11.5px;color:var(--muted);">* = requires data parameter (DustOptions, BlockData, or ItemStack)</div>
-    </div>
-  </div>
+4
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Particle Line (A → B)</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">public void</span> <span class="fn">drawLine</span>(<span class="cn">Location</span> a, <span class="cn">Location</span> b, <span class="cn">Particle</span> p, <span class="kw">double</span> gap) {
-    <span class="cn">Vector</span> dir = b.toVector().subtract(a.toVector());
-    <span class="kw">double</span> len = dir.length();
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35
+
+36
+
+37
+
+38
+
+39
+
+40
+
+41
+
+42
+
+43
+
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+50
+
+51
+
+52
+
+53
+
+Center of 3-row: 13 | Center of 6-row: 22 & 31 | Blue = common border slots
+
+✨ Particles VFX
+
+Basic Particle Spawning
+
++
+
+copy
+
+// Simple burst at location
+world.spawnParticle(Particle.FLAME, location, 30);
+
+// With spread: (particle, location, count, spreadX, spreadY, spreadZ, speed)
+world.spawnParticle(Particle.CRIT, location, 20, 0.5, 0.5, 0.5, 0.05);
+
+// Directional (count=0, spread=direction, speed=force)
+world.spawnParticle(Particle.END\_ROD, location, 0, 0, 0.1, 0, 0.05);
+
+// Player-only (only that player sees it)
+player.spawnParticle(Particle.HEART, location, 5);
+
+Colored Dust Particles
+
+Custom RGB color and size. The DustTransition version transitions between two colors (1.17+).
+
++
+
+copy
+
+// Colored dust: (Color, size: 0.1=tiny to 4.0=huge)
+Particle.DustOptions red    = new Particle.DustOptions(Color.RED, 1.5f);
+Particle.DustOptions orange = new Particle.DustOptions(Color.fromRGB(255,140,0), 1.0f);
+world.spawnParticle(Particle.REDSTONE, location, 1, red);
+
+// Transitioning dust (1.17+) — fades from one color to another
+Particle.DustTransition trans = new Particle.DustTransition(Color.RED, Color.BLUE, 1.5f);
+world.spawnParticle(Particle.DUST\_COLOR\_TRANSITION, location, 1, trans);
+
+// Block / item particles
+world.spawnParticle(Particle.BLOCK\_CRACK, location, 30,
+    Material.DIAMOND\_BLOCK.createBlockData());
+world.spawnParticle(Particle.ITEM\_CRACK, location, 20,
+    new ItemStack(Material.DIAMOND\_SWORD));
+
+Common Particle Types
+
++
+
+| Particle | Looks Like | Particle | Looks Like |
+| --- | --- | --- | --- |
+| FLAME | Orange fire | SMOKE\_NORMAL | Grey smoke puff |
+| CRIT | Star critical hit | END\_ROD | White sparkle |
+| HEART | Pink hearts | ENCHANTMENT\_TABLE | Rune letters |
+| REDSTONE | Colored dust\* | SPELL\_WITCH | Purple magic |
+| DUST\_COLOR\_TRANSITION | Gradient dust\* | VILLAGER\_HAPPY | Green sparkle |
+| TOTEM | Totem swirl | DRAGON\_BREATH | Purple mist |
+| EXPLOSION\_LARGE | Big puff | PORTAL | Nether purple |
+| SOUL\_FIRE\_FLAME | Blue soul fire | CHERRY\_LEAVES | Pink petals |
+| CAMPFIRE\_SIGNAL | Rising smoke | FALLING\_DUST | Falling block\* |
+
+\* = requires data parameter (DustOptions, BlockData, or ItemStack)
+
+Particle Line (A → B)
+
++
+
+copy
+
+public void drawLine(Location a, Location b, Particle p, double gap) {
+    Vector dir = b.toVector().subtract(a.toVector());
+    double len = dir.length();
     dir.normalize();
-    <span class="kw">for</span> (<span class="kw">double</span> d = <span class="nm">0</span>; d <= len; d += gap) {
-        a.getWorld().spawnParticle(p, a.clone().add(dir.clone().multiply(d)), <span class="nm">1</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>);
+    for (double d = 0; d <= len; d += gap) {
+        a.getWorld().spawnParticle(p, a.clone().add(dir.clone().multiply(d)), 1, 0, 0, 0, 0);
     }
 }
-<span class="cm">// drawLine(player.getLocation(), target.getLocation(), Particle.END_ROD, 0.3);</span></pre></div></div>
-  </div>
+// drawLine(player.getLocation(), target.getLocation(), Particle.END\_ROD, 0.3);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Circle, Sphere & Burst</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Horizontal circle</span>
-<span class="kw">public void</span> <span class="fn">drawCircle</span>(<span class="cn">Location</span> center, <span class="kw">double</span> r, <span class="cn">Particle</span> p, <span class="kw">int</span> pts) {
-    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < pts; i++) {
-        <span class="kw">double</span> a = (<span class="nm">2</span> * <span class="cn">Math</span>.PI / pts) * i;
+Circle, Sphere & Burst
+
++
+
+copy
+
+// Horizontal circle
+public void drawCircle(Location center, double r, Particle p, int pts) {
+    for (int i = 0; i < pts; i++) {
+        double a = (2 \* Math.PI / pts) \* i;
         center.getWorld().spawnParticle(p,
-            center.clone().add(<span class="cn">Math</span>.cos(a)*r, <span class="nm">0</span>, <span class="cn">Math</span>.sin(a)*r), <span class="nm">1</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>);
+            center.clone().add(Math.cos(a)\*r, 0, Math.sin(a)\*r), 1, 0, 0, 0, 0);
     }
 }
-<span class="cm">// drawCircle(player.getLocation(), 3.0, Particle.FLAME, 36);</span>
+// drawCircle(player.getLocation(), 3.0, Particle.FLAME, 36);
 
-<span class="cm">// Sphere (Fibonacci lattice — even distribution)</span>
-<span class="kw">public void</span> <span class="fn">drawSphere</span>(<span class="cn">Location</span> center, <span class="kw">double</span> r, <span class="cn">Particle</span> p, <span class="kw">int</span> pts) {
-    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < pts; i++) {
-        <span class="kw">double</span> phi = <span class="cn">Math</span>.acos(<span class="nm">1</span> - <span class="nm">2.0</span>*i/pts);
-        <span class="kw">double</span> theta = <span class="cn">Math</span>.PI*(<span class="nm">1</span>+<span class="cn">Math</span>.sqrt(<span class="nm">5</span>))*i;
-        <span class="kw">double</span> x = r*<span class="cn">Math</span>.sin(phi)*<span class="cn">Math</span>.cos(theta);
-        <span class="kw">double</span> y = r*<span class="cn">Math</span>.cos(phi);
-        <span class="kw">double</span> z = r*<span class="cn">Math</span>.sin(phi)*<span class="cn">Math</span>.sin(theta);
-        center.getWorld().spawnParticle(p, center.clone().add(x,y,z), <span class="nm">1</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>);
+// Sphere (Fibonacci lattice — even distribution)
+public void drawSphere(Location center, double r, Particle p, int pts) {
+    for (int i = 0; i < pts; i++) {
+        double phi = Math.acos(1 - 2.0\*i/pts);
+        double theta = Math.PI\*(1+Math.sqrt(5))\*i;
+        double x = r\*Math.sin(phi)\*Math.cos(theta);
+        double y = r\*Math.cos(phi);
+        double z = r\*Math.sin(phi)\*Math.sin(theta);
+        center.getWorld().spawnParticle(p, center.clone().add(x,y,z), 1, 0, 0, 0, 0);
     }
 }
-<span class="cm">// drawSphere(player.getLocation().add(0,1,0), 2.0, Particle.END_ROD, 150);</span>
+// drawSphere(player.getLocation().add(0,1,0), 2.0, Particle.END\_ROD, 150);
 
-<span class="cm">// Random burst (explosion-style)</span>
-<span class="kw">public void</span> <span class="fn">burst</span>(<span class="cn">Location</span> c, <span class="cn">Particle</span> p, <span class="kw">int</span> count, <span class="kw">double</span> speed) {
-    <span class="cn">Random</span> rand = <span class="kw">new</span> <span class="cn">Random</span>();
-    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < count; i++) {
-        <span class="kw">double</span> phi = <span class="cn">Math</span>.acos(<span class="nm">2</span>*rand.nextDouble()-<span class="nm">1</span>);
-        <span class="kw">double</span> theta = <span class="nm">2</span>*<span class="cn">Math</span>.PI*rand.nextDouble();
-        c.getWorld().spawnParticle(p, c, <span class="nm">0</span>,
-            <span class="cn">Math</span>.sin(phi)*<span class="cn">Math</span>.cos(theta),
-            <span class="cn">Math</span>.cos(phi),
-            <span class="cn">Math</span>.sin(phi)*<span class="cn">Math</span>.sin(theta), speed);
+// Random burst (explosion-style)
+public void burst(Location c, Particle p, int count, double speed) {
+    Random rand = new Random();
+    for (int i = 0; i < count; i++) {
+        double phi = Math.acos(2\*rand.nextDouble()-1);
+        double theta = 2\*Math.PI\*rand.nextDouble();
+        c.getWorld().spawnParticle(p, c, 0,
+            Math.sin(phi)\*Math.cos(theta),
+            Math.cos(phi),
+            Math.sin(phi)\*Math.sin(theta), speed);
     }
 }
-<span class="cm">// burst(player.getLocation().add(0,1,0), Particle.CRIT, 50, 0.3);</span></pre></div></div>
-  </div>
+// burst(player.getLocation().add(0,1,0), Particle.CRIT, 50, 0.3);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Animated Helix / Spiral</div><div class="card-desc">An animated double helix that rises over time — looks like a rising vortex. Auto-cancels.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">public</span> <span class="cn">BukkitTask</span> <span class="fn">spawnHelix</span>(<span class="cn">Location</span> center, <span class="cn">Particle</span> particle) {
-    <span class="kw">final double</span>[] t = {<span class="nm">0</span>};
-    <span class="kw">return new</span> <span class="cn">BukkitRunnable</span>() {
-        <span class="an">@Override</span> <span class="kw">public void</span> <span class="fn">run</span>() {
-            <span class="kw">for</span> (<span class="kw">int</span> arm = <span class="nm">0</span>; arm < <span class="nm">2</span>; arm++) {
-                <span class="kw">double</span> angle = t[<span class="nm">0</span>] + (<span class="cn">Math</span>.PI * arm);
-                <span class="kw">double</span> x = <span class="cn">Math</span>.cos(angle) * <span class="nm">1.5</span>;
-                <span class="kw">double</span> z = <span class="cn">Math</span>.sin(angle) * <span class="nm">1.5</span>;
-                <span class="kw">double</span> y = (t[<span class="nm">0</span>] / (<span class="nm">2</span>*<span class="cn">Math</span>.PI)) * <span class="nm">2</span> % <span class="nm">4</span>;
+Animated Helix / Spiral
+
+An animated double helix that rises over time — looks like a rising vortex. Auto-cancels.
+
++
+
+copy
+
+public BukkitTask spawnHelix(Location center, Particle particle) {
+    final double\[\] t = {0};
+    return new BukkitRunnable() {
+        @Override public void run() {
+            for (int arm = 0; arm < 2; arm++) {
+                double angle = t\[0\] + (Math.PI \* arm);
+                double x = Math.cos(angle) \* 1.5;
+                double z = Math.sin(angle) \* 1.5;
+                double y = (t\[0\] / (2\*Math.PI)) \* 2 % 4;
                 center.getWorld().spawnParticle(particle,
-                    center.clone().add(x,y,z), <span class="nm">1</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>, <span class="nm">0</span>);
+                    center.clone().add(x,y,z), 1, 0, 0, 0, 0);
             }
-            t[<span class="nm">0</span>] += <span class="nm">0.15</span>;
-            <span class="kw">if</span> (t[<span class="nm">0</span>] > <span class="nm">20</span>*<span class="cn">Math</span>.PI) <span class="kw">this</span>.cancel();
+            t\[0\] += 0.15;
+            if (t\[0\] > 20\*Math.PI) this.cancel();
         }
-    }.runTaskTimer(plugin, <span class="nm">0L</span>, <span class="nm">1L</span>);
-}</pre></div></div>
-  </div>
-</section>
+    }.runTaskTimer(plugin, 0L, 1L);
+}
 
-<!-- ═══ JAVA BASICS ═══ -->
-<section class="section" id="java-basics">
-  <div class="section-title">📘 Java Basics <span class="badge">LANGUAGE</span></div>
+📘 Java Basics LANGUAGE
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Data Types & Conversions</div><div class="card-desc">Java is strict — you must declare the type. Primitives are lowercase. Wrapper objects are capitalized and can be null.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Primitives — stored by value, NOT nullable</span>
-<span class="kw">int</span>     kills     = <span class="nm">5</span>;           <span class="cm">// whole numbers -2B to 2B</span>
-<span class="kw">long</span>    bigNum    = <span class="nm">9999999999L</span>; <span class="cm">// bigger integer — add L suffix</span>
-<span class="kw">double</span>  health    = <span class="nm">20.0</span>;        <span class="cm">// decimal 64-bit (prefer over float)</span>
-<span class="kw">float</span>   speed     = <span class="nm">1.5f</span>;        <span class="cm">// decimal 32-bit — add f suffix</span>
-<span class="kw">boolean</span> pvpOn     = <span class="kw">true</span>;
-<span class="kw">char</span>    grade     = <span class="st">'A'</span>;         <span class="cm">// single character, single quotes</span>
+Data Types & Conversions
 
-<span class="cm">// Wrapper objects — capitalized, CAN be null, have helper methods</span>
-<span class="cn">Integer</span> i    = <span class="nm">42</span>;   <span class="cm">// auto-boxed from int</span>
-<span class="cn">Boolean</span> flag = <span class="kw">null</span>; <span class="cm">// can hold null unlike primitive boolean</span>
+Java is strict — you must declare the type. Primitives are lowercase. Wrapper objects are capitalized and can be null.
 
-<span class="cm">// Conversions</span>
-<span class="kw">int</span>    from_d = (<span class="kw">int</span>) <span class="nm">3.9</span>;              <span class="cm">// 3 (truncates, NOT rounds)</span>
-<span class="kw">double</span> from_i = (<span class="kw">double</span>) <span class="nm">5</span> / <span class="nm">2</span>;          <span class="cm">// 2.5 — cast BEFORE dividing</span>
-<span class="cn">String</span> str    = <span class="cn">String</span>.valueOf(<span class="nm">42</span>);       <span class="cm">// "42"</span>
-<span class="kw">int</span>    parsed = <span class="cn">Integer</span>.parseInt(<span class="st">"42"</span>);   <span class="cm">// 42 (throws NumberFormatException!)</span>
-<span class="kw">double</span> parsedD = <span class="cn">Double</span>.parseDouble(<span class="st">"3.14"</span>);</pre></div></div>
-  </div>
++
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Variables & Math Operators</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">int</span> score = <span class="nm">0</span>;
-score = <span class="nm">10</span>;
-score += <span class="nm">5</span>;   <span class="cm">// shorthand for score = score + 5 → 15</span>
-<span class="kw">final int</span> MAX = <span class="nm">20</span>;  <span class="cm">// constant — cannot reassign</span>
-<span class="kw">var</span> list = <span class="kw">new</span> <span class="cn">ArrayList</span>&lt;<span class="cn">String</span>&gt;(); <span class="cm">// Java 10+ — type inferred</span>
+copy
 
-<span class="kw">int</span> a = <span class="nm">10</span> + <span class="nm">5</span>;  <span class="cm">// 15   addition</span>
-<span class="kw">int</span> b = <span class="nm">10</span> - <span class="nm">3</span>;  <span class="cm">// 7    subtraction</span>
-<span class="kw">int</span> c = <span class="nm">4</span>  * <span class="nm">3</span>;  <span class="cm">// 12   multiplication</span>
-<span class="kw">int</span> d = <span class="nm">10</span> / <span class="nm">2</span>;  <span class="cm">// 5    division</span>
-<span class="kw">int</span> e = <span class="nm">10</span> % <span class="nm">3</span>;  <span class="cm">// 1    modulo (remainder)</span>
-x++;  x--;        <span class="cm">// increment / decrement</span>
+// Primitives — stored by value, NOT nullable
+int     kills     = 5;           // whole numbers -2B to 2B
+long    bigNum    = 9999999999L; // bigger integer — add L suffix
+double  health    = 20.0;        // decimal 64-bit (prefer over float)
+float   speed     = 1.5f;        // decimal 32-bit — add f suffix
+boolean pvpOn     = true;
+char    grade     = 'A';         // single character, single quotes
 
-<span class="cm">// Ternary (inline if/else)</span>
-<span class="cn">String</span> label = (kills >= <span class="nm">10</span>) ? <span class="st">"§cKiller"</span> : <span class="st">"§7Newbie"</span>;</pre></div></div>
-  </div>
+// Wrapper objects — capitalized, CAN be null, have helper methods
+Integer i    = 42;   // auto-boxed from int
+Boolean flag = null; // can hold null unlike primitive boolean
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Strings (Text)</div><div class="card-desc">Always use .equals() to compare strings — never ==. That compares memory address, not content.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">String</span> name = <span class="st">"Logo"</span>;
-name.length();                                  <span class="cm">// 4</span>
-name.equals(<span class="st">"Logo"</span>);                           <span class="cm">// ✓ ALWAYS use .equals()</span>
-name.equalsIgnoreCase(<span class="st">"logo"</span>);
-name.contains(<span class="st">"og"</span>);
-name.startsWith(<span class="st">"Lo"</span>); name.endsWith(<span class="st">"go"</span>);
+// Conversions
+int    from\_d = (int) 3.9;              // 3 (truncates, NOT rounds)
+double from\_i = (double) 5 / 2;          // 2.5 — cast BEFORE dividing
+String str    = String.valueOf(42);       // "42"
+int    parsed = Integer.parseInt("42");   // 42 (throws NumberFormatException!)
+double parsedD = Double.parseDouble("3.14");
+
+Variables & Math Operators
+
++
+
+copy
+
+int score = 0;
+score = 10;
+score += 5;   // shorthand for score = score + 5 → 15
+final int MAX = 20;  // constant — cannot reassign
+var list = new ArrayList<String\>(); // Java 10+ — type inferred
+
+int a = 10 + 5;  // 15   addition
+int b = 10 - 3;  // 7    subtraction
+int c = 4  \* 3;  // 12   multiplication
+int d = 10 / 2;  // 5    division
+int e = 10 % 3;  // 1    modulo (remainder)
+x++;  x--;        // increment / decrement
+
+// Ternary (inline if/else)
+String label = (kills >= 10) ? "§cKiller" : "§7Newbie";
+
+Strings (Text)
+
+Always use .equals() to compare strings — never ==. That compares memory address, not content.
+
++
+
+copy
+
+String name = "Logo";
+name.length();                                  // 4
+name.equals("Logo");                           // ✓ ALWAYS use .equals()
+name.equalsIgnoreCase("logo");
+name.contains("og");
+name.startsWith("Lo"); name.endsWith("go");
 name.toUpperCase(); name.toLowerCase();
-name.trim(); name.strip();                      <span class="cm">// strip = Java 11+ unicode-aware</span>
-name.isEmpty();  name.isBlank();                <span class="cm">// isBlank = only whitespace?</span>
-name.replace(<span class="st">"Logo"</span>, <span class="st">"Steve"</span>);
-name.substring(<span class="nm">6</span>); name.substring(<span class="nm">0</span>, <span class="nm">5</span>);
-name.split(<span class="st">","</span>);
-name.indexOf(<span class="st">"og"</span>); name.charAt(<span class="nm">0</span>);
+name.trim(); name.strip();                      // strip = Java 11+ unicode-aware
+name.isEmpty();  name.isBlank();                // isBlank = only whitespace?
+name.replace("Logo", "Steve");
+name.substring(6); name.substring(0, 5);
+name.split(",");
+name.indexOf("og"); name.charAt(0);
 
-<span class="cm">// String.format — cleaner than concatenation</span>
-<span class="cn">String</span>.format(<span class="st">"§aPlayer §f%s §ahas §f%d §akills!"</span>, name, kills);
-<span class="cm">// %s=String  %d=int/long  %f=float/double  %b=boolean</span>
+// String.format — cleaner than concatenation
+String.format("§aPlayer §f%s §ahas §f%d §akills!", name, kills);
+// %s=String  %d=int/long  %f=float/double  %b=boolean
 
-<span class="cm">// Join</span>
-<span class="cn">String</span>.join(<span class="st">", "</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>); <span class="cm">// "a, b, c"</span>
+// Join
+String.join(", ", "a", "b", "c"); // "a, b, c"
 
-<span class="cm">// StringBuilder — efficient when doing many appends</span>
-<span class="cn">StringBuilder</span> sb = <span class="kw">new</span> <span class="cn">StringBuilder</span>();
-<span class="kw">for</span> (<span class="cn">Player</span> p : online) sb.append(p.getName()).append(<span class="st">", "</span>);
-<span class="cn">String</span> result = sb.toString();</pre></div></div>
-  </div>
+// StringBuilder — efficient when doing many appends
+StringBuilder sb = new StringBuilder();
+for (Player p : online) sb.append(p.getName()).append(", ");
+String result = sb.toString();
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">If / Else / Switch</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">if</span> (health <= <span class="nm">0</span>) {
-    <span class="cm">// dead</span>
-} <span class="kw">else if</span> (health < <span class="nm">5.0</span>) {
-    <span class="cm">// critical</span>
-} <span class="kw">else</span> {
-    <span class="cm">// healthy</span>
+If / Else / Switch
+
++
+
+copy
+
+if (health <= 0) {
+    // dead
+} else if (health < 5.0) {
+    // critical
+} else {
+    // healthy
 }
-<span class="cm">// ==  !=  &gt;  &lt;  &gt;=  &lt;=  |  &&=AND  ||=OR  !=NOT</span>
+// ==  !=  >  <  >=  <=  |  &&=AND  ||=OR  !=NOT
 
-<span class="cm">// Classic switch</span>
-<span class="kw">switch</span> (args[<span class="nm">0</span>].toLowerCase()) {
-    <span class="kw">case</span> <span class="st">"heal"</span>: <span class="fn">handleHeal</span>(); <span class="kw">break</span>;
-    <span class="kw">default</span>: sender.sendMessage(<span class="st">"Unknown!"</span>); <span class="kw">break</span>;
-}
-
-<span class="cm">// Switch expression (Java 14+) — much cleaner</span>
-<span class="kw">int</span> result = <span class="kw">switch</span> (gameMode) {
-    <span class="kw">case</span> <span class="st">"survival"</span>  -> <span class="nm">0</span>;
-    <span class="kw">case</span> <span class="st">"creative"</span>  -> <span class="nm">1</span>;
-    <span class="kw">case</span> <span class="st">"adventure"</span> -> <span class="nm">2</span>;
-    <span class="kw">default</span>         -> -<span class="nm">1</span>;
-};</pre></div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Loops</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Classic for (known count)</span>
-<span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < <span class="nm">10</span>; i++) { }
-
-<span class="cm">// For-each (collections)</span>
-<span class="kw">for</span> (<span class="cn">Player</span> p : <span class="cn">Bukkit</span>.getOnlinePlayers()) {
-    p.sendMessage(<span class="st">"§aHello!"</span>);
+// Classic switch
+switch (args\[0\].toLowerCase()) {
+    case "heal": handleHeal(); break;
+    default: sender.sendMessage("Unknown!"); break;
 }
 
-<span class="cm">// While loop</span>
-<span class="kw">int</span> count = <span class="nm">0</span>;
-<span class="kw">while</span> (count < <span class="nm">5</span>) { count++; }
+// Switch expression (Java 14+) — much cleaner
+int result = switch (gameMode) {
+    case "survival"  -> 0;
+    case "creative"  -> 1;
+    case "adventure" -> 2;
+    default         -> -1;
+};
 
-<span class="cm">// Do-while — always runs at least once</span>
-<span class="kw">do</span> { count++; } <span class="kw">while</span> (count < <span class="nm">5</span>);
+Loops
 
-<span class="cm">// Break / continue</span>
-<span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < <span class="nm">10</span>; i++) {
-    <span class="kw">if</span> (i == <span class="nm">3</span>) <span class="kw">continue</span>; <span class="cm">// skip 3</span>
-    <span class="kw">if</span> (i == <span class="nm">7</span>) <span class="kw">break</span>;    <span class="cm">// stop at 7</span>
++
+
+copy
+
+// Classic for (known count)
+for (int i = 0; i < 10; i++) { }
+
+// For-each (collections)
+for (Player p : Bukkit.getOnlinePlayers()) {
+    p.sendMessage("§aHello!");
 }
 
-<span class="cm">// Java Streams (functional style)</span>
-<span class="cn">List</span>&lt;<span class="cn">String</span>&gt; names = <span class="cn">Bukkit</span>.getOnlinePlayers().stream()
-    .map(<span class="cn">Player</span>::getName)
-    .filter(n -> n.startsWith(<span class="st">"A"</span>))
-    .collect(<span class="cn">Collectors</span>.toList());
+// While loop
+int count = 0;
+while (count < 5) { count++; }
 
-<span class="kw">long</span> admins = <span class="cn">Bukkit</span>.getOnlinePlayers().stream()
-    .filter(p -> p.hasPermission(<span class="st">"admin"</span>)).count();</pre></div></div>
-  </div>
+// Do-while — always runs at least once
+do { count++; } while (count < 5);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Collections — List, Map, Set</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// List — ordered, allows duplicates</span>
-<span class="cn">List</span>&lt;<span class="cn">String</span>&gt; players = <span class="kw">new</span> <span class="cn">ArrayList</span>&lt;&gt;();
-players.add(<span class="st">"Logo"</span>);
-players.add(<span class="nm">0</span>, <span class="st">"First"</span>);     <span class="cm">// insert at index</span>
-players.set(<span class="nm">0</span>, <span class="st">"Updated"</span>);   <span class="cm">// replace at index</span>
-players.remove(<span class="st">"Logo"</span>);      <span class="cm">// by value</span>
-players.remove(<span class="nm">0</span>);           <span class="cm">// by index</span>
-players.get(<span class="nm">0</span>);  players.size();  players.contains(<span class="st">"Logo"</span>);  players.clear();
-<span class="cn">Collections</span>.sort(players);  <span class="cn">Collections</span>.shuffle(players);
+// Break / continue
+for (int i = 0; i < 10; i++) {
+    if (i == 3) continue; // skip 3
+    if (i == 7) break;    // stop at 7
+}
 
-<span class="cm">// Map — key → value, keys must be unique</span>
-<span class="cn">Map</span>&lt;<span class="cn">UUID</span>, <span class="cn">Integer</span>&gt; killMap = <span class="kw">new</span> <span class="cn">HashMap</span>&lt;&gt;();
-killMap.put(uuid, <span class="nm">5</span>);
-killMap.get(uuid);                     <span class="cm">// null if missing</span>
-killMap.getOrDefault(uuid, <span class="nm">0</span>);        <span class="cm">// safe fallback</span>
-killMap.putIfAbsent(uuid, <span class="nm">0</span>);          <span class="cm">// only puts if not present</span>
-killMap.merge(uuid, <span class="nm">1</span>, <span class="cn">Integer</span>::sum); <span class="cm">// increment kill counter!</span>
+// Java Streams (functional style)
+List<String\> names = Bukkit.getOnlinePlayers().stream()
+    .map(Player::getName)
+    .filter(n -> n.startsWith("A"))
+    .collect(Collectors.toList());
+
+long admins = Bukkit.getOnlinePlayers().stream()
+    .filter(p -> p.hasPermission("admin")).count();
+
+Collections — List, Map, Set
+
++
+
+copy
+
+// List — ordered, allows duplicates
+List<String\> players = new ArrayList<>();
+players.add("Logo");
+players.add(0, "First");     // insert at index
+players.set(0, "Updated");   // replace at index
+players.remove("Logo");      // by value
+players.remove(0);           // by index
+players.get(0);  players.size();  players.contains("Logo");  players.clear();
+Collections.sort(players);  Collections.shuffle(players);
+
+// Map — key → value, keys must be unique
+Map<UUID, Integer\> killMap = new HashMap<>();
+killMap.put(uuid, 5);
+killMap.get(uuid);                     // null if missing
+killMap.getOrDefault(uuid, 0);        // safe fallback
+killMap.putIfAbsent(uuid, 0);          // only puts if not present
+killMap.merge(uuid, 1, Integer::sum); // increment kill counter!
 killMap.containsKey(uuid);  killMap.remove(uuid);
-<span class="kw">for</span> (<span class="cn">Map</span>.Entry&lt;<span class="cn">UUID</span>,<span class="cn">Integer</span>&gt; e : killMap.entrySet()) {
+for (Map.Entry<UUID,Integer\> e : killMap.entrySet()) {
     e.getKey(); e.getValue();
 }
 
-<span class="cm">// Set — unique values, O(1) lookup</span>
-<span class="cn">Set</span>&lt;<span class="cn">UUID</span>&gt; seen = <span class="kw">new</span> <span class="cn">HashSet</span>&lt;&gt;();
+// Set — unique values, O(1) lookup
+Set<UUID\> seen = new HashSet<>();
 seen.add(player.getUniqueId());
 seen.contains(uuid);  seen.remove(uuid);
 
-<span class="cm">// Thread-safe map for async use</span>
-<span class="cn">Map</span>&lt;<span class="cn">UUID</span>,<span class="cn">Long</span>&gt; cdMap = <span class="kw">new</span> <span class="cn">ConcurrentHashMap</span>&lt;&gt;();</pre></div></div>
-  </div>
+// Thread-safe map for async use
+Map<UUID,Long\> cdMap = new ConcurrentHashMap<>();
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Methods, Null Safety & Casting</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Methods</span>
-<span class="kw">public void</span> <span class="fn">greetPlayer</span>(<span class="cn">Player</span> p) { p.sendMessage(<span class="st">"Hello, "</span> + p.getName() + <span class="st">"!"</span>); }
-<span class="kw">public boolean</span> <span class="fn">isAlive</span>(<span class="cn">Player</span> p) { <span class="kw">return</span> p.getHealth() > <span class="nm">0</span>; }
-<span class="kw">public static int</span> <span class="fn">clamp</span>(<span class="kw">int</span> value, <span class="kw">int</span> min, <span class="kw">int</span> max) {
-    <span class="kw">return</span> <span class="cn">Math</span>.max(min, <span class="cn">Math</span>.min(max, value));
+Methods, Null Safety & Casting
+
++
+
+copy
+
+// Methods
+public void greetPlayer(Player p) { p.sendMessage("Hello, " + p.getName() + "!"); }
+public boolean isAlive(Player p) { return p.getHealth() > 0; }
+public static int clamp(int value, int min, int max) {
+    return Math.max(min, Math.min(max, value));
 }
-<span class="cm">// Varargs — accepts any number of args</span>
-<span class="kw">public void</span> <span class="fn">log</span>(<span class="cn">String</span>... messages) { <span class="kw">for</span> (<span class="cn">String</span> m : messages) plugin.getLogger().info(m); }
+// Varargs — accepts any number of args
+public void log(String... messages) { for (String m : messages) plugin.getLogger().info(m); }
 
-<span class="cm">// Null safety — calling a method on null = NullPointerException crash!</span>
-<span class="cn">Player</span> killer = event.getEntity().getKiller(); <span class="cm">// may be null</span>
-<span class="kw">if</span> (killer == <span class="kw">null</span>) <span class="kw">return</span>;                    <span class="cm">// ✓ early return pattern</span>
-<span class="cn">String</span> display = (name != <span class="kw">null</span>) ? name : <span class="st">"Unknown"</span>; <span class="cm">// ternary</span>
+// Null safety — calling a method on null = NullPointerException crash!
+Player killer = event.getEntity().getKiller(); // may be null
+if (killer == null) return;                    // ✓ early return pattern
+String display = (name != null) ? name : "Unknown"; // ternary
 
-<span class="cm">// Casting — always check before downcasting</span>
-<span class="kw">if</span> (sender <span class="kw">instanceof</span> <span class="cn">Player</span>) {
-    <span class="cn">Player</span> player = (<span class="cn">Player</span>) sender;
+// Casting — always check before downcasting
+if (sender instanceof Player) {
+    Player player = (Player) sender;
 }
-<span class="cm">// Java 16+ pattern matching (cleaner)</span>
-<span class="kw">if</span> (sender <span class="kw">instanceof</span> <span class="cn">Player</span> player) { player.sendMessage(<span class="st">"Hi!"</span>); }
-<span class="kw">if</span> (entity <span class="kw">instanceof</span> <span class="cn">Zombie</span> zombie) { zombie.setVillager(<span class="kw">true</span>); }</pre></div></div>
-  </div>
-</section>
+// Java 16+ pattern matching (cleaner)
+if (sender instanceof Player player) { player.sendMessage("Hi!"); }
+if (entity instanceof Zombie zombie) { zombie.setVillager(true); }
 
-<!-- ═══ PAPERMC BASICS ═══ -->
-<section class="section" id="papermc-basics">
-  <div class="section-title">🌍 PaperMC Basics <span class="badge">API</span></div>
+🌍 PaperMC Basics API
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Player — Everything You Need</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Getting a player</span>
-<span class="cn">Player</span> p = <span class="cn">Bukkit</span>.getPlayer(<span class="st">"Logo"</span>);  <span class="cm">// by name, null if offline</span>
-<span class="cn">Player</span> p = <span class="cn">Bukkit</span>.getPlayer(uuid);     <span class="cm">// by UUID — preferred!</span>
+Player — Everything You Need
 
-<span class="cm">// Identity</span>
++
+
+copy
+
+// Getting a player
+Player p = Bukkit.getPlayer("Logo");  // by name, null if offline
+Player p = Bukkit.getPlayer(uuid);     // by UUID — preferred!
+
+// Identity
 p.getName(); p.getUniqueId(); p.getDisplayName(); p.getPlayerListName();
-p.isOp(); p.setOp(<span class="kw">true</span>);
-p.hasPermission(<span class="st">"myplugin.use"</span>);
-p.getGameMode(); p.setGameMode(<span class="cn">GameMode</span>.SURVIVAL);
+p.isOp(); p.setOp(true);
+p.hasPermission("myplugin.use");
+p.getGameMode(); p.setGameMode(GameMode.SURVIVAL);
 p.isSneaking(); p.isSprinting(); p.isFlying(); p.isDead();
 
-<span class="cm">// Health / Food</span>
-p.getHealth(); p.setHealth(<span class="nm">20.0</span>);   <span class="cm">// 0.0 – 20.0</span>
-p.getFoodLevel(); p.setFoodLevel(<span class="nm">20</span>);
-p.getSaturation(); p.setSaturation(<span class="nm">5.0f</span>);
+// Health / Food
+p.getHealth(); p.setHealth(20.0);   // 0.0 – 20.0
+p.getFoodLevel(); p.setFoodLevel(20);
+p.getSaturation(); p.setSaturation(5.0f);
 
-<span class="cm">// Messaging</span>
-p.sendMessage(<span class="st">"§aHello!"</span>);
-p.sendTitle(<span class="st">"§6Title"</span>, <span class="st">"§7Subtitle"</span>, <span class="nm">10</span>, <span class="nm">70</span>, <span class="nm">20</span>); <span class="cm">// fadeIn/stay/fadeOut ticks</span>
-p.sendActionBar(<span class="st">"§eAbove hotbar"</span>);
-p.resetTitle(); <span class="cm">// clear title</span>
+// Messaging
+p.sendMessage("§aHello!");
+p.sendTitle("§6Title", "§7Subtitle", 10, 70, 20); // fadeIn/stay/fadeOut ticks
+p.sendActionBar("§eAbove hotbar");
+p.resetTitle(); // clear title
 
-<span class="cm">// Movement</span>
+// Movement
 p.getLocation(); p.teleport(location);
-p.setVelocity(<span class="kw">new</span> <span class="cn">Vector</span>(<span class="nm">0</span>, <span class="nm">1.5</span>, <span class="nm">0</span>)); <span class="cm">// launch upward</span>
-p.setAllowFlight(<span class="kw">true</span>); p.setFlying(<span class="kw">true</span>);
-p.setWalkSpeed(<span class="nm">0.2f</span>);  <span class="cm">// default 0.2, max 1.0</span>
+p.setVelocity(new Vector(0, 1.5, 0)); // launch upward
+p.setAllowFlight(true); p.setFlying(true);
+p.setWalkSpeed(0.2f);  // default 0.2, max 1.0
 
-<span class="cm">// Inventory</span>
+// Inventory
 p.getInventory().addItem(itemStack);
-p.getInventory().setItem(<span class="nm">9</span>, itemStack);
+p.getInventory().setItem(9, itemStack);
 p.getInventory().getItemInMainHand();
-p.getInventory().getArmorContents(); <span class="cm">// [boots, legs, chest, helm]</span>
+p.getInventory().getArmorContents(); // \[boots, legs, chest, helm\]
 p.getInventory().clear();
-p.updateInventory(); <span class="cm">// refresh client after changes</span>
+p.updateInventory(); // refresh client after changes
 
-<span class="cm">// Effects / Sounds</span>
-p.addPotionEffect(<span class="kw">new</span> <span class="cn">PotionEffect</span>(<span class="cn">PotionEffectType</span>.SPEED, <span class="nm">200</span>, <span class="nm">1</span>));
-<span class="cm">// (type, durationTicks, amplifier) — amplifier 0=level I, 1=level II</span>
-p.removePotionEffect(<span class="cn">PotionEffectType</span>.SPEED);
-p.playSound(p.getLocation(), <span class="cn">Sound</span>.ENTITY_PLAYER_LEVELUP, <span class="nm">1f</span>, <span class="nm">1f</span>);
+// Effects / Sounds
+p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
+// (type, durationTicks, amplifier) — amplifier 0=level I, 1=level II
+p.removePotionEffect(PotionEffectType.SPEED);
+p.playSound(p.getLocation(), Sound.ENTITY\_PLAYER\_LEVELUP, 1f, 1f);
 
-<span class="cm">// Misc</span>
-p.kickPlayer(<span class="st">"§cYou have been kicked."</span>);
-p.setExp(<span class="nm">0.5f</span>); p.setLevel(<span class="nm">10</span>); p.giveExp(<span class="nm">100</span>);
-p.setFireTicks(<span class="nm">80</span>);   <span class="cm">// set on fire for 4 seconds</span>
+// Misc
+p.kickPlayer("§cYou have been kicked.");
+p.setExp(0.5f); p.setLevel(10); p.giveExp(100);
+p.setFireTicks(80);   // set on fire for 4 seconds
 p.hidePlayer(plugin, other); p.showPlayer(plugin, other);
-p.getBedSpawnLocation(); p.setBedSpawnLocation(loc, <span class="kw">true</span>);</pre></div></div>
-  </div>
+p.getBedSpawnLocation(); p.setBedSpawnLocation(loc, true);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Location</div><div class="card-desc">Represents a position in a world. Always clone before modifying to preserve the original!</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">Location</span> loc = <span class="kw">new</span> <span class="cn">Location</span>(world, x, y, z);
-<span class="cn">Location</span> loc = <span class="kw">new</span> <span class="cn">Location</span>(world, x, y, z, yaw, pitch);
-<span class="cm">// yaw: -180 to 180 (horizontal) | pitch: -90 to 90 (-90=up)</span>
+Location
+
+Represents a position in a world. Always clone before modifying to preserve the original!
+
++
+
+copy
+
+Location loc = new Location(world, x, y, z);
+Location loc = new Location(world, x, y, z, yaw, pitch);
+// yaw: -180 to 180 (horizontal) | pitch: -90 to 90 (-90=up)
 
 loc.getX(); loc.getY(); loc.getZ();
-loc.getBlockX(); loc.getBlockY(); loc.getBlockZ(); <span class="cm">// floored to int</span>
+loc.getBlockX(); loc.getBlockY(); loc.getBlockZ(); // floored to int
 loc.getYaw(); loc.getPitch(); loc.getWorld(); loc.getBlock();
 
-<span class="cm">// ✦ ALWAYS clone before modifying!</span>
-<span class="cn">Location</span> above  = loc.clone().add(<span class="nm">0</span>, <span class="nm">2</span>, <span class="nm">0</span>);
-<span class="cn">Location</span> front  = loc.clone().add(loc.getDirection().multiply(<span class="nm">3</span>));
-<span class="cn">Location</span> behind = loc.clone().subtract(loc.getDirection().multiply(<span class="nm">3</span>));
+// ✦ ALWAYS clone before modifying!
+Location above  = loc.clone().add(0, 2, 0);
+Location front  = loc.clone().add(loc.getDirection().multiply(3));
+Location behind = loc.clone().subtract(loc.getDirection().multiply(3));
 
-<span class="cm">// Distance</span>
-<span class="kw">double</span> exact = loc1.distance(loc2);           <span class="cm">// actual distance (slower)</span>
-<span class="kw">double</span> sq    = loc1.distanceSquared(loc2);    <span class="cm">// faster — use for range checks</span>
-<span class="kw">if</span> (loc1.distanceSquared(loc2) <= <span class="nm">25</span>) { }   <span class="cm">// within 5 blocks (5²=25)</span>
+// Distance
+double exact = loc1.distance(loc2);           // actual distance (slower)
+double sq    = loc1.distanceSquared(loc2);    // faster — use for range checks
+if (loc1.distanceSquared(loc2) <= 25) { }   // within 5 blocks (5²=25)
 
-loc.toVector();           <span class="cm">// Vector representation</span>
-loc.getDirection();       <span class="cm">// unit vector player is facing</span>
-loc.setDirection(vector); <span class="cm">// set yaw/pitch from a Vector</span>
+loc.toVector();           // Vector representation
+loc.getDirection();       // unit vector player is facing
+loc.setDirection(vector); // set yaw/pitch from a Vector
 
-<span class="cm">// Configs save/load locations automatically!</span>
-config.set(<span class="st">"home"</span>, loc);
-<span class="cn">Location</span> home = (<span class="cn">Location</span>) config.get(<span class="st">"home"</span>);</pre></div></div>
-  </div>
+// Configs save/load locations automatically!
+config.set("home", loc);
+Location home = (Location) config.get("home");
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">World</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">World</span> w = <span class="cn">Bukkit</span>.getWorld(<span class="st">"world"</span>);
-<span class="cn">List</span>&lt;<span class="cn">World</span>&gt; all = <span class="cn">Bukkit</span>.getWorlds();
+World
 
-w.spawnEntity(loc, <span class="cn">EntityType</span>.ZOMBIE);
-w.spawnParticle(<span class="cn">Particle</span>.FLAME, loc, <span class="nm">30</span>, <span class="nm">0.5</span>, <span class="nm">0.5</span>, <span class="nm">0.5</span>, <span class="nm">0.05</span>);
-w.playSound(loc, <span class="cn">Sound</span>.ENTITY_ENDER_DRAGON_GROWL, <span class="nm">1f</span>, <span class="nm">1f</span>);
-w.strikeLightning(loc);              <span class="cm">// real — causes damage/fire</span>
-w.strikeLightningEffect(loc);        <span class="cm">// visual only, no damage</span>
-w.createExplosion(loc, <span class="nm">4f</span>);          <span class="cm">// 4=TNT power, 0=visual only</span>
-w.createExplosion(loc, <span class="nm">4f</span>, <span class="kw">false</span>, <span class="kw">false</span>); <span class="cm">// (fire, blockDamage)</span>
-w.setTime(<span class="nm">6000</span>);  <span class="cm">// 0=dawn 6000=noon 12000=dusk 18000=midnight</span>
-w.setStorm(<span class="kw">true</span>); w.setThundering(<span class="kw">true</span>);
++
+
+copy
+
+World w = Bukkit.getWorld("world");
+List<World\> all = Bukkit.getWorlds();
+
+w.spawnEntity(loc, EntityType.ZOMBIE);
+w.spawnParticle(Particle.FLAME, loc, 30, 0.5, 0.5, 0.5, 0.05);
+w.playSound(loc, Sound.ENTITY\_ENDER\_DRAGON\_GROWL, 1f, 1f);
+w.strikeLightning(loc);              // real — causes damage/fire
+w.strikeLightningEffect(loc);        // visual only, no damage
+w.createExplosion(loc, 4f);          // 4=TNT power, 0=visual only
+w.createExplosion(loc, 4f, false, false); // (fire, blockDamage)
+w.setTime(6000);  // 0=dawn 6000=noon 12000=dusk 18000=midnight
+w.setStorm(true); w.setThundering(true);
 w.getPlayers(); w.getEntities(); w.getLivingEntities();
-w.getHighestBlockYAt(x, z); <span class="cm">// top solid block Y</span>
-w.dropItem(loc, item);         <span class="cm">// spawn item entity</span>
-w.dropItemNaturally(loc, item); <span class="cm">// with random velocity</span></pre></div></div>
-  </div>
+w.getHighestBlockYAt(x, z); // top solid block Y
+w.dropItem(loc, item);         // spawn item entity
+w.dropItemNaturally(loc, item); // with random velocity
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Block, Entity & Vector</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Block</span>
-<span class="cn">Block</span> block = world.getBlockAt(x, y, z);
-block.getType(); block.setType(<span class="cn">Material</span>.GOLD_BLOCK);
-block.setType(<span class="cn">Material</span>.AIR); <span class="cm">// remove block</span>
-block.getRelative(<span class="cn">BlockFace</span>.UP);
-block.getRelative(<span class="cn">BlockFace</span>.DOWN);
-block.getRelative(<span class="nm">0</span>, <span class="nm">1</span>, <span class="nm">0</span>); <span class="cm">// same as BlockFace.UP</span>
-<span class="cm">// BlockData — for state like waterlogged, slab type, facing</span>
-<span class="kw">if</span> (block.getBlockData() <span class="kw">instanceof</span> <span class="cn">Slab</span> slab) { slab.getType(); }
-<span class="kw">if</span> (block.getBlockData() <span class="kw">instanceof</span> <span class="cn">Waterlogged</span> wl) { wl.isWaterlogged(); }
+Block, Entity & Vector
 
-<span class="cm">// Entity</span>
++
+
+copy
+
+// Block
+Block block = world.getBlockAt(x, y, z);
+block.getType(); block.setType(Material.GOLD\_BLOCK);
+block.setType(Material.AIR); // remove block
+block.getRelative(BlockFace.UP);
+block.getRelative(BlockFace.DOWN);
+block.getRelative(0, 1, 0); // same as BlockFace.UP
+// BlockData — for state like waterlogged, slab type, facing
+if (block.getBlockData() instanceof Slab slab) { slab.getType(); }
+if (block.getBlockData() instanceof Waterlogged wl) { wl.isWaterlogged(); }
+
+// Entity
 entity.getType(); entity.getUniqueId(); entity.getLocation();
 entity.getVelocity(); entity.setVelocity(vec);
 entity.remove();        entity.isDead();
-entity.setGravity(<span class="kw">false</span>); entity.setGlowing(<span class="kw">true</span>);
-entity.setCustomName(<span class="st">"§cBoss"</span>); entity.setCustomNameVisible(<span class="kw">true</span>);
-entity.setInvulnerable(<span class="kw">true</span>);
-<span class="cm">// LivingEntity extras</span>
-<span class="cn">LivingEntity</span> le = (<span class="cn">LivingEntity</span>) entity;
-le.setAI(<span class="kw">false</span>); le.setSilent(<span class="kw">true</span>);
+entity.setGravity(false); entity.setGlowing(true);
+entity.setCustomName("§cBoss"); entity.setCustomNameVisible(true);
+entity.setInvulnerable(true);
+// LivingEntity extras
+LivingEntity le = (LivingEntity) entity;
+le.setAI(false); le.setSilent(true);
 le.getTarget(); le.setTarget(player);
-le.addPotionEffect(<span class="kw">new</span> <span class="cn">PotionEffect</span>(<span class="cn">PotionEffectType</span>.POISON, <span class="nm">200</span>, <span class="nm">0</span>));
+le.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0));
 
-<span class="cm">// BoundingBox — hitbox</span>
-<span class="cn">BoundingBox</span> bb = entity.getBoundingBox();
+// BoundingBox — hitbox
+BoundingBox bb = entity.getBoundingBox();
 bb.contains(loc.toVector()); bb.overlaps(other);
 
-<span class="cm">// Vector — direction or velocity, NOT a position</span>
-player.setVelocity(<span class="kw">new</span> <span class="cn">Vector</span>(<span class="nm">0</span>, <span class="nm">0.8</span>, <span class="nm">0</span>)); <span class="cm">// launch upward</span>
-<span class="cn">Vector</span> dir = player.getLocation().getDirection(); <span class="cm">// unit vector facing</span>
-<span class="cn">Location</span> front = player.getLocation().clone().add(dir.multiply(<span class="nm">5</span>));
-v.multiply(<span class="nm">2.0</span>); v.normalize(); v.length();
-v.clone(); <span class="cm">// ✦ always clone before mutating!</span></pre></div></div>
-  </div>
-</section>
+// Vector — direction or velocity, NOT a position
+player.setVelocity(new Vector(0, 0.8, 0)); // launch upward
+Vector dir = player.getLocation().getDirection(); // unit vector facing
+Location front = player.getLocation().clone().add(dir.multiply(5));
+v.multiply(2.0); v.normalize(); v.length();
+v.clone(); // ✦ always clone before mutating!
 
-<!-- ═══ TIMERS ═══ -->
-<section class="section" id="timers">
-  <div class="section-title">⏱️ Timers <span class="badge">SCHEDULER</span></div>
-  <div class="note"><strong>20 ticks = 1 second.</strong> NEVER use Thread.sleep() — it freezes the entire server main thread.</div>
+⏱️ Timers SCHEDULER
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">One-Shot Delay & Repeating Tasks</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Run once after delay (60 ticks = 3 seconds)</span>
-<span class="cn">Bukkit</span>.getScheduler().runTaskLater(plugin, () -> {
-    player.sendMessage(<span class="st">"§a3 seconds have passed!"</span>);
-}, <span class="nm">60L</span>);
+**20 ticks = 1 second.** NEVER use Thread.sleep() — it freezes the entire server main thread.
 
-<span class="cm">// Run on next server tick</span>
-<span class="cn">Bukkit</span>.getScheduler().runTask(plugin, () -> { <span class="cm">/* safe to use Bukkit API */</span> });
+One-Shot Delay & Repeating Tasks
 
-<span class="cm">// Run repeatedly (0L=start now, 40L=every 2 seconds)</span>
-<span class="cn">BukkitTask</span> task = <span class="cn">Bukkit</span>.getScheduler().runTaskTimer(plugin, () -> {
-    <span class="cn">Bukkit</span>.broadcastMessage(<span class="st">"§ePing!"</span>);
-}, <span class="nm">0L</span>, <span class="nm">40L</span>);
++
 
-task.cancel(); <span class="cm">// stop it</span>
+copy
 
-<span class="cm">// Self-cancelling task (runs 5 times then stops)</span>
-<span class="kw">final int</span>[] count = {<span class="nm">0</span>};
-<span class="kw">final</span> <span class="cn">BukkitTask</span>[] ref = {<span class="kw">null</span>};
-ref[<span class="nm">0</span>] = <span class="cn">Bukkit</span>.getScheduler().runTaskTimer(plugin, () -> {
-    player.sendMessage(<span class="st">"Count: "</span> + (++count[<span class="nm">0</span>]));
-    <span class="kw">if</span> (count[<span class="nm">0</span>] >= <span class="nm">5</span>) ref[<span class="nm">0</span>].cancel();
-}, <span class="nm">0L</span>, <span class="nm">20L</span>);</pre></div></div>
-  </div>
+// Run once after delay (60 ticks = 3 seconds)
+Bukkit.getScheduler().runTaskLater(plugin, () -> {
+    player.sendMessage("§a3 seconds have passed!");
+}, 60L);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">BukkitRunnable — Cleaner Self-Contained Tasks</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">new</span> <span class="cn">BukkitRunnable</span>() {
-    <span class="kw">int</span> ticks = <span class="nm">0</span>;
-    <span class="an">@Override</span>
-    <span class="kw">public void</span> <span class="fn">run</span>() {
+// Run on next server tick
+Bukkit.getScheduler().runTask(plugin, () -> { /\* safe to use Bukkit API \*/ });
+
+// Run repeatedly (0L=start now, 40L=every 2 seconds)
+BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+    Bukkit.broadcastMessage("§ePing!");
+}, 0L, 40L);
+
+task.cancel(); // stop it
+
+// Self-cancelling task (runs 5 times then stops)
+final int\[\] count = {0};
+final BukkitTask\[\] ref = {null};
+ref\[0\] = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+    player.sendMessage("Count: " + (++count\[0\]));
+    if (count\[0\] >= 5) ref\[0\].cancel();
+}, 0L, 20L);
+
+BukkitRunnable — Cleaner Self-Contained Tasks
+
++
+
+copy
+
+new BukkitRunnable() {
+    int ticks = 0;
+    @Override
+    public void run() {
         ticks++;
-        <span class="kw">if</span> (player.isOnline()) {
-            player.sendActionBar(<span class="st">"§eTask tick: "</span> + ticks);
+        if (player.isOnline()) {
+            player.sendActionBar("§eTask tick: " + ticks);
         }
-        <span class="kw">if</span> (ticks >= <span class="nm">100</span> || !player.isOnline()) {
-            <span class="kw">this</span>.cancel(); <span class="cm">// cancel self</span>
+        if (ticks >= 100 || !player.isOnline()) {
+            this.cancel(); // cancel self
         }
     }
-}.runTaskTimer(plugin, <span class="nm">0L</span>, <span class="nm">1L</span>); <span class="cm">// start now, every tick</span>
+}.runTaskTimer(plugin, 0L, 1L); // start now, every tick
 
-<span class="cm">// Or with a delay</span>
-<span class="kw">new</span> <span class="cn">BukkitRunnable</span>() {
-    <span class="an">@Override</span> <span class="kw">public void</span> <span class="fn">run</span>() { player.sendMessage(<span class="st">"§aDelayed!"</span>); }
-}.runTaskLater(plugin, <span class="nm">100L</span>);
+// Or with a delay
+new BukkitRunnable() {
+    @Override public void run() { player.sendMessage("§aDelayed!"); }
+}.runTaskLater(plugin, 100L);
 
-<span class="cm">// Cancel all plugin tasks on disable</span>
-<span class="cn">Bukkit</span>.getScheduler().cancelTasks(<span class="kw">this</span>);</pre></div></div>
-  </div>
+// Cancel all plugin tasks on disable
+Bukkit.getScheduler().cancelTasks(this);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Async Tasks — For Heavy Work (DB, Files, HTTP)</div><div class="card-desc">NEVER call Bukkit API inside async tasks! Always switch back to the main thread first.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="warn"><strong>⚠ NEVER</strong> call player.sendMessage(), teleport(), or any world modification inside async — it will crash or corrupt the world. Switch back to main thread first.</div>
-      <div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Async → heavy work → sync → update game</span>
-<span class="cn">Bukkit</span>.getScheduler().runTaskAsynchronously(plugin, () -> {
-    <span class="cm">// ✓ safe: file I/O, database queries, HTTP requests</span>
-    <span class="cn">String</span> data = database.loadPlayerData(player.getUniqueId());
+Async Tasks — For Heavy Work (DB, Files, HTTP)
 
-    <span class="cm">// Switch back to main thread for any Bukkit API</span>
-    <span class="cn">Bukkit</span>.getScheduler().runTask(plugin, () -> {
-        player.sendMessage(<span class="st">"§aLoaded: "</span> + data); <span class="cm">// ✓ safe now</span>
-        player.teleport(spawnLocation);           <span class="cm">// ✓ safe now</span>
+NEVER call Bukkit API inside async tasks! Always switch back to the main thread first.
+
++
+
+**⚠ NEVER** call player.sendMessage(), teleport(), or any world modification inside async — it will crash or corrupt the world. Switch back to main thread first.
+
+copy
+
+// Async → heavy work → sync → update game
+Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+    // ✓ safe: file I/O, database queries, HTTP requests
+    String data = database.loadPlayerData(player.getUniqueId());
+
+    // Switch back to main thread for any Bukkit API
+    Bukkit.getScheduler().runTask(plugin, () -> {
+        player.sendMessage("§aLoaded: " + data); // ✓ safe now
+        player.teleport(spawnLocation);           // ✓ safe now
     });
 });
 
-<span class="cm">// Async repeating (e.g. auto-save every 5 minutes)</span>
-<span class="cn">Bukkit</span>.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+// Async repeating (e.g. auto-save every 5 minutes)
+Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
     saveAllData();
-}, <span class="nm">6000L</span>, <span class="nm">6000L</span>); <span class="cm">// delay 5min, repeat every 5min</span></pre></div>
-    </div>
-  </div>
+}, 6000L, 6000L); // delay 5min, repeat every 5min
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Ticks / Time Reference</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>Ticks</th><th>Real Time</th><th>Ticks</th><th>Real Time</th></tr>
-          <tr><td>1</td><td style="color:var(--muted)">0.05s</td><td>200</td><td style="color:var(--muted)">10 seconds</td></tr>
-          <tr><td>20</td><td style="color:var(--muted)">1 second</td><td>1200</td><td style="color:var(--muted)">1 minute</td></tr>
-          <tr><td>40</td><td style="color:var(--muted)">2 seconds</td><td>6000</td><td style="color:var(--muted)">5 minutes</td></tr>
-          <tr><td>60</td><td style="color:var(--muted)">3 seconds</td><td>24000</td><td style="color:var(--muted)">20 min (full MC day)</td></tr>
-          <tr><td>100</td><td style="color:var(--muted)">5 seconds</td><td>72000</td><td style="color:var(--muted)">1 hour</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
+Ticks / Time Reference
 
-<!-- ═══ COMMANDS ═══ -->
-<section class="section" id="commands">
-  <div class="section-title">💬 Commands <span class="badge">CMD</span></div>
++
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">plugin.yml — Registering Commands</div><div class="card-desc">Every command MUST be declared in plugin.yml or the server won't recognize it at all.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm"># src/main/resources/plugin.yml</span>
+| Ticks | Real Time | Ticks | Real Time |
+| --- | --- | --- | --- |
+| 1   | 0.05s | 200 | 10 seconds |
+| 20  | 1 second | 1200 | 1 minute |
+| 40  | 2 seconds | 6000 | 5 minutes |
+| 60  | 3 seconds | 24000 | 20 min (full MC day) |
+| 100 | 5 seconds | 72000 | 1 hour |
+
+💬 Commands CMD
+
+plugin.yml — Registering Commands
+
+Every command MUST be declared in plugin.yml or the server won't recognize it at all.
+
++
+
+copy
+
+\# src/main/resources/plugin.yml
 commands:
   heal:
-    description: <span class="st">"Heal a player to full health"</span>
-    usage: <span class="st">"/<command> [player]"</span>
+    description: "Heal a player to full health"
+    usage: "/ \[player\]"
     permission: myplugin.heal
-    permission-message: <span class="st">"§cNo permission!"</span>
-    aliases: [h, healme]
+    permission-message: "§cNo permission!"
+    aliases: \[h, healme\]
 
 permissions:
-  myplugin.*:
-    description: <span class="st">"All MyPlugin permissions"</span>
+  myplugin.\*:
+    description: "All MyPlugin permissions"
     children:
-      myplugin.heal: <span class="kw">true</span>
+      myplugin.heal: true
   myplugin.heal:
-    description: <span class="st">"Allow /heal"</span>
-    default: op  <span class="cm"># true | false | op | not op</span></pre></div></div>
-  </div>
+    description: "Allow /heal"
+    default: op  \# true | false | op | not op
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Full Command Class</div><div class="card-desc">Return true = command handled. Return false = shows the usage message from plugin.yml.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">public class</span> <span class="cn">HealCommand</span> <span class="kw">implements</span> <span class="cn">CommandExecutor</span>, <span class="cn">TabCompleter</span> {
-    <span class="kw">private final</span> <span class="cn">MyPlugin</span> plugin;
-    <span class="kw">public</span> <span class="fn">HealCommand</span>(<span class="cn">MyPlugin</span> plugin) { <span class="kw">this</span>.plugin = plugin; }
+Full Command Class
 
-    <span class="an">@Override</span>
-    <span class="kw">public boolean</span> <span class="fn">onCommand</span>(<span class="cn">CommandSender</span> sender, <span class="cn">Command</span> cmd,
-                              <span class="cn">String</span> label, <span class="cn">String</span>[] args) {
-        <span class="kw">if</span> (!(sender <span class="kw">instanceof</span> <span class="cn">Player</span> player)) {
-            sender.sendMessage(<span class="st">"§cPlayers only!"</span>); <span class="kw">return true</span>;
+Return true = command handled. Return false = shows the usage message from plugin.yml.
+
++
+
+copy
+
+public class HealCommand implements CommandExecutor, TabCompleter {
+    private final MyPlugin plugin;
+    public HealCommand(MyPlugin plugin) { this.plugin = plugin; }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd,
+                              String label, String\[\] args) {
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage("§cPlayers only!"); return true;
         }
-        <span class="kw">if</span> (!player.hasPermission(<span class="st">"myplugin.heal"</span>)) {
-            player.sendMessage(<span class="st">"§cNo permission!"</span>); <span class="kw">return true</span>;
+        if (!player.hasPermission("myplugin.heal")) {
+            player.sendMessage("§cNo permission!"); return true;
         }
-        <span class="kw">if</span> (args.length == <span class="nm">0</span>) {
-            <span class="cm">// /heal — heal self</span>
-            player.setHealth(<span class="nm">20.0</span>); player.setFoodLevel(<span class="nm">20</span>);
-            player.sendMessage(<span class="st">"§aYou have been fully healed!"</span>);
-            <span class="kw">return true</span>;
+        if (args.length == 0) {
+            // /heal — heal self
+            player.setHealth(20.0); player.setFoodLevel(20);
+            player.sendMessage("§aYou have been fully healed!");
+            return true;
         }
-        <span class="cm">// /heal <player></span>
-        <span class="cn">Player</span> target = <span class="cn">Bukkit</span>.getPlayer(args[<span class="nm">0</span>]);
-        <span class="kw">if</span> (target == <span class="kw">null</span>) {
-            player.sendMessage(<span class="st">"§cPlayer §f"</span> + args[<span class="nm">0</span>] + <span class="st">" §cis not online!"</span>);
-            <span class="kw">return true</span>;
+        // /heal 
+        Player target = Bukkit.getPlayer(args\[0\]);
+        if (target == null) {
+            player.sendMessage("§cPlayer §f" + args\[0\] + " §cis not online!");
+            return true;
         }
-        target.setHealth(<span class="nm">20.0</span>); target.setFoodLevel(<span class="nm">20</span>);
-        player.sendMessage(<span class="st">"§aHealed §f"</span> + target.getName());
-        target.sendMessage(<span class="st">"§f"</span> + player.getName() + <span class="st">" §ahealed you!"</span>);
-        target.playSound(target.getLocation(), <span class="cn">Sound</span>.ENTITY_PLAYER_LEVELUP, <span class="nm">1f</span>, <span class="nm">2f</span>);
-        <span class="kw">return true</span>;
+        target.setHealth(20.0); target.setFoodLevel(20);
+        player.sendMessage("§aHealed §f" + target.getName());
+        target.sendMessage("§f" + player.getName() + " §ahealed you!");
+        target.playSound(target.getLocation(), Sound.ENTITY\_PLAYER\_LEVELUP, 1f, 2f);
+        return true;
     }
 
-    <span class="an">@Override</span>
-    <span class="kw">public</span> <span class="cn">List</span>&lt;<span class="cn">String</span>&gt; <span class="fn">onTabComplete</span>(<span class="cn">CommandSender</span> sender, <span class="cn">Command</span> cmd,
-                                        <span class="cn">String</span> alias, <span class="cn">String</span>[] args) {
-        <span class="kw">if</span> (args.length == <span class="nm">1</span>) {
-            <span class="cn">String</span> input = args[<span class="nm">0</span>].toLowerCase();
-            <span class="kw">return</span> <span class="cn">Bukkit</span>.getOnlinePlayers().stream()
-                .map(<span class="cn">Player</span>::getName)
+    @Override
+    public List<String\> onTabComplete(CommandSender sender, Command cmd,
+                                        String alias, String\[\] args) {
+        if (args.length == 1) {
+            String input = args\[0\].toLowerCase();
+            return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
                 .filter(n -> n.toLowerCase().startsWith(input))
-                .collect(<span class="cn">Collectors</span>.toList());
+                .collect(Collectors.toList());
         }
-        <span class="kw">return</span> <span class="cn">Collections</span>.emptyList();
+        return Collections.emptyList();
     }
-}</pre></div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Argument Patterns</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table class="plain" style="font-size:12px;">
-          <tr><th>Pattern</th><th>Code</th></tr>
-          <tr><td>Check no args</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (args.length == 0)</td></tr>
-          <tr><td>Check minimum args</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">if (args.length &lt; 2) { player.sendMessage("Usage: ..."); return true; }</td></tr>
-          <tr><td>Parse int safely</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">try { int n = Integer.parseInt(args[1]); } catch (NumberFormatException e) { }</td></tr>
-          <tr><td>Parse double safely</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">try { double d = Double.parseDouble(args[1]); } catch (NumberFormatException e) { }</td></tr>
-          <tr><td>Get online player</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">Player t = Bukkit.getPlayer(args[0]); if (t == null) { ... }</td></tr>
-          <tr><td>Join all args</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">String.join(" ", args)</td></tr>
-          <tr><td>Join from index 1</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">String.join(" ", Arrays.copyOfRange(args, 1, args.length))</td></tr>
-          <tr><td>Case-insensitive</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">args[0].equalsIgnoreCase("heal")</td></tr>
-          <tr><td>Run as console</td><td style="font-family:monospace;color:#8be9fd;font-size:11.5px;">Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + name)</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Subcommand System + Tab Complete</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Switch expression for clean routing (Java 14+)</span>
-<span class="kw">switch</span> (args[<span class="nm">0</span>].toLowerCase()) {
-    <span class="kw">case</span> <span class="st">"give"</span>  -> <span class="fn">handleGive</span>(player, args);
-    <span class="kw">case</span> <span class="st">"take"</span>  -> <span class="fn">handleTake</span>(player, args);
-    <span class="kw">case</span> <span class="st">"reset"</span> -> <span class="fn">handleReset</span>(player, args);
-    <span class="kw">default</span>      -> player.sendMessage(<span class="st">"§cUnknown: §f/myplugin <give|take|reset>"</span>);
 }
 
-<span class="cm">// Tab complete for subcommands — StringUtil filters by partial match</span>
-<span class="kw">if</span> (args.length == <span class="nm">1</span>) {
-    <span class="kw">return</span> <span class="cn">StringUtil</span>.copyPartialMatches(args[<span class="nm">0</span>],
-        <span class="cn">Arrays</span>.asList(<span class="st">"give"</span>, <span class="st">"take"</span>, <span class="st">"reset"</span>),
-        <span class="kw">new</span> <span class="cn">ArrayList</span>&lt;&gt;());
+Argument Patterns
+
++
+
+| Pattern | Code |
+| --- | --- |
+| Check no args | if (args.length == 0) |
+| Check minimum args | if (args.length < 2) { player.sendMessage("Usage: ..."); return true; } |
+| Parse int safely | try { int n = Integer.parseInt(args\[1\]); } catch (NumberFormatException e) { } |
+| Parse double safely | try { double d = Double.parseDouble(args\[1\]); } catch (NumberFormatException e) { } |
+| Get online player | Player t = Bukkit.getPlayer(args\[0\]); if (t == null) { ... } |
+| Join all args | String.join(" ", args) |
+| Join from index 1 | String.join(" ", Arrays.copyOfRange(args, 1, args.length)) |
+| Case-insensitive | args\[0\].equalsIgnoreCase("heal") |
+| Run as console | Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + name) |
+
+Subcommand System + Tab Complete
+
++
+
+copy
+
+// Switch expression for clean routing (Java 14+)
+switch (args\[0\].toLowerCase()) {
+    case "give"  -> handleGive(player, args);
+    case "take"  -> handleTake(player, args);
+    case "reset" -> handleReset(player, args);
+    default      -> player.sendMessage("§cUnknown: §f/myplugin ");
 }
-<span class="cm">// Tab complete player names for arg 2</span>
-<span class="kw">if</span> (args.length == <span class="nm">2</span> && args[<span class="nm">0</span>].equalsIgnoreCase(<span class="st">"give"</span>)) {
-    <span class="kw">return</span> <span class="cn">Bukkit</span>.getOnlinePlayers().stream()
-        .map(<span class="cn">Player</span>::getName)
-        .filter(n -> n.toLowerCase().startsWith(args[<span class="nm">1</span>].toLowerCase()))
-        .collect(<span class="cn">Collectors</span>.toList());
-}</pre></div></div>
-  </div>
-</section>
 
-<!-- ═══ CONFIGS ═══ -->
-<section class="section" id="configs">
-  <div class="section-title">💾 Configs / Data Saving <span class="badge">PERSISTENCE</span></div>
+// Tab complete for subcommands — StringUtil filters by partial match
+if (args.length == 1) {
+    return StringUtil.copyPartialMatches(args\[0\],
+        Arrays.asList("give", "take", "reset"),
+        new ArrayList<>());
+}
+// Tab complete player names for arg 2
+if (args.length == 2 && args\[0\].equalsIgnoreCase("give")) {
+    return Bukkit.getOnlinePlayers().stream()
+        .map(Player::getName)
+        .filter(n -> n.toLowerCase().startsWith(args\[1\].toLowerCase()))
+        .collect(Collectors.toList());
+}
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">config.yml (Built-in)</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm"># src/main/resources/config.yml</span>
-welcome-message: <span class="st">"§aWelcome to the server!"</span>
+💾 Configs / Data Saving PERSISTENCE
+
+config.yml (Built-in)
+
++
+
+copy
+
+\# src/main/resources/config.yml
+welcome-message: "§aWelcome to the server!"
 settings:
-  pvp-enabled: <span class="kw">true</span>
-  max-kills: <span class="nm">100</span>
-  spawn-radius: <span class="nm">50.5</span>
-rewards: [DIAMOND, GOLD_INGOT, IRON_INGOT]
+  pvp-enabled: true
+  max-kills: 100
+  spawn-radius: 50.5
+rewards: \[DIAMOND, GOLD\_INGOT, IRON\_INGOT\]
 kits:
   warrior:
-    price: <span class="nm">500</span>
-    cooldown: <span class="nm">3600</span></pre></div>
-      <div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// In onEnable()</span>
-saveDefaultConfig(); <span class="cm">// creates config.yml from resources if it doesn't exist</span>
-reloadConfig();      <span class="cm">// read from disk into memory</span>
+    price: 500
+    cooldown: 3600
 
-<span class="cm">// Reading</span>
-<span class="cn">String</span>  msg    = getConfig().getString(<span class="st">"welcome-message"</span>, <span class="st">"Default!"</span>); <span class="cm">// with fallback</span>
-<span class="kw">boolean</span> pvp    = getConfig().getBoolean(<span class="st">"settings.pvp-enabled"</span>);
-<span class="kw">int</span>     max    = getConfig().getInt(<span class="st">"settings.max-kills"</span>, <span class="nm">100</span>);
-<span class="kw">double</span>  radius = getConfig().getDouble(<span class="st">"settings.spawn-radius"</span>);
-<span class="cn">List</span>&lt;<span class="cn">String</span>&gt; items = getConfig().getStringList(<span class="st">"rewards"</span>);
-<span class="kw">int</span>     price  = getConfig().getInt(<span class="st">"kits.warrior.price"</span>, <span class="nm">0</span>);
+copy
 
-<span class="cm">// Writing</span>
-getConfig().set(<span class="st">"settings.pvp-enabled"</span>, <span class="kw">false</span>);
-getConfig().set(<span class="st">"players.Logo.kills"</span>, <span class="nm">42</span>);
-saveConfig(); <span class="cm">// ✦ MUST call this or changes only exist in memory!</span>
+// In onEnable()
+saveDefaultConfig(); // creates config.yml from resources if it doesn't exist
+reloadConfig();      // read from disk into memory
 
-<span class="cm">// Check / delete</span>
-getConfig().contains(<span class="st">"settings.pvp-enabled"</span>);
-getConfig().set(<span class="st">"key"</span>, <span class="kw">null</span>); <span class="cm">// set to null = delete that key</span></pre></div>
-    </div>
-  </div>
+// Reading
+String  msg    = getConfig().getString("welcome-message", "Default!"); // with fallback
+boolean pvp    = getConfig().getBoolean("settings.pvp-enabled");
+int     max    = getConfig().getInt("settings.max-kills", 100);
+double  radius = getConfig().getDouble("settings.spawn-radius");
+List<String\> items = getConfig().getStringList("rewards");
+int     price  = getConfig().getInt("kits.warrior.price", 0);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Custom Player Data Files</div><div class="card-desc">For saving player-specific data like kills, homes, stats, etc.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">private</span> <span class="cn">File</span> dataFile;
-<span class="kw">private</span> <span class="cn">FileConfiguration</span> data;
+// Writing
+getConfig().set("settings.pvp-enabled", false);
+getConfig().set("players.Logo.kills", 42);
+saveConfig(); // ✦ MUST call this or changes only exist in memory!
 
-<span class="kw">private void</span> <span class="fn">loadData</span>() {
-    dataFile = <span class="kw">new</span> <span class="cn">File</span>(getDataFolder(), <span class="st">"playerdata.yml"</span>);
-    <span class="kw">if</span> (!dataFile.exists()) { dataFile.getParentFile().mkdirs(); }
-    data = <span class="cn">YamlConfiguration</span>.loadConfiguration(dataFile);
+// Check / delete
+getConfig().contains("settings.pvp-enabled");
+getConfig().set("key", null); // set to null = delete that key
+
+Custom Player Data Files
+
+For saving player-specific data like kills, homes, stats, etc.
+
++
+
+copy
+
+private File dataFile;
+private FileConfiguration data;
+
+private void loadData() {
+    dataFile = new File(getDataFolder(), "playerdata.yml");
+    if (!dataFile.exists()) { dataFile.getParentFile().mkdirs(); }
+    data = YamlConfiguration.loadConfiguration(dataFile);
 }
 
-<span class="kw">private void</span> <span class="fn">saveData</span>() {
-    <span class="kw">try</span> { data.save(dataFile); }
-    <span class="kw">catch</span> (<span class="cn">IOException</span> e) { getLogger().severe(<span class="st">"Could not save data!"</span>); }
+private void saveData() {
+    try { data.save(dataFile); }
+    catch (IOException e) { getLogger().severe("Could not save data!"); }
 }
 
-<span class="cm">// Write player data</span>
-<span class="cn">String</span> path = <span class="st">"players."</span> + player.getUniqueId();
-data.set(path + <span class="st">".kills"</span>, kills);
-data.set(path + <span class="st">".home"</span>, player.getLocation()); <span class="cm">// Location saves perfectly!</span>
-data.set(path + <span class="st">".name"</span>, player.getName());      <span class="cm">// cache name for display</span>
+// Write player data
+String path = "players." + player.getUniqueId();
+data.set(path + ".kills", kills);
+data.set(path + ".home", player.getLocation()); // Location saves perfectly!
+data.set(path + ".name", player.getName());      // cache name for display
 saveData();
 
-<span class="cm">// Read player data</span>
-<span class="cn">String</span> base = <span class="st">"players."</span> + uuid;
-<span class="kw">int</span>      kills = data.getInt(base + <span class="st">".kills"</span>, <span class="nm">0</span>);
-<span class="cn">Location</span> home  = (<span class="cn">Location</span>) data.get(base + <span class="st">".home"</span>); <span class="cm">// may be null</span>
+// Read player data
+String base = "players." + uuid;
+int      kills = data.getInt(base + ".kills", 0);
+Location home  = (Location) data.get(base + ".home"); // may be null
 
-<span class="cm">// List all players</span>
-<span class="cn">ConfigurationSection</span> sec = data.getConfigurationSection(<span class="st">"players"</span>);
-<span class="kw">if</span> (sec != <span class="kw">null</span>) {
-    <span class="kw">for</span> (<span class="cn">String</span> uuidStr : sec.getKeys(<span class="kw">false</span>)) {
-        <span class="kw">int</span> k = data.getInt(<span class="st">"players."</span> + uuidStr + <span class="st">".kills"</span>);
+// List all players
+ConfigurationSection sec = data.getConfigurationSection("players");
+if (sec != null) {
+    for (String uuidStr : sec.getKeys(false)) {
+        int k = data.getInt("players." + uuidStr + ".kills");
     }
-}</pre></div></div>
-  </div>
-</section>
-
-<!-- ═══ PDC ═══ -->
-<section class="section" id="pdc">
-  <div class="section-title">🏷️ PersistentDataContainer (PDC) <span class="badge">ITEM / ENTITY DATA</span></div>
-  <div class="note"><strong>PDC data survives restarts and server reloads.</strong> Ideal for custom item tags, custom mob IDs, or any data that needs to live on an item or entity.</div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Writing & Reading PDC Data</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Step 1 — Create NamespacedKeys (once per tag, store them)</span>
-<span class="cn">NamespacedKey</span> SWORD_KEY  = <span class="kw">new</span> <span class="cn">NamespacedKey</span>(plugin, <span class="st">"legendary_sword"</span>);
-<span class="cn">NamespacedKey</span> DAMAGE_KEY = <span class="kw">new</span> <span class="cn">NamespacedKey</span>(plugin, <span class="st">"bonus_damage"</span>);
-<span class="cn">NamespacedKey</span> BOSS_KEY   = <span class="kw">new</span> <span class="cn">NamespacedKey</span>(plugin, <span class="st">"boss_id"</span>);
-
-<span class="cm">// Step 2 — Write to ItemMeta</span>
-<span class="cn">ItemMeta</span> meta = item.getItemMeta();
-<span class="cn">PersistentDataContainer</span> pdc = meta.getPersistentDataContainer();
-pdc.set(SWORD_KEY,  <span class="cn">PersistentDataType</span>.STRING,  <span class="st">"fire"</span>); <span class="cm">// string tag</span>
-pdc.set(DAMAGE_KEY, <span class="cn">PersistentDataType</span>.INTEGER, <span class="nm">50</span>);      <span class="cm">// int</span>
-item.setItemMeta(meta); <span class="cm">// ✦ must apply back!</span>
-
-<span class="cm">// Step 3 — Read</span>
-<span class="cn">String</span>  type = pdc.get(SWORD_KEY,  <span class="cn">PersistentDataType</span>.STRING);  <span class="cm">// null if absent</span>
-<span class="cn">Integer</span> dmg  = pdc.get(DAMAGE_KEY, <span class="cn">PersistentDataType</span>.INTEGER);
-
-<span class="cm">// Check / Remove</span>
-pdc.has(SWORD_KEY, <span class="cn">PersistentDataType</span>.STRING);
-pdc.remove(SWORD_KEY);
-
-<span class="cm">// On entities (same API)</span>
-entity.getPersistentDataContainer().set(BOSS_KEY, <span class="cn">PersistentDataType</span>.STRING, <span class="st">"king"</span>);</pre></div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Available PDC Types & Nested Containers</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Available types</span>
-<span class="cn">PersistentDataType</span>.STRING
-<span class="cn">PersistentDataType</span>.INTEGER
-<span class="cn">PersistentDataType</span>.DOUBLE
-<span class="cn">PersistentDataType</span>.FLOAT
-<span class="cn">PersistentDataType</span>.LONG
-<span class="cn">PersistentDataType</span>.SHORT
-<span class="cn">PersistentDataType</span>.BYTE
-<span class="cn">PersistentDataType</span>.BYTE_ARRAY
-<span class="cn">PersistentDataType</span>.INTEGER_ARRAY
-<span class="cn">PersistentDataType</span>.LONG_ARRAY
-<span class="cn">PersistentDataType</span>.TAG_CONTAINER    <span class="cm">// nested PDC — for complex structures</span>
-
-<span class="cm">// Nested containers</span>
-<span class="cn">PersistentDataContainer</span> nested = pdc.getAdapterContext().newPersistentDataContainer();
-nested.set(<span class="kw">new</span> <span class="cn">NamespacedKey</span>(plugin, <span class="st">"level"</span>), <span class="cn">PersistentDataType</span>.INTEGER, <span class="nm">5</span>);
-pdc.set(<span class="kw">new</span> <span class="cn">NamespacedKey</span>(plugin, <span class="st">"stats"</span>), <span class="cn">PersistentDataType</span>.TAG_CONTAINER, nested);</pre></div></div>
-  </div>
-</section>
-
-<!-- ═══ SQLITE ═══ -->
-<section class="section" id="sqlite">
-  <div class="section-title">🗄️ SQLite <span class="badge">DATABASE</span></div>
-  <div class="warn"><strong>⚠ Always run database operations async!</strong> SQLite is built into the JVM — no extra dependency needed. Blocking the main thread with DB queries will lag the server.</div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Connection Setup & Table Creation</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">private</span> <span class="cn">Connection</span> conn;
-
-<span class="kw">private void</span> <span class="fn">setupDatabase</span>() <span class="kw">throws</span> <span class="cn">Exception</span> {
-    <span class="cn">File</span> dbFile = <span class="kw">new</span> <span class="cn">File</span>(getDataFolder(), <span class="st">"data.db"</span>);
-    dbFile.getParentFile().mkdirs();
-    conn = <span class="cn">DriverManager</span>.getConnection(<span class="st">"jdbc:sqlite:"</span> + dbFile.getAbsolutePath());
-    conn.createStatement().execute(
-        <span class="st">"CREATE TABLE IF NOT EXISTS players ("</span> +
-        <span class="st">"  uuid TEXT PRIMARY KEY,"</span> +
-        <span class="st">"  name TEXT NOT NULL,"</span> +
-        <span class="st">"  kills INTEGER DEFAULT 0,"</span> +
-        <span class="st">"  deaths INTEGER DEFAULT 0,"</span> +
-        <span class="st">"  coins REAL DEFAULT 0.0,"</span> +
-        <span class="st">"  last_seen INTEGER)"</span>);
-    getLogger().info(<span class="st">"Database connected."</span>);
 }
 
-<span class="cm">// Close on disable</span>
-<span class="kw">if</span> (conn != <span class="kw">null</span> && !conn.isClosed()) conn.close();</pre></div></div>
-  </div>
+🏷️ PersistentDataContainer (PDC) ITEM / ENTITY DATA
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Insert, Update & Query</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Insert or overwrite (duplicate primary key)</span>
-<span class="cn">PreparedStatement</span> ps = conn.prepareStatement(
-    <span class="st">"INSERT OR REPLACE INTO players (uuid, name, kills, coins) VALUES (?,?,?,?)"</span>);
-ps.setString(<span class="nm">1</span>, player.getUniqueId().toString());
-ps.setString(<span class="nm">2</span>, player.getName());
-ps.setInt(<span class="nm">3</span>, kills);
-ps.setDouble(<span class="nm">4</span>, coins);
+**PDC data survives restarts and server reloads.** Ideal for custom item tags, custom mob IDs, or any data that needs to live on an item or entity.
+
+Writing & Reading PDC Data
+
++
+
+copy
+
+// Step 1 — Create NamespacedKeys (once per tag, store them)
+NamespacedKey SWORD\_KEY  = new NamespacedKey(plugin, "legendary\_sword");
+NamespacedKey DAMAGE\_KEY = new NamespacedKey(plugin, "bonus\_damage");
+NamespacedKey BOSS\_KEY   = new NamespacedKey(plugin, "boss\_id");
+
+// Step 2 — Write to ItemMeta
+ItemMeta meta = item.getItemMeta();
+PersistentDataContainer pdc = meta.getPersistentDataContainer();
+pdc.set(SWORD\_KEY,  PersistentDataType.STRING,  "fire"); // string tag
+pdc.set(DAMAGE\_KEY, PersistentDataType.INTEGER, 50);      // int
+item.setItemMeta(meta); // ✦ must apply back!
+
+// Step 3 — Read
+String  type = pdc.get(SWORD\_KEY,  PersistentDataType.STRING);  // null if absent
+Integer dmg  = pdc.get(DAMAGE\_KEY, PersistentDataType.INTEGER);
+
+// Check / Remove
+pdc.has(SWORD\_KEY, PersistentDataType.STRING);
+pdc.remove(SWORD\_KEY);
+
+// On entities (same API)
+entity.getPersistentDataContainer().set(BOSS\_KEY, PersistentDataType.STRING, "king");
+
+Available PDC Types & Nested Containers
+
++
+
+copy
+
+// Available types
+PersistentDataType.STRING
+PersistentDataType.INTEGER
+PersistentDataType.DOUBLE
+PersistentDataType.FLOAT
+PersistentDataType.LONG
+PersistentDataType.SHORT
+PersistentDataType.BYTE
+PersistentDataType.BYTE\_ARRAY
+PersistentDataType.INTEGER\_ARRAY
+PersistentDataType.LONG\_ARRAY
+PersistentDataType.TAG\_CONTAINER    // nested PDC — for complex structures
+
+// Nested containers
+PersistentDataContainer nested = pdc.getAdapterContext().newPersistentDataContainer();
+nested.set(new NamespacedKey(plugin, "level"), PersistentDataType.INTEGER, 5);
+pdc.set(new NamespacedKey(plugin, "stats"), PersistentDataType.TAG\_CONTAINER, nested);
+
+🗄️ SQLite DATABASE
+
+**⚠ Always run database operations async!** SQLite is built into the JVM — no extra dependency needed. Blocking the main thread with DB queries will lag the server.
+
+Connection Setup & Table Creation
+
++
+
+copy
+
+private Connection conn;
+
+private void setupDatabase() throws Exception {
+    File dbFile = new File(getDataFolder(), "data.db");
+    dbFile.getParentFile().mkdirs();
+    conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile.getAbsolutePath());
+    conn.createStatement().execute(
+        "CREATE TABLE IF NOT EXISTS players (" +
+        "  uuid TEXT PRIMARY KEY," +
+        "  name TEXT NOT NULL," +
+        "  kills INTEGER DEFAULT 0," +
+        "  deaths INTEGER DEFAULT 0," +
+        "  coins REAL DEFAULT 0.0," +
+        "  last\_seen INTEGER)");
+    getLogger().info("Database connected.");
+}
+
+// Close on disable
+if (conn != null && !conn.isClosed()) conn.close();
+
+Insert, Update & Query
+
++
+
+copy
+
+// Insert or overwrite (duplicate primary key)
+PreparedStatement ps = conn.prepareStatement(
+    "INSERT OR REPLACE INTO players (uuid, name, kills, coins) VALUES (?,?,?,?)");
+ps.setString(1, player.getUniqueId().toString());
+ps.setString(2, player.getName());
+ps.setInt(3, kills);
+ps.setDouble(4, coins);
 ps.executeUpdate();
 
-<span class="cm">// Update only</span>
-<span class="cn">PreparedStatement</span> up = conn.prepareStatement(
-    <span class="st">"UPDATE players SET kills=?, coins=? WHERE uuid=?"</span>);
-up.setInt(<span class="nm">1</span>, kills); up.setDouble(<span class="nm">2</span>, coins);
-up.setString(<span class="nm">3</span>, player.getUniqueId().toString());
+// Update only
+PreparedStatement up = conn.prepareStatement(
+    "UPDATE players SET kills=?, coins=? WHERE uuid=?");
+up.setInt(1, kills); up.setDouble(2, coins);
+up.setString(3, player.getUniqueId().toString());
 up.executeUpdate();
 
-<span class="cm">// Query a single player</span>
-<span class="cn">PreparedStatement</span> qs = conn.prepareStatement(
-    <span class="st">"SELECT kills, coins FROM players WHERE uuid=?"</span>);
-qs.setString(<span class="nm">1</span>, player.getUniqueId().toString());
-<span class="cn">ResultSet</span> rs = qs.executeQuery();
-<span class="kw">if</span> (rs.next()) {
-    <span class="kw">int</span>    kills = rs.getInt(<span class="st">"kills"</span>);
-    <span class="kw">double</span> coins = rs.getDouble(<span class="st">"coins"</span>);
+// Query a single player
+PreparedStatement qs = conn.prepareStatement(
+    "SELECT kills, coins FROM players WHERE uuid=?");
+qs.setString(1, player.getUniqueId().toString());
+ResultSet rs = qs.executeQuery();
+if (rs.next()) {
+    int    kills = rs.getInt("kills");
+    double coins = rs.getDouble("coins");
 }
 
-<span class="cm">// Leaderboard (top 10 by kills)</span>
-<span class="cn">ResultSet</span> top = conn.createStatement().executeQuery(
-    <span class="st">"SELECT name, kills FROM players ORDER BY kills DESC LIMIT 10"</span>);
-<span class="kw">while</span> (top.next()) {
-    <span class="cn">String</span> name = top.getString(<span class="st">"name"</span>);
-    <span class="kw">int</span>    k    = top.getInt(<span class="st">"kills"</span>);
+// Leaderboard (top 10 by kills)
+ResultSet top = conn.createStatement().executeQuery(
+    "SELECT name, kills FROM players ORDER BY kills DESC LIMIT 10");
+while (top.next()) {
+    String name = top.getString("name");
+    int    k    = top.getInt("kills");
 }
 
-<span class="cm">// Always run DB code async!</span>
-<span class="cn">Bukkit</span>.getScheduler().runTaskAsynchronously(plugin, () -> {
+// Always run DB code async!
+Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
     savePlayerData(player);
-});</pre></div></div>
-  </div>
-</section>
+});
 
-<!-- ═══ TIPS ═══ -->
-<section class="section" id="tips">
-  <div class="section-title">💡 Tips <span class="badge">BEST PRACTICES</span></div>
+💡 Tips BEST PRACTICES
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">UUID vs Player Name</div><div class="card-desc">Always use UUID for storing player data — names can change, UUIDs never do.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">UUID</span> uuid    = player.getUniqueId();
-<span class="cn">String</span> uuidStr = uuid.toString();   <span class="cm">// "550e8400-e29b-41d4-..."</span>
-<span class="cn">UUID</span> back     = <span class="cn">UUID</span>.fromString(uuidStr);
+UUID vs Player Name
 
-<span class="cm">// Offline player (can access even if not online)</span>
-<span class="cn">OfflinePlayer</span> op = <span class="cn">Bukkit</span>.getOfflinePlayer(uuid);
+Always use UUID for storing player data — names can change, UUIDs never do.
+
++
+
+copy
+
+UUID uuid    = player.getUniqueId();
+String uuidStr = uuid.toString();   // "550e8400-e29b-41d4-..."
+UUID back     = UUID.fromString(uuidStr);
+
+// Offline player (can access even if not online)
+OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
 op.getName(); op.hasPlayedBefore(); op.getLastPlayed();
-<span class="cm">// ✦ NEVER use Bukkit.getOfflinePlayer(String name) in production!</span>
-<span class="cm">// It makes a slow Mojang web request. Always use UUID.</span></pre></div></div>
-  </div>
+// ✦ NEVER use Bukkit.getOfflinePlayer(String name) in production!
+// It makes a slow Mojang web request. Always use UUID.
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Cooldown System Using a Map</div><div class="card-desc">Track cooldowns with a UUID → timestamp map. Uses ConcurrentHashMap for thread safety.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">private final</span> <span class="cn">Map</span>&lt;<span class="cn">UUID</span>, <span class="cn">Long</span>&gt; cooldowns = <span class="kw">new</span> <span class="cn">ConcurrentHashMap</span>&lt;&gt;();
-<span class="kw">private final long</span> COOLDOWN_MS = <span class="nm">5000L</span>; <span class="cm">// 5 seconds</span>
+Cooldown System Using a Map
 
-<span class="kw">public boolean</span> <span class="fn">isOnCooldown</span>(<span class="cn">Player</span> p) {
-    <span class="cn">Long</span> last = cooldowns.get(p.getUniqueId());
-    <span class="kw">return</span> last != <span class="kw">null</span> && <span class="cn">System</span>.currentTimeMillis() - last < COOLDOWN_MS;
+Track cooldowns with a UUID → timestamp map. Uses ConcurrentHashMap for thread safety.
+
++
+
+copy
+
+private final Map<UUID, Long\> cooldowns = new ConcurrentHashMap<>();
+private final long COOLDOWN\_MS = 5000L; // 5 seconds
+
+public boolean isOnCooldown(Player p) {
+    Long last = cooldowns.get(p.getUniqueId());
+    return last != null && System.currentTimeMillis() - last < COOLDOWN\_MS;
 }
 
-<span class="kw">public long</span> <span class="fn">getRemainingMs</span>(<span class="cn">Player</span> p) {
-    <span class="cn">Long</span> last = cooldowns.get(p.getUniqueId());
-    <span class="kw">if</span> (last == <span class="kw">null</span>) <span class="kw">return</span> <span class="nm">0</span>;
-    <span class="kw">return</span> <span class="cn">Math</span>.max(<span class="nm">0</span>, COOLDOWN_MS - (<span class="cn">System</span>.currentTimeMillis() - last));
+public long getRemainingMs(Player p) {
+    Long last = cooldowns.get(p.getUniqueId());
+    if (last == null) return 0;
+    return Math.max(0, COOLDOWN\_MS - (System.currentTimeMillis() - last));
 }
 
-<span class="kw">public void</span> <span class="fn">setCooldown</span>(<span class="cn">Player</span> p) { cooldowns.put(p.getUniqueId(), <span class="cn">System</span>.currentTimeMillis()); }
-<span class="kw">public void</span> <span class="fn">clearCooldown</span>(<span class="cn">Player</span> p) { cooldowns.remove(p.getUniqueId()); }
+public void setCooldown(Player p) { cooldowns.put(p.getUniqueId(), System.currentTimeMillis()); }
+public void clearCooldown(Player p) { cooldowns.remove(p.getUniqueId()); }
 
-<span class="cm">// Usage</span>
-<span class="kw">if</span> (isOnCooldown(player)) {
-    <span class="kw">long</span> rem = getRemainingMs(player);
-    player.sendMessage(<span class="st">"§cCooldown: §f"</span> + <span class="cn">String</span>.format(<span class="st">"%.1f"</span>, rem/<span class="nm">1000.0</span>) + <span class="st">"s"</span>);
-    <span class="kw">return</span>;
+// Usage
+if (isOnCooldown(player)) {
+    long rem = getRemainingMs(player);
+    player.sendMessage("§cCooldown: §f" + String.format("%.1f", rem/1000.0) + "s");
+    return;
 }
 setCooldown(player);
-<span class="cm">// ... do the action</span></pre></div></div>
-  </div>
-</section>
+// ... do the action
 
-<!-- ═══ SOUNDS ═══ -->
-<section class="section" id="sounds">
-  <div class="section-title">🔊 Sounds <span class="badge">AUDIO</span></div>
+🔊 Sounds AUDIO
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Playing & Stopping Sounds</div><div class="card-desc">Volume: 0.0 (silent) to 1.0 (full). Pitch: 0.5 (deep/slow) to 1.0 (normal) to 2.0 (high/fast).</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// Player-only (only that player hears it)</span>
-player.playSound(player.getLocation(), <span class="cn">Sound</span>.ENTITY_PLAYER_LEVELUP, <span class="nm">1f</span>, <span class="nm">1f</span>);
-<span class="cm">//              location               sound                          vol  pitch</span>
+Playing & Stopping Sounds
 
-<span class="cm">// Everyone in earshot hears it</span>
-world.playSound(location, <span class="cn">Sound</span>.ENTITY_LIGHTNING_BOLT_THUNDER, <span class="nm">1f</span>, <span class="nm">1f</span>);
+Volume: 0.0 (silent) to 1.0 (full). Pitch: 0.5 (deep/slow) to 1.0 (normal) to 2.0 (high/fast).
 
-<span class="cm">// With SoundCategory</span>
-player.playSound(loc, <span class="cn">Sound</span>.UI_BUTTON_CLICK, <span class="cn">SoundCategory</span>.MASTER, <span class="nm">1f</span>, <span class="nm">1f</span>);
++
 
-<span class="cm">// Custom resource pack sound</span>
-player.playSound(loc, <span class="st">"myplugin:custom.ability"</span>, <span class="nm">1f</span>, <span class="nm">1f</span>);
+copy
 
-<span class="cm">// Stop sounds</span>
-player.stopSound(<span class="cn">Sound</span>.MUSIC_DISC_CAT);
-player.stopAllSounds();</pre></div></div>
-  </div>
+// Player-only (only that player hears it)
+player.playSound(player.getLocation(), Sound.ENTITY\_PLAYER\_LEVELUP, 1f, 1f);
+//              location               sound                          vol  pitch
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Pitch Values Guide</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>Pitch</th><th>Sound Effect</th><th>Pitch</th><th>Sound Effect</th></tr>
-          <tr><td>0.5</td><td style="color:var(--muted)">Very deep / slow</td><td>1.25</td><td style="color:var(--muted)">Slightly high</td></tr>
-          <tr><td>0.75</td><td style="color:var(--muted)">Low / dark</td><td>1.5</td><td style="color:var(--muted)">High / fast</td></tr>
-          <tr><td>1.0</td><td style="color:var(--muted)">Normal (default)</td><td>1.75</td><td style="color:var(--muted)">Very high</td></tr>
-          <tr><td>1.1</td><td style="color:var(--muted)">Slightly higher</td><td>2.0</td><td style="color:var(--muted)">Maximum — fastest / highest</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+// Everyone in earshot hears it
+world.playSound(location, Sound.ENTITY\_LIGHTNING\_BOLT\_THUNDER, 1f, 1f);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Common Sounds Reference</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table class="plain" style="font-size:12px;">
-          <tr><th>Sound</th><th>Best Used For</th></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">UI_BUTTON_CLICK</td><td>GUI button clicks — perfect for menus</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">BLOCK_NOTE_BLOCK_PLING</td><td>Successful action, ping sound</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_PLAYER_LEVELUP</td><td>Achievement, reward, win</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">BLOCK_ANVIL_USE</td><td>Heavy / metallic confirmation</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_VILLAGER_TRADE</td><td>Purchase confirmation</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_EXPERIENCE_ORB_PICKUP</td><td>XP gain, small reward</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">BLOCK_CHEST_OPEN / CLOSE</td><td>Menu open / close</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_ARROW_HIT_PLAYER</td><td>Hit confirmation</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_ENDER_DRAGON_GROWL</td><td>Boss roar, dramatic event</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_FIREWORK_ROCKET_LAUNCH</td><td>Celebration</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_LIGHTNING_BOLT_THUNDER</td><td>Power, electric ability</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">BLOCK_BEACON_ACTIVATE</td><td>Shield / power-up activate</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_WITHER_SPAWN</td><td>Dark / ominous warning</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">BLOCK_ENCHANTMENT_TABLE_USE</td><td>Magic ability, enchanting</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_ENDERMAN_TELEPORT</td><td>Teleport effect</td></tr>
-          <tr><td style="font-family:monospace;color:#8be9fd;font-size:11px;">ENTITY_ELDER_GUARDIAN_CURSE</td><td>Debuff applied</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
+// With SoundCategory
+player.playSound(loc, Sound.UI\_BUTTON\_CLICK, SoundCategory.MASTER, 1f, 1f);
 
-<!-- ═══ ADVANCED ═══ -->
-<section class="section" id="advanced">
-  <div class="section-title">🚀 Advanced Patterns <span class="badge">POWER FEATURES</span></div>
+// Custom resource pack sound
+player.playSound(loc, "myplugin:custom.ability", 1f, 1f);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">BossBar</div><div class="card-desc">A progress bar at the top of the screen with a title. Great for events, timers, and raids.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">BossBar</span> bar = <span class="cn">Bukkit</span>.createBossBar(
-    <span class="st">"§6§lEvent Name"</span>,
-    <span class="cn">BarColor</span>.YELLOW,
-    <span class="cn">BarStyle</span>.SEGMENTED_10
+// Stop sounds
+player.stopSound(Sound.MUSIC\_DISC\_CAT);
+player.stopAllSounds();
+
+Pitch Values Guide
+
++
+
+| Pitch | Sound Effect | Pitch | Sound Effect |
+| --- | --- | --- | --- |
+| 0.5 | Very deep / slow | 1.25 | Slightly high |
+| 0.75 | Low / dark | 1.5 | High / fast |
+| 1.0 | Normal (default) | 1.75 | Very high |
+| 1.1 | Slightly higher | 2.0 | Maximum — fastest / highest |
+
+Common Sounds Reference
+
++
+
+| Sound | Best Used For |
+| --- | --- |
+| UI\_BUTTON\_CLICK | GUI button clicks — perfect for menus |
+| BLOCK\_NOTE\_BLOCK\_PLING | Successful action, ping sound |
+| ENTITY\_PLAYER\_LEVELUP | Achievement, reward, win |
+| BLOCK\_ANVIL\_USE | Heavy / metallic confirmation |
+| ENTITY\_VILLAGER\_TRADE | Purchase confirmation |
+| ENTITY\_EXPERIENCE\_ORB\_PICKUP | XP gain, small reward |
+| BLOCK\_CHEST\_OPEN / CLOSE | Menu open / close |
+| ENTITY\_ARROW\_HIT\_PLAYER | Hit confirmation |
+| ENTITY\_ENDER\_DRAGON\_GROWL | Boss roar, dramatic event |
+| ENTITY\_FIREWORK\_ROCKET\_LAUNCH | Celebration |
+| ENTITY\_LIGHTNING\_BOLT\_THUNDER | Power, electric ability |
+| BLOCK\_BEACON\_ACTIVATE | Shield / power-up activate |
+| ENTITY\_WITHER\_SPAWN | Dark / ominous warning |
+| BLOCK\_ENCHANTMENT\_TABLE\_USE | Magic ability, enchanting |
+| ENTITY\_ENDERMAN\_TELEPORT | Teleport effect |
+| ENTITY\_ELDER\_GUARDIAN\_CURSE | Debuff applied |
+
+🚀 Advanced Patterns POWER FEATURES
+
+BossBar
+
+A progress bar at the top of the screen with a title. Great for events, timers, and raids.
+
++
+
+copy
+
+BossBar bar = Bukkit.createBossBar(
+    "§6§lEvent Name",
+    BarColor.YELLOW,
+    BarStyle.SEGMENTED\_10
 );
-<span class="cm">// Colors: PINK BLUE RED GREEN YELLOW PURPLE WHITE</span>
-<span class="cm">// Styles: SOLID SEGMENTED_6 SEGMENTED_10 SEGMENTED_12 SEGMENTED_20</span>
+// Colors: PINK BLUE RED GREEN YELLOW PURPLE WHITE
+// Styles: SOLID SEGMENTED\_6 SEGMENTED\_10 SEGMENTED\_12 SEGMENTED\_20
 
-bar.setProgress(<span class="nm">0.75</span>);         <span class="cm">// 0.0 to 1.0</span>
-bar.setTitle(<span class="st">"§a75% Complete"</span>);
-bar.setColor(<span class="cn">BarColor</span>.GREEN);
-bar.addPlayer(player);          <span class="cm">// show to player</span>
+bar.setProgress(0.75);         // 0.0 to 1.0
+bar.setTitle("§a75% Complete");
+bar.setColor(BarColor.GREEN);
+bar.addPlayer(player);          // show to player
 bar.removePlayer(player);
-bar.setVisible(<span class="kw">true</span>);
-bar.removeAll();                <span class="cm">// clear all players</span>
+bar.setVisible(true);
+bar.removeAll();                // clear all players
 
-<span class="cm">// Countdown timer with BossBar</span>
-<span class="kw">final int</span>[] t = {<span class="nm">200</span>}; <span class="cm">// 10 seconds * 20 ticks</span>
-<span class="cn">BossBar</span> cBar = <span class="cn">Bukkit</span>.createBossBar(<span class="st">"§eStarting..."</span>, <span class="cn">BarColor</span>.YELLOW, <span class="cn">BarStyle</span>.SOLID);
-<span class="kw">for</span> (<span class="cn">Player</span> p : players) cBar.addPlayer(p);
-<span class="kw">new</span> <span class="cn">BukkitRunnable</span>() {
-    <span class="an">@Override</span> <span class="kw">public void</span> <span class="fn">run</span>() {
-        t[<span class="nm">0</span>]--;
-        cBar.setProgress(t[<span class="nm">0</span>] / <span class="nm">200.0</span>);
-        cBar.setTitle(<span class="st">"§eStarting in: §f"</span> + (t[<span class="nm">0</span>]/<span class="nm">20</span>) + <span class="st">"s"</span>);
-        <span class="kw">if</span> (t[<span class="nm">0</span>] <= <span class="nm">0</span>) { cBar.removeAll(); <span class="kw">this</span>.cancel(); }
+// Countdown timer with BossBar
+final int\[\] t = {200}; // 10 seconds \* 20 ticks
+BossBar cBar = Bukkit.createBossBar("§eStarting...", BarColor.YELLOW, BarStyle.SOLID);
+for (Player p : players) cBar.addPlayer(p);
+new BukkitRunnable() {
+    @Override public void run() {
+        t\[0\]--;
+        cBar.setProgress(t\[0\] / 200.0);
+        cBar.setTitle("§eStarting in: §f" + (t\[0\]/20) + "s");
+        if (t\[0\] <= 0) { cBar.removeAll(); this.cancel(); }
     }
-}.runTaskTimer(plugin, <span class="nm">0L</span>, <span class="nm">1L</span>);</pre></div></div>
-  </div>
+}.runTaskTimer(plugin, 0L, 1L);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">ActionBar & Title</div><div class="card-desc">ActionBar = text above the hotbar. Title = full-screen overlay text.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">// ActionBar — one-shot</span>
-player.sendActionBar(<span class="st">"§ePvP Zone!"</span>);
+ActionBar & Title
 
-<span class="cm">// Persistent ActionBar — re-send every 2 seconds or it fades</span>
-<span class="kw">new</span> <span class="cn">BukkitRunnable</span>() {
-    <span class="an">@Override</span> <span class="kw">public void</span> <span class="fn">run</span>() {
-        <span class="kw">if</span> (!player.isOnline()) { <span class="kw">this</span>.cancel(); <span class="kw">return</span>; }
+ActionBar = text above the hotbar. Title = full-screen overlay text.
+
++
+
+copy
+
+// ActionBar — one-shot
+player.sendActionBar("§ePvP Zone!");
+
+// Persistent ActionBar — re-send every 2 seconds or it fades
+new BukkitRunnable() {
+    @Override public void run() {
+        if (!player.isOnline()) { this.cancel(); return; }
         player.sendActionBar(
-            <span class="st">"§c❤ "</span> + (<span class="kw">int</span>) player.getHealth() +
-            <span class="st">"  §a■ "</span> + player.getFoodLevel()
+            "§c❤ " + (int) player.getHealth() +
+            "  §a■ " + player.getFoodLevel()
         );
     }
-}.runTaskTimer(plugin, <span class="nm">0L</span>, <span class="nm">20L</span>);
+}.runTaskTimer(plugin, 0L, 20L);
 
-<span class="cm">// Title — full-screen text</span>
-player.sendTitle(<span class="st">"§6§lYOU WIN!"</span>, <span class="st">"§eKills: "</span> + kills, <span class="nm">10</span>, <span class="nm">60</span>, <span class="nm">20</span>);
-<span class="cm">// (title, subtitle, fadeIn ticks, stay ticks, fadeOut ticks)</span>
-player.resetTitle(); <span class="cm">// clear title</span></pre></div></div>
-  </div>
+// Title — full-screen text
+player.sendTitle("§6§lYOU WIN!", "§eKills: " + kills, 10, 60, 20);
+// (title, subtitle, fadeIn ticks, stay ticks, fadeOut ticks)
+player.resetTitle(); // clear title
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Scoreboard / Sidebar</div><div class="card-desc">The sidebar list on the right side of the screen. Higher score = higher position.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">Scoreboard</span> board = <span class="cn">Bukkit</span>.getScoreboardManager().getNewScoreboard();
-<span class="cn">Objective</span> obj = board.registerNewObjective(<span class="st">"sidebar"</span>, <span class="st">"dummy"</span>, <span class="st">"§6§lMy Server"</span>);
-obj.setDisplaySlot(<span class="cn">DisplaySlot</span>.SIDEBAR);
+Scoreboard / Sidebar
 
-<span class="cm">// Lines — higher score = higher position on sidebar</span>
-<span class="cm">// Use unique spacing strings for blank lines (duplicates collapse)</span>
-obj.getScore(<span class="st">"§7"</span> + player.getWorld().getName()).setScore(<span class="nm">8</span>);
-obj.getScore(<span class="st">"§8——————————————"</span>).setScore(<span class="nm">7</span>);
-obj.getScore(<span class="st">"§eKills: §f"</span> + kills).setScore(<span class="nm">6</span>);
-obj.getScore(<span class="st">"§cDeaths: §f"</span> + deaths).setScore(<span class="nm">5</span>);
-obj.getScore(<span class="st">"§b§8——————————————"</span>).setScore(<span class="nm">4</span>);
-obj.getScore(<span class="st">"§aCoins: §f"</span> + coins).setScore(<span class="nm">3</span>);
-obj.getScore(<span class="st">"§7§8——————————————"</span>).setScore(<span class="nm">2</span>);
-obj.getScore(<span class="st">"§7play.myserver.com"</span>).setScore(<span class="nm">1</span>);
+The sidebar list on the right side of the screen. Higher score = higher position.
+
++
+
+copy
+
+Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+Objective obj = board.registerNewObjective("sidebar", "dummy", "§6§lMy Server");
+obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+// Lines — higher score = higher position on sidebar
+// Use unique spacing strings for blank lines (duplicates collapse)
+obj.getScore("§7" + player.getWorld().getName()).setScore(8);
+obj.getScore("§8——————————————").setScore(7);
+obj.getScore("§eKills: §f" + kills).setScore(6);
+obj.getScore("§cDeaths: §f" + deaths).setScore(5);
+obj.getScore("§b§8——————————————").setScore(4);
+obj.getScore("§aCoins: §f" + coins).setScore(3);
+obj.getScore("§7§8——————————————").setScore(2);
+obj.getScore("§7play.myserver.com").setScore(1);
 
 player.setScoreboard(board);
 
-<span class="cm">// Update a line (must remove old then re-add)</span>
-board.resetScores(<span class="st">"§eKills: §f"</span> + oldKills);
-obj.getScore(<span class="st">"§eKills: §f"</span> + newKills).setScore(<span class="nm">6</span>);</pre></div></div>
-  </div>
+// Update a line (must remove old then re-add)
+board.resetScores("§eKills: §f" + oldKills);
+obj.getScore("§eKills: §f" + newKills).setScore(6);
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Teams</div><div class="card-desc">Group players into named teams with prefixes, colors, and friendly fire settings.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">Scoreboard</span> board = player.getScoreboard();
-<span class="cn">Team</span> red  = board.registerNewTeam(<span class="st">"red_team"</span>);
-<span class="cn">Team</span> blue = board.registerNewTeam(<span class="st">"blue_team"</span>);
+Teams
 
-red.setDisplayName(<span class="st">"§cRed Team"</span>);
-red.setPrefix(<span class="st">"§c[RED] §f"</span>);
-red.setSuffix(<span class="st">" §c✦"</span>);
-red.setColor(<span class="cn">ChatColor</span>.RED);
-red.setAllowFriendlyFire(<span class="kw">false</span>);
-red.setCanSeeFriendlyInvisibles(<span class="kw">true</span>);
+Group players into named teams with prefixes, colors, and friendly fire settings.
 
-red.addEntry(player.getName());    <span class="cm">// add to team</span>
-red.removeEntry(player.getName()); <span class="cm">// remove</span>
-red.unregister();                  <span class="cm">// remove the whole team</span>
++
 
-<span class="cm">// Check which team a player is on</span>
-<span class="cn">Team</span> team = board.getEntryTeam(player.getName()); <span class="cm">// null if no team</span></pre></div></div>
-  </div>
+copy
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Math Utilities</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cn">Math</span>.abs(-<span class="nm">5</span>)        <span class="cm">// 5    — absolute value</span>
-<span class="cn">Math</span>.max(<span class="nm">3</span>, <span class="nm">7</span>)       <span class="cm">// 7    — larger of two</span>
-<span class="cn">Math</span>.min(<span class="nm">3</span>, <span class="nm">7</span>)       <span class="cm">// 3    — smaller of two</span>
-<span class="cn">Math</span>.pow(<span class="nm">2</span>, <span class="nm">8</span>)       <span class="cm">// 256.0 — exponent</span>
-<span class="cn">Math</span>.sqrt(<span class="nm">16</span>)        <span class="cm">// 4.0  — square root</span>
-<span class="cn">Math</span>.floor(<span class="nm">4.9</span>)      <span class="cm">// 4.0  — round down</span>
-<span class="cn">Math</span>.ceil(<span class="nm">4.1</span>)       <span class="cm">// 5.0  — round up</span>
-<span class="cn">Math</span>.round(<span class="nm">4.5</span>)      <span class="cm">// 5    — round to nearest</span>
+Scoreboard board = player.getScoreboard();
+Team red  = board.registerNewTeam("red\_team");
+Team blue = board.registerNewTeam("blue\_team");
 
-<span class="cm">// Clamp (keep value within range)</span>
-<span class="kw">double</span> clamped = <span class="cn">Math</span>.max(<span class="nm">0.0</span>, <span class="cn">Math</span>.min(value, <span class="nm">20.0</span>));
+red.setDisplayName("§cRed Team");
+red.setPrefix("§c\[RED\] §f");
+red.setSuffix(" §c✦");
+red.setColor(ChatColor.RED);
+red.setAllowFriendlyFire(false);
+red.setCanSeeFriendlyInvisibles(true);
 
-<span class="cm">// Lerp (linear interpolation — smooth movement)</span>
-<span class="kw">double</span> <span class="fn">lerp</span>(<span class="kw">double</span> a, <span class="kw">double</span> b, <span class="kw">double</span> t) { <span class="kw">return</span> a + (b - a) * t; }
-<span class="cm">// lerp(0, 100, 0.5) = 50.0</span>
+red.addEntry(player.getName());    // add to team
+red.removeEntry(player.getName()); // remove
+red.unregister();                  // remove the whole team
 
-<span class="cm">// Random</span>
-<span class="cn">Random</span> rand = <span class="kw">new</span> <span class="cn">Random</span>();
-rand.nextInt(<span class="nm">6</span>);          <span class="cm">// 0–5</span>
-rand.nextInt(<span class="nm">6</span>) + <span class="nm">1</span>;      <span class="cm">// 1–6 (dice roll)</span>
-rand.nextDouble();          <span class="cm">// 0.0–1.0</span>
+// Check which team a player is on
+Team team = board.getEntryTeam(player.getName()); // null if no team
+
+Math Utilities
+
++
+
+copy
+
+Math.abs(-5)        // 5    — absolute value
+Math.max(3, 7)       // 7    — larger of two
+Math.min(3, 7)       // 3    — smaller of two
+Math.pow(2, 8)       // 256.0 — exponent
+Math.sqrt(16)        // 4.0  — square root
+Math.floor(4.9)      // 4.0  — round down
+Math.ceil(4.1)       // 5.0  — round up
+Math.round(4.5)      // 5    — round to nearest
+
+// Clamp (keep value within range)
+double clamped = Math.max(0.0, Math.min(value, 20.0));
+
+// Lerp (linear interpolation — smooth movement)
+double lerp(double a, double b, double t) { return a + (b - a) \* t; }
+// lerp(0, 100, 0.5) = 50.0
+
+// Random
+Random rand = new Random();
+rand.nextInt(6);          // 0–5
+rand.nextInt(6) + 1;      // 1–6 (dice roll)
+rand.nextDouble();          // 0.0–1.0
 rand.nextBoolean();
 
-<span class="cm">// ThreadLocalRandom — better for concurrent/async use</span>
-<span class="cn">ThreadLocalRandom</span>.current().nextInt(<span class="nm">1</span>, <span class="nm">101</span>); <span class="cm">// 1–100</span></pre></div></div>
-  </div>
-</section>
+// ThreadLocalRandom — better for concurrent/async use
+ThreadLocalRandom.current().nextInt(1, 101); // 1–100
 
-<!-- ═══ PLUGIN STRUCTURE ═══ -->
-<section class="section" id="plugin-structure">
-  <div class="section-title">🏗️ Plugin Structure <span class="badge">PROJECT SETUP</span></div>
+🏗️ Plugin Structure PROJECT SETUP
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Main Plugin Class</div><div class="card-desc">The entry point for every plugin. Extends JavaPlugin and has onEnable() / onDisable() lifecycle methods.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="kw">public class</span> <span class="cn">MyPlugin</span> <span class="kw">extends</span> <span class="cn">JavaPlugin</span> {
-    <span class="kw">private static</span> <span class="cn">MyPlugin</span> instance; <span class="cm">// singleton for access anywhere</span>
+Main Plugin Class
 
-    <span class="an">@Override</span>
-    <span class="kw">public void</span> <span class="fn">onEnable</span>() {
-        instance = <span class="kw">this</span>;
+The entry point for every plugin. Extends JavaPlugin and has onEnable() / onDisable() lifecycle methods.
 
-        <span class="cm">// 1. Create data folder / save default config</span>
++
+
+copy
+
+public class MyPlugin extends JavaPlugin {
+    private static MyPlugin instance; // singleton for access anywhere
+
+    @Override
+    public void onEnable() {
+        instance = this;
+
+        // 1. Create data folder / save default config
         saveDefaultConfig();
 
-        <span class="cm">// 2. Register listeners</span>
-        getServer().getPluginManager().registerEvents(<span class="kw">new</span> <span class="cn">PlayerListener</span>(<span class="kw">this</span>), <span class="kw">this</span>);
-        getServer().getPluginManager().registerEvents(<span class="kw">new</span> <span class="cn">GUIListener</span>(<span class="kw">this</span>), <span class="kw">this</span>);
+        // 2. Register listeners
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        getServer().getPluginManager().registerEvents(new GUIListener(this), this);
 
-        <span class="cm">// 3. Register commands</span>
-        <span class="cn">Objects</span>.requireNonNull(getCommand(<span class="st">"mycmd"</span>)).setExecutor(<span class="kw">new</span> <span class="cn">MyCommand</span>(<span class="kw">this</span>));
+        // 3. Register commands
+        Objects.requireNonNull(getCommand("mycmd")).setExecutor(new MyCommand(this));
 
-        <span class="cm">// 4. Start scheduled tasks (e.g. auto-save every 5 min)</span>
-        <span class="cn">Bukkit</span>.getScheduler().runTaskTimerAsynchronously(<span class="kw">this</span>, () -> {
+        // 4. Start scheduled tasks (e.g. auto-save every 5 min)
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
             saveAllData();
-        }, <span class="nm">6000L</span>, <span class="nm">6000L</span>);
+        }, 6000L, 6000L);
 
-        getLogger().info(<span class="st">"§aMyPlugin enabled! v"</span> + getDescription().getVersion());
+        getLogger().info("§aMyPlugin enabled! v" + getDescription().getVersion());
     }
 
-    <span class="an">@Override</span>
-    <span class="kw">public void</span> <span class="fn">onDisable</span>() {
-        saveAllData();  <span class="cm">// save before shutdown</span>
-        <span class="cn">Bukkit</span>.getScheduler().cancelTasks(<span class="kw">this</span>); <span class="cm">// cancel all tasks</span>
-        getLogger().info(<span class="st">"§cMyPlugin disabled."</span>);
+    @Override
+    public void onDisable() {
+        saveAllData();  // save before shutdown
+        Bukkit.getScheduler().cancelTasks(this); // cancel all tasks
+        getLogger().info("§cMyPlugin disabled.");
     }
 
-    <span class="kw">public static</span> <span class="cn">MyPlugin</span> <span class="fn">getInstance</span>() { <span class="kw">return</span> instance; }
-}</pre></div></div>
-  </div>
+    public static MyPlugin getInstance() { return instance; }
+}
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">plugin.yml — Full Example</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre>name: MyPlugin
-version: <span class="st">"${project.version}"</span>       <span class="cm"># Maven auto-fills from pom.xml</span>
+plugin.yml — Full Example
+
++
+
+copy
+
+name: MyPlugin
+version: "${project.version}"       \# Maven auto-fills from pom.xml
 main: com.example.myplugin.MyPlugin
-api-version: <span class="st">"1.21"</span>               <span class="cm"># minimum Paper API version</span>
-description: <span class="st">"My awesome plugin"</span>
+api-version: "1.21"               \# minimum Paper API version
+description: "My awesome plugin"
 author: YourName
-authors: [YourName, Contributor]
-website: <span class="st">"https://example.com"</span>
+authors: \[YourName, Contributor\]
+website: "https://example.com"
 
-depend: [Vault]         <span class="cm"># hard dependency — plugin fails without it</span>
-softdepend: [PlaceholderAPI]  <span class="cm"># soft — loads after if present</span>
-loadbefore: [OtherPlugin]     <span class="cm"># this plugin loads before OtherPlugin</span>
+depend: \[Vault\]         \# hard dependency — plugin fails without it
+softdepend: \[PlaceholderAPI\]  \# soft — loads after if present
+loadbefore: \[OtherPlugin\]     \# this plugin loads before OtherPlugin
 
 commands:
   mycmd:
-    description: <span class="st">"My main command"</span>
-    usage: <span class="st">"/<command> <subcommand>"</span>
+    description: "My main command"
+    usage: "/ "
     permission: myplugin.use
 
 permissions:
-  myplugin.*:
-    description: <span class="st">"All permissions"</span>
+  myplugin.\*:
+    description: "All permissions"
     children:
-      myplugin.use: <span class="kw">true</span>
-      myplugin.admin: <span class="kw">true</span>
+      myplugin.use: true
+      myplugin.admin: true
   myplugin.use:
-    description: <span class="st">"Use the plugin"</span>
-    default: <span class="kw">true</span>
+    description: "Use the plugin"
+    default: true
   myplugin.admin:
-    description: <span class="st">"Admin features"</span>
-    default: op</pre></div></div>
-  </div>
+    description: "Admin features"
+    default: op
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">pom.xml — Maven Setup</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body"><div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)">copy</button><pre><span class="cm">&lt;!-- Repository --&gt;</span>
-&lt;repository&gt;
-  &lt;id&gt;papermc&lt;/id&gt;
-  &lt;url&gt;https://repo.papermc.io/repository/maven-public/&lt;/url&gt;
-&lt;/repository&gt;
+pom.xml — Maven Setup
 
-<span class="cm">&lt;!-- Paper API dependency — provided at runtime by server --&gt;</span>
-&lt;dependency&gt;
-  &lt;groupId&gt;io.papermc.paper&lt;/groupId&gt;
-  &lt;artifactId&gt;paper-api&lt;/artifactId&gt;
-  &lt;version&gt;1.21.4-R0.1-SNAPSHOT&lt;/version&gt;
-  &lt;scope&gt;provided&lt;/scope&gt;
-&lt;/dependency&gt;
++
 
-<span class="cm">&lt;!-- Compiler — set to Java 21 --&gt;</span>
-&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;source&gt;21&lt;/source&gt;
-    &lt;target&gt;21&lt;/target&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;</pre></div></div>
-  </div>
-</section>
+copy
 
-<!-- ═══ QUICK REFERENCE ═══ -->
-<section class="section" id="quickref">
-  <div class="section-title">📋 Quick Reference <span class="badge">REFERENCE</span></div>
+<!-- Repository -->
+<repository>
+  <id>papermc</id>
+  <url>https://repo.papermc.io/repository/maven-public/</url>
+</repository>
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Minecraft Color & Format Codes</div><div class="card-desc">Use § prefix in chat/display names. For Paper 1.16+, use the Adventure API with Component.text() for more control.</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>Code</th><th>Color</th><th>Code</th><th>Color</th><th>Code</th><th>Format</th></tr>
-          <tr><td>§0</td><td style="color:#000;background:#555;padding:2px 6px;">■ Black</td><td>§8</td><td style="color:#555;">■ Dark Gray</td><td>§l</td><td style="color:var(--muted)"><b>Bold</b></td></tr>
-          <tr><td>§1</td><td style="color:#00a;">■ Dark Blue</td><td>§9</td><td style="color:#55f;">■ Blue</td><td>§o</td><td style="color:var(--muted)"><i>Italic</i></td></tr>
-          <tr><td>§2</td><td style="color:#0a0;">■ Dark Green</td><td>§a</td><td style="color:#5f5;">■ Green</td><td>§n</td><td style="color:var(--muted);text-decoration:underline;">Underline</td></tr>
-          <tr><td>§3</td><td style="color:#0aa;">■ Dark Aqua</td><td>§b</td><td style="color:#5ff;">■ Aqua</td><td>§m</td><td style="color:var(--muted);text-decoration:line-through;">Strike</td></tr>
-          <tr><td>§4</td><td style="color:#a00;">■ Dark Red</td><td>§c</td><td style="color:#f55;">■ Red</td><td>§k</td><td style="color:var(--muted)">§k Obfuscated</td></tr>
-          <tr><td>§5</td><td style="color:#a0a;">■ Dark Purple</td><td>§d</td><td style="color:#f5f;">■ Pink</td><td>§r</td><td style="color:var(--muted)">Reset all</td></tr>
-          <tr><td>§6</td><td style="color:#fa0;">■ Gold</td><td>§e</td><td style="color:#ff5;">■ Yellow</td><td></td><td></td></tr>
-          <tr><td>§7</td><td style="color:#aaa;">■ Gray</td><td>§f</td><td style="color:#fff;">■ White</td><td></td><td></td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+<!-- Paper API dependency — provided at runtime by server -->
+<dependency>
+  <groupId>io.papermc.paper</groupId>
+  <artifactId>paper-api</artifactId>
+  <version>1.21.4-R0.1-SNAPSHOT</version>
+  <scope>provided</scope>
+</dependency>
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Common Mistakes & Fixes</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table class="plain" style="font-size:12px;">
-          <tr><th>Mistake</th><th>Root Cause</th><th>Fix</th></tr>
-          <tr><td>NullPointerException crash</td><td>Called method on null value</td><td>Always null-check: if (x != null)</td></tr>
-          <tr><td>String comparison fails</td><td>Used == instead of .equals()</td><td>Always use .equals() or .equalsIgnoreCase()</td></tr>
-          <tr><td>Command not working</td><td>Not registered in plugin.yml</td><td>Add block under "commands:" in plugin.yml</td></tr>
-          <tr><td>NumberFormatException</td><td>parseInt on non-number string</td><td>Wrap in try { } catch (NumberFormatException e) { }</td></tr>
-          <tr><td>Items stolen from GUI</td><td>Did not cancel InventoryClickEvent</td><td>Always call event.setCancelled(true) in GUI handler</td></tr>
-          <tr><td>ItemMeta changes lost</td><td>Edited meta but never applied it</td><td>Always call item.setItemMeta(meta) after changes</td></tr>
-          <tr><td>Server freezes on heavy task</td><td>Blocking code on main thread</td><td>Use runTaskAsynchronously() for blocking work</td></tr>
-          <tr><td>Bukkit API crash in async</td><td>Called Bukkit API off main thread</td><td>Wrap Bukkit calls in runTask() inside the async block</td></tr>
-          <tr><td>Data tied to wrong player</td><td>Stored by player name</td><td>Always use getUniqueId().toString() as key</td></tr>
-          <tr><td>Config changes not saved</td><td>Called set() but not saveConfig()</td><td>Call saveConfig() after every set()</td></tr>
-          <tr><td>Listener not firing</td><td>Forgot to register it</td><td>Call registerEvents(new MyListener(this), this) in onEnable()</td></tr>
-          <tr><td>getKiller() crash</td><td>Null when entity dies from environment</td><td>Player k = getKiller(); if (k == null) return;</td></tr>
-          <tr><td>SkullMeta ClassCastException</td><td>Cast wrong meta type</td><td>Check: if (item.getType() == Material.PLAYER_HEAD)</td></tr>
-          <tr><td>return false in onCommand()</td><td>Shows plugin.yml usage message</td><td>Return false ONLY for wrong usage, true otherwise</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+<!-- Compiler — set to Java 21 -->
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <configuration>
+    <source>21</source>
+    <target>21</target>
+  </configuration>
+</plugin>
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Common Materials</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table class="plain" style="font-size:12px;">
-          <tr><th>Category</th><th>Materials</th></tr>
-          <tr><td>Swords</td><td>WOODEN_SWORD, STONE_SWORD, IRON_SWORD, GOLDEN_SWORD, DIAMOND_SWORD, NETHERITE_SWORD</td></tr>
-          <tr><td>Pickaxes</td><td>WOODEN_PICKAXE, IRON_PICKAXE, DIAMOND_PICKAXE, NETHERITE_PICKAXE</td></tr>
-          <tr><td>Axes</td><td>WOODEN_AXE, IRON_AXE, DIAMOND_AXE, NETHERITE_AXE</td></tr>
-          <tr><td>Helmets</td><td>LEATHER_HELMET, CHAINMAIL_HELMET, IRON_HELMET, DIAMOND_HELMET, NETHERITE_HELMET</td></tr>
-          <tr><td>Chestplates</td><td>LEATHER_CHESTPLATE, IRON_CHESTPLATE, DIAMOND_CHESTPLATE, NETHERITE_CHESTPLATE</td></tr>
-          <tr><td>Food</td><td>APPLE, BREAD, COOKED_BEEF, GOLDEN_APPLE, ENCHANTED_GOLDEN_APPLE, COOKED_CHICKEN</td></tr>
-          <tr><td>Blocks</td><td>STONE, GRASS_BLOCK, DIRT, SAND, OAK_LOG, DIAMOND_BLOCK, GOLD_BLOCK, IRON_BLOCK</td></tr>
-          <tr><td>Ores</td><td>DIAMOND_ORE, IRON_ORE, GOLD_ORE, COAL_ORE, EMERALD_ORE, DEEPSLATE_DIAMOND_ORE</td></tr>
-          <tr><td>Glass Panes</td><td>WHITE_STAINED_GLASS_PANE, GRAY_STAINED_GLASS_PANE, RED_STAINED_GLASS_PANE, LIME_STAINED_GLASS_PANE</td></tr>
-          <tr><td>Heads</td><td>PLAYER_HEAD, ZOMBIE_HEAD, SKELETON_SKULL, WITHER_SKELETON_SKULL, CREEPER_HEAD</td></tr>
-          <tr><td>GUI Misc</td><td>COMPASS, CLOCK, PAPER, BOOK, NAME_TAG, MAP, FILLED_MAP, KNOWLEDGE_BOOK</td></tr>
-          <tr><td>Special</td><td>BARRIER, BEDROCK, COMMAND_BLOCK, STRUCTURE_VOID, LIGHT, SPAWNER, END_PORTAL_FRAME</td></tr>
-          <tr><td>Air / Empty</td><td>AIR — used for empty slots. Check: item.getType() == Material.AIR</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+📋 Quick Reference REFERENCE
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Common Enchantments</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>Enchantment</th><th>Applies To</th><th>Max</th><th>Enchantment</th><th>Applies To</th><th>Max</th></tr>
-          <tr><td>DAMAGE_ALL</td><td style="color:var(--muted)">Sword</td><td style="color:var(--muted)">V</td><td>PROTECTION_ENVIRONMENTAL</td><td style="color:var(--muted)">Armor</td><td style="color:var(--muted)">IV</td></tr>
-          <tr><td>SHARPNESS</td><td style="color:var(--muted)">Sword/Axe</td><td style="color:var(--muted)">V</td><td>PROTECTION_FIRE</td><td style="color:var(--muted)">Armor</td><td style="color:var(--muted)">IV</td></tr>
-          <tr><td>FIRE_ASPECT</td><td style="color:var(--muted)">Sword</td><td style="color:var(--muted)">II</td><td>FEATHER_FALLING</td><td style="color:var(--muted)">Boots</td><td style="color:var(--muted)">IV</td></tr>
-          <tr><td>KNOCKBACK</td><td style="color:var(--muted)">Sword</td><td style="color:var(--muted)">II</td><td>DEPTH_STRIDER</td><td style="color:var(--muted)">Boots</td><td style="color:var(--muted)">III</td></tr>
-          <tr><td>LOOTING</td><td style="color:var(--muted)">Sword</td><td style="color:var(--muted)">III</td><td>THORNS</td><td style="color:var(--muted)">Armor</td><td style="color:var(--muted)">III</td></tr>
-          <tr><td>POWER</td><td style="color:var(--muted)">Bow</td><td style="color:var(--muted)">V</td><td>EFFICIENCY</td><td style="color:var(--muted)">Tools</td><td style="color:var(--muted)">V</td></tr>
-          <tr><td>FLAME</td><td style="color:var(--muted)">Bow</td><td style="color:var(--muted)">I</td><td>FORTUNE</td><td style="color:var(--muted)">Tools</td><td style="color:var(--muted)">III</td></tr>
-          <tr><td>INFINITY</td><td style="color:var(--muted)">Bow</td><td style="color:var(--muted)">I</td><td>SILK_TOUCH</td><td style="color:var(--muted)">Tools</td><td style="color:var(--muted)">I</td></tr>
-          <tr><td>MENDING</td><td style="color:var(--muted)">Any</td><td style="color:var(--muted)">I</td><td>UNBREAKING</td><td style="color:var(--muted)">Any</td><td style="color:var(--muted)">III</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+Minecraft Color & Format Codes
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">Potion Effects Reference</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>PotionEffectType</th><th>Effect</th><th>PotionEffectType</th><th>Effect</th></tr>
-          <tr><td>SPEED</td><td style="color:var(--muted)">Movement speed+</td><td>SLOW</td><td style="color:var(--muted)">Movement speed-</td></tr>
-          <tr><td>FAST_DIGGING</td><td style="color:var(--muted)">Haste (mining+)</td><td>SLOW_DIGGING</td><td style="color:var(--muted)">Mining fatigue</td></tr>
-          <tr><td>INCREASE_DAMAGE</td><td style="color:var(--muted)">Strength</td><td>WEAKNESS</td><td style="color:var(--muted)">Attack damage-</td></tr>
-          <tr><td>JUMP</td><td style="color:var(--muted)">Jump boost</td><td>LEVITATION</td><td style="color:var(--muted)">Float upward</td></tr>
-          <tr><td>REGENERATION</td><td style="color:var(--muted)">Health regen</td><td>POISON</td><td style="color:var(--muted)">Periodic damage</td></tr>
-          <tr><td>DAMAGE_RESISTANCE</td><td style="color:var(--muted)">Resistance</td><td>WITHER</td><td style="color:var(--muted)">Wither damage</td></tr>
-          <tr><td>FIRE_RESISTANCE</td><td style="color:var(--muted)">Fire immunity</td><td>HUNGER</td><td style="color:var(--muted)">Hunger drain</td></tr>
-          <tr><td>WATER_BREATHING</td><td style="color:var(--muted)">Breathe water</td><td>SATURATION</td><td style="color:var(--muted)">Food restore</td></tr>
-          <tr><td>INVISIBILITY</td><td style="color:var(--muted)">Invisible</td><td>BLINDNESS</td><td style="color:var(--muted)">Screen darken</td></tr>
-          <tr><td>NIGHT_VISION</td><td style="color:var(--muted)">See in dark</td><td>ABSORPTION</td><td style="color:var(--muted)">Yellow hearts</td></tr>
-          <tr><td>HEALTH_BOOST</td><td style="color:var(--muted)">Extra hearts</td><td>GLOWING</td><td style="color:var(--muted)">Outline glow</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
+Use § prefix in chat/display names. For Paper 1.16+, use the Adventure API with Component.text() for more control.
 
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div><div class="card-label">EntityType Quick Reference</div></div>
-      <span class="card-toggle">+</span>
-    </div>
-    <div class="card-body">
-      <div class="tbl-wrap" style="padding:16px 18px 4px;">
-        <table style="font-size:12px;">
-          <tr><th>Passive</th><th>Neutral</th><th>Hostile</th><th>Boss / Special</th></tr>
-          <tr><td>COW</td><td>WOLF</td><td>ZOMBIE</td><td>ENDER_DRAGON</td></tr>
-          <tr><td>PIG</td><td>SPIDER</td><td>SKELETON</td><td>WITHER</td></tr>
-          <tr><td>SHEEP</td><td>CAVE_SPIDER</td><td>CREEPER</td><td>ELDER_GUARDIAN</td></tr>
-          <tr><td>CHICKEN</td><td>ENDERMAN</td><td>WITCH</td><td>WARDEN</td></tr>
-          <tr><td>HORSE</td><td>POLAR_BEAR</td><td>BLAZE</td><td>IRON_GOLEM</td></tr>
-          <tr><td>VILLAGER</td><td>BEE</td><td>GHAST</td><td>SNOW_GOLEM</td></tr>
-          <tr><td>RABBIT</td><td>PANDA</td><td>PHANTOM</td><td>ARMOR_STAND</td></tr>
-          <tr><td>TURTLE</td><td>GOAT</td><td>PILLAGER</td><td>FALLING_BLOCK</td></tr>
-          <tr><td>AXOLOTL</td><td>DOLPHIN</td><td>GUARDIAN</td><td>AREA_EFFECT_CLOUD</td></tr>
-          <tr><td>ALLAY</td><td>LLAMA</td><td>RAVAGER</td><td>ITEM_DISPLAY</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
++
 
-  </div><!-- /content -->
-</main>
+| Code | Color | Code | Color | Code | Format |
+| --- | --- | --- | --- | --- | --- |
+| §0  | ■ Black | §8  | ■ Dark Gray | §l  | **Bold** |
+| §1  | ■ Dark Blue | §9  | ■ Blue | §o  | _Italic_ |
+| §2  | ■ Dark Green | §a  | ■ Green | §n  | Underline |
+| §3  | ■ Dark Aqua | §b  | ■ Aqua | §m  | Strike |
+| §4  | ■ Dark Red | §c  | ■ Red | §k  | §k Obfuscated |
+| §5  | ■ Dark Purple | §d  | ■ Pink | §r  | Reset all |
+| §6  | ■ Gold | §e  | ■ Yellow |     |     |
+| §7  | ■ Gray | §f  | ■ White |     |     |
 
-<script>
-function toggleCard(header) {
-  const card = header.closest('.card');
-  card.classList.toggle('open');
-}
+Common Mistakes & Fixes
 
-function copyCode(btn) {
-  const pre = btn.nextElementSibling;
-  navigator.clipboard.writeText(pre.innerText).then(() => {
-    btn.textContent = 'copied!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1800);
-  });
-}
++
 
-// Search
-const search = document.getElementById('search');
-const noResults = document.getElementById('no-results');
-search.addEventListener('input', () => {
-  const q = search.value.toLowerCase().trim();
-  const sections = document.querySelectorAll('.section');
-  let any = false;
-  sections.forEach(sec => {
-    if (!q) { sec.style.display = ''; any = true; return; }
-    const show = sec.innerText.toLowerCase().includes(q);
-    sec.style.display = show ? '' : 'none';
-    if (show) any = true;
-  });
-  noResults.style.display = any ? 'none' : 'block';
-});
+| Mistake | Root Cause | Fix |
+| --- | --- | --- |
+| NullPointerException crash | Called method on null value | Always null-check: if (x != null) |
+| String comparison fails | Used == instead of .equals() | Always use .equals() or .equalsIgnoreCase() |
+| Command not working | Not registered in plugin.yml | Add block under "commands:" in plugin.yml |
+| NumberFormatException | parseInt on non-number string | Wrap in try { } catch (NumberFormatException e) { } |
+| Items stolen from GUI | Did not cancel InventoryClickEvent | Always call event.setCancelled(true) in GUI handler |
+| ItemMeta changes lost | Edited meta but never applied it | Always call item.setItemMeta(meta) after changes |
+| Server freezes on heavy task | Blocking code on main thread | Use runTaskAsynchronously() for blocking work |
+| Bukkit API crash in async | Called Bukkit API off main thread | Wrap Bukkit calls in runTask() inside the async block |
+| Data tied to wrong player | Stored by player name | Always use getUniqueId().toString() as key |
+| Config changes not saved | Called set() but not saveConfig() | Call saveConfig() after every set() |
+| Listener not firing | Forgot to register it | Call registerEvents(new MyListener(this), this) in onEnable() |
+| getKiller() crash | Null when entity dies from environment | Player k = getKiller(); if (k == null) return; |
+| SkullMeta ClassCastException | Cast wrong meta type | Check: if (item.getType() == Material.PLAYER\_HEAD) |
+| return false in onCommand() | Shows plugin.yml usage message | Return false ONLY for wrong usage, true otherwise |
 
-// Active nav on scroll
-const navLinks = document.querySelectorAll('.nav-item');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(l => l.classList.remove('active'));
-      const link = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
-      if (link) link.classList.add('active');
-    }
-  });
-}, { threshold: 0.15 });
-document.querySelectorAll('.section').forEach(s => observer.observe(s));
-</script>
-</body>
-</html>
-HTMLEOF
-echo "Done! File size: $(wc -c < /mnt/user-data/outputs/logos-java-cheatsheet.html) bytes"
+Common Materials
+
++
+
+| Category | Materials |
+| --- | --- |
+| Swords | WOODEN\_SWORD, STONE\_SWORD, IRON\_SWORD, GOLDEN\_SWORD, DIAMOND\_SWORD, NETHERITE\_SWORD |
+| Pickaxes | WOODEN\_PICKAXE, IRON\_PICKAXE, DIAMOND\_PICKAXE, NETHERITE\_PICKAXE |
+| Axes | WOODEN\_AXE, IRON\_AXE, DIAMOND\_AXE, NETHERITE\_AXE |
+| Helmets | LEATHER\_HELMET, CHAINMAIL\_HELMET, IRON\_HELMET, DIAMOND\_HELMET, NETHERITE\_HELMET |
+| Chestplates | LEATHER\_CHESTPLATE, IRON\_CHESTPLATE, DIAMOND\_CHESTPLATE, NETHERITE\_CHESTPLATE |
+| Food | APPLE, BREAD, COOKED\_BEEF, GOLDEN\_APPLE, ENCHANTED\_GOLDEN\_APPLE, COOKED\_CHICKEN |
+| Blocks | STONE, GRASS\_BLOCK, DIRT, SAND, OAK\_LOG, DIAMOND\_BLOCK, GOLD\_BLOCK, IRON\_BLOCK |
+| Ores | DIAMOND\_ORE, IRON\_ORE, GOLD\_ORE, COAL\_ORE, EMERALD\_ORE, DEEPSLATE\_DIAMOND\_ORE |
+| Glass Panes | WHITE\_STAINED\_GLASS\_PANE, GRAY\_STAINED\_GLASS\_PANE, RED\_STAINED\_GLASS\_PANE, LIME\_STAINED\_GLASS\_PANE |
+| Heads | PLAYER\_HEAD, ZOMBIE\_HEAD, SKELETON\_SKULL, WITHER\_SKELETON\_SKULL, CREEPER\_HEAD |
+| GUI Misc | COMPASS, CLOCK, PAPER, BOOK, NAME\_TAG, MAP, FILLED\_MAP, KNOWLEDGE\_BOOK |
+| Special | BARRIER, BEDROCK, COMMAND\_BLOCK, STRUCTURE\_VOID, LIGHT, SPAWNER, END\_PORTAL\_FRAME |
+| Air / Empty | AIR — used for empty slots. Check: item.getType() == Material.AIR |
+
+Common Enchantments
+
++
+
+| Enchantment | Applies To | Max | Enchantment | Applies To | Max |
+| --- | --- | --- | --- | --- | --- |
+| DAMAGE\_ALL | Sword | V   | PROTECTION\_ENVIRONMENTAL | Armor | IV  |
+| SHARPNESS | Sword/Axe | V   | PROTECTION\_FIRE | Armor | IV  |
+| FIRE\_ASPECT | Sword | II  | FEATHER\_FALLING | Boots | IV  |
+| KNOCKBACK | Sword | II  | DEPTH\_STRIDER | Boots | III |
+| LOOTING | Sword | III | THORNS | Armor | III |
+| POWER | Bow | V   | EFFICIENCY | Tools | V   |
+| FLAME | Bow | I   | FORTUNE | Tools | III |
+| INFINITY | Bow | I   | SILK\_TOUCH | Tools | I   |
+| MENDING | Any | I   | UNBREAKING | Any | III |
+
+Potion Effects Reference
+
++
+
+| PotionEffectType | Effect | PotionEffectType | Effect |
+| --- | --- | --- | --- |
+| SPEED | Movement speed+ | SLOW | Movement speed- |
+| FAST\_DIGGING | Haste (mining+) | SLOW\_DIGGING | Mining fatigue |
+| INCREASE\_DAMAGE | Strength | WEAKNESS | Attack damage- |
+| JUMP | Jump boost | LEVITATION | Float upward |
+| REGENERATION | Health regen | POISON | Periodic damage |
+| DAMAGE\_RESISTANCE | Resistance | WITHER | Wither damage |
+| FIRE\_RESISTANCE | Fire immunity | HUNGER | Hunger drain |
+| WATER\_BREATHING | Breathe water | SATURATION | Food restore |
+| INVISIBILITY | Invisible | BLINDNESS | Screen darken |
+| NIGHT\_VISION | See in dark | ABSORPTION | Yellow hearts |
+| HEALTH\_BOOST | Extra hearts | GLOWING | Outline glow |
+
+EntityType Quick Reference
+
++
+
+| Passive | Neutral | Hostile | Boss / Special |
+| --- | --- | --- | --- |
+| COW | WOLF | ZOMBIE | ENDER\_DRAGON |
+| PIG | SPIDER | SKELETON | WITHER |
+| SHEEP | CAVE\_SPIDER | CREEPER | ELDER\_GUARDIAN |
+| CHICKEN | ENDERMAN | WITCH | WARDEN |
+| HORSE | POLAR\_BEAR | BLAZE | IRON\_GOLEM |
+| VILLAGER | BEE | GHAST | SNOW\_GOLEM |
+| RABBIT | PANDA | PHANTOM | ARMOR\_STAND |
+| TURTLE | GOAT | PILLAGER | FALLING\_BLOCK |
+| AXOLOTL | DOLPHIN | GUARDIAN | AREA\_EFFECT\_CLOUD |
+| ALLAY | LLAMA | RAVAGER | ITEM\_DISPLAY |
+
+function toggleCard(header) { const card = header.closest('.card'); card.classList.toggle('open'); } function copyCode(btn) { const pre = btn.nextElementSibling; navigator.clipboard.writeText(pre.innerText).then(() => { btn.textContent = 'copied!'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1800); }); } // Search const search = document.getElementById('search'); const noResults = document.getElementById('no-results'); search.addEventListener('input', () => { const q = search.value.toLowerCase().trim(); const sections = document.querySelectorAll('.section'); let any = false; sections.forEach(sec => { if (!q) { sec.style.display = ''; any = true; return; } const show = sec.innerText.toLowerCase().includes(q); sec.style.display = show ? '' : 'none'; if (show) any = true; }); noResults.style.display = any ? 'none' : 'block'; }); // Active nav on scroll const navLinks = document.querySelectorAll('.nav-item'); const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { navLinks.forEach(l => l.classList.remove('active')); const link = document.querySelector(\`.nav-item\[href="#${entry.target.id}"\]\`); if (link) link.classList.add('active'); } }); }, { threshold: 0.15 }); document.querySelectorAll('.section').forEach(s => observer.observe(s)); HTMLEOF echo "Done! File size: $(wc -c < /mnt/user-data/outputs/logos-java-cheatsheet.html) bytes"
